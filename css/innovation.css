@@ -1,0 +1,657 @@
+:root { 
+    --primary-color: #2e7d32; 
+    --secondary-color: #81c784;
+    --accent-color: #ffab00;
+    --text-color: #333; 
+    --light-bg: #f5f5f5;
+    --card-bg: #fff;
+    --dark-bg: #263238;
+    --ai-color: #9c27b0;
+    --precision-color: #2196f3;
+    --sustainability-color: #4caf50;
+    --automation-color: #ff9800;
+    --sensors-color: #607d8b;
+    --blockchain-color: #795548;
+    --climate-color: #00acc1;
+    --management-color: #e91e63;
+}
+
+body { 
+    font-family: 'Segoe UI', system-ui, sans-serif; 
+    background: var(--light-bg); 
+    color: var(--text-color); 
+    line-height: 1.6;
+}
+
+/* ===== HEADER UNIFIÉ AVEC LOGOS ===== */
+.header-unified {
+    background: linear-gradient(135deg, #ffffff 0%, #f8f9fa 100%);
+    padding: 20px 0 0 0;
+    box-shadow: 0 4px 25px rgba(0,0,0,0.1);
+    position: relative;
+}
+
+.header-unified::after {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    height: 2px;
+    background: linear-gradient(90deg, var(--primary-color) 0%, var(--accent-color) 50%, var(--primary-color) 100%);
+}
+
+.logo-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 60px;
+    max-width: 1000px;
+    margin: 0 auto 20px auto;
+    padding: 0 20px;
+    background: rgba(255, 255, 255, 0.95);
+    border-radius: 15px;
+    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.08);
+    backdrop-filter: blur(15px);
+    border: 1px solid rgba(255, 255, 255, 0.3);
+    flex-wrap: wrap;
+    position: relative;
+}
+
+.logo-wrapper {
+    position: relative;
+    transition: all 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.logo-wrapper::before {
+    content: '';
+    position: absolute;
+    top: -10px;
+    left: -10px;
+    right: -10px;
+    bottom: -10px;
+    background: linear-gradient(45deg, rgba(255, 160, 0, 0.2), rgba(56, 182, 161, 0.2));
+    border-radius: 15px;
+    opacity: 0;
+    transition: all 0.4s ease;
+    z-index: -1;
+    filter: blur(5px);
+}
+
+.logo-wrapper:hover::before {
+    opacity: 1;
+    transform: scale(1.1);
+}
+
+.logo {
+    height: 75px;
+    transition: all 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+    filter: drop-shadow(0 5px 15px rgba(0,0,0,0.1));
+    border-radius: 10px;
+    padding: 5px;
+    background: rgba(255, 255, 255, 0.9);
+    border: 1px solid rgba(255, 255, 255, 0.3);
+}
+
+.logo:hover {
+    transform: translateY(-8px) scale(1.08) rotateY(5deg);
+    filter: drop-shadow(0 15px 30px rgba(0,0,0,0.2));
+    background: rgba(255, 255, 255, 1);
+}
+
+.logo-pole {
+    height: 85px;
+    margin: 0 40px;
+    position: relative;
+}
+
+.logo-pole::after {
+    content: '⭐';
+    position: absolute;
+    top: -5px;
+    right: -5px;
+    font-size: 1.2rem;
+    animation: twinkle 2s ease-in-out infinite;
+}
+
+@keyframes twinkle {
+    0%, 100% { opacity: 0.7; transform: scale(1); }
+    50% { opacity: 1; transform: scale(1.2); }
+}
+
+/* ===== NAVIGATION ===== */
+.navbar { 
+    background: linear-gradient(135deg, rgba(38, 50, 56, 0.95) 0%, rgba(26, 37, 47, 0.95) 100%); 
+    backdrop-filter: blur(15px);
+    box-shadow: none;
+    padding: 15px 0;
+    border-top: 1px solid rgba(255,255,255,0.1);
+    margin: 0;
+}
+
+.navbar-brand { 
+    display: flex; 
+    align-items: center; 
+}
+
+.navbar-brand img { 
+    height: 36px; 
+    margin-right: 12px; 
+    transition: transform 0.3s;
+}
+
+.navbar-brand:hover img {
+    transform: rotate(15deg);
+}
+
+.navbar-brand .brand-text { 
+    font-weight: 700; 
+    font-size: 1.3rem; 
+    color: white; 
+    letter-spacing: 0.5px;
+}
+
+.nav-link { 
+    color: rgba(255,255,255,0.9) !important; 
+    margin: 0 8px; 
+    font-weight: 500;
+    position: relative;
+    padding: 8px 12px !important;
+    transition: all 0.3s;
+}
+
+.nav-link:before {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 0;
+    height: 2px;
+    background: var(--accent-color);
+    transition: width 0.3s;
+}
+
+.nav-link:hover { 
+    color: white !important;
+    transform: translateY(-2px);
+}
+
+.nav-link:hover:before {
+    width: 80%;
+}
+
+.nav-link.active {
+    color: white !important;
+    font-weight: 600;
+}
+
+.nav-link.active:before {
+    width: 80%;
+    background: var(--primary-color);
+}
+
+/* ===== HERO SECTION ===== */
+.hero {
+    position: relative;
+    background: url('../images/innovations-header.png') center/cover no-repeat;
+    color: white; 
+    text-align: center; 
+    padding: 140px 0 80px;
+    clip-path: polygon(0 0, 100% 0, 100% 90%, 0 100%);
+    margin-bottom: 40px;
+    overflow: hidden;
+}
+
+.hero::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: inherit;
+    filter: blur(3px) brightness(0.75);
+    z-index: 0;
+    transform: scale(1.05);
+}
+
+.hero::after {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(135deg, rgba(46, 125, 50, 0.15) 0%, rgba(38, 50, 56, 0.2) 100%);
+    z-index: 1;
+}
+
+.hero .container {
+    position: relative;
+    z-index: 2;
+}
+
+.hero h1 {
+    font-size: 3rem;
+    font-weight: 800;
+    margin-bottom: 20px;
+    text-shadow: 0 3px 10px rgba(0,0,0,0.6);
+    color: white;
+}
+
+.hero .subtitle { 
+    margin-top: 15px; 
+    font-size: 1.3rem; 
+    font-weight: 300; 
+    max-width: 700px;
+    margin-left: auto;
+    margin-right: auto;
+    opacity: 0.95;
+    text-shadow: 0 2px 6px rgba(0,0,0,0.5);
+    color: white;
+}
+
+/* ===== FILTRES COMPACTS ===== */
+.filters-section {
+    margin-bottom: 30px;
+    padding: 20px;
+    background: white;
+    border-radius: 15px;
+    box-shadow: 0 4px 15px rgba(0,0,0,0.08);
+    border: 1px solid rgba(0,0,0,0.05);
+}
+
+.filter-group h6 {
+    color: var(--primary-color);
+    font-weight: 700;
+    margin-bottom: 15px;
+    font-size: 1rem;
+    display: flex;
+    align-items: center;
+}
+
+.filter-buttons {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+}
+
+.filter-btn {
+    padding: 8px 15px;
+    border: none;
+    border-radius: 20px;
+    background: #f8f9fa;
+    color: #555;
+    font-size: 0.85rem;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    white-space: nowrap;
+    box-shadow: 0 2px 5px rgba(0,0,0,0.05);
+}
+
+.filter-btn:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+    background: #e9ecef;
+}
+
+.filter-btn.active {
+    color: white;
+    transform: translateY(-2px);
+    box-shadow: 0 4px 12px rgba(0,0,0,0.2);
+}
+
+.filter-btn i {
+    font-size: 0.9rem;
+}
+
+/* Couleurs spécifiques pour les catégories */
+.category-filter.all.active { background: var(--primary-color); }
+.category-filter.ai.active { background: var(--ai-color); }
+.category-filter.precision.active { background: var(--precision-color); }
+.category-filter.automation.active { background: var(--automation-color); }
+.category-filter.sustainability.active { background: var(--sustainability-color); }
+.category-filter.climate.active { background: var(--climate-color); }
+.category-filter.management.active { background: var(--management-color); }
+.category-filter.blockchain.active { background: var(--blockchain-color); }
+.category-filter.sensors.active { background: var(--sensors-color); }
+
+/* Couleur unique pour les filtres de date */
+.date-filter.active {
+    background: var(--primary-color);
+}
+
+/* ===== CARDS D'ACTUALITÉS ===== */
+.news-card { 
+    background: var(--card-bg); 
+    border-radius: 16px; 
+    overflow: hidden; 
+    position: relative; 
+    box-shadow: 0 8px 25px rgba(0,0,0,0.08); 
+    transition: all 0.4s cubic-bezier(0.25, 0.8, 0.25, 1);
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+    border: 1px solid rgba(0,0,0,0.05);
+}
+
+.news-card:hover { 
+    transform: translateY(-10px) scale(1.02); 
+    box-shadow: 0 15px 35px rgba(0,0,0,0.15);
+    border-color: rgba(46,125,50,0.2);
+}
+
+.news-content { 
+    padding: 25px; 
+    display: flex; 
+    flex-direction: column; 
+    justify-content: space-between; 
+    height: 100%;
+    position: relative;
+    padding-bottom: 70px;
+}
+
+/* ===== STRUCTURE DATE + BADGES (PRINCIPALE) ===== */
+
+/* Date avec badges à droite - STRUCTURE PRINCIPALE */
+.news-date { 
+    color: #888; 
+    font-size: 0.85rem; 
+    margin-bottom: 12px; 
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    gap: 8px;
+    min-height: 24px;
+}
+
+/* Partie gauche - Date */
+.news-date .date-info {
+    display: flex;
+    align-items: center;
+    flex-shrink: 0;
+}
+
+.news-date .date-info i {
+    margin-right: 8px;
+    font-size: 1rem;
+    color: var(--primary-color);
+}
+
+/* Partie droite - Container des badges */
+.category-badges-container {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 4px;
+    align-items: center;
+    justify-content: flex-end;
+    flex-shrink: 0;
+}
+
+/* Badges de catégories - DESIGN FINAL */
+.category-badge {
+    padding: 2px 8px;
+    border-radius: 6px;
+    font-size: 0.75rem;
+    font-weight: 600;
+    color: white;
+    text-transform: uppercase;
+    letter-spacing: 0.1px;
+    text-align: center;
+    box-shadow: 0 1px 3px rgba(0,0,0,0.15);
+    white-space: nowrap;
+    width: fit-content;
+    transition: all 0.3s ease;
+    line-height: 1.2;
+    border: 1px solid rgba(255,255,255,0.2);
+}
+
+.category-badge:hover {
+    transform: scale(1.05);
+    box-shadow: 0 2px 6px rgba(0,0,0,0.25);
+}
+
+/* Couleurs des badges par catégorie */
+.category-badge.ai { 
+    background: linear-gradient(135deg, var(--ai-color), #7b1fa2); 
+}
+.category-badge.precision { 
+    background: linear-gradient(135deg, var(--precision-color), #1976d2); 
+}
+.category-badge.automation { 
+    background: linear-gradient(135deg, var(--automation-color), #f57c00); 
+}
+.category-badge.management { 
+    background: linear-gradient(135deg, var(--management-color), #c2185b); 
+}
+.category-badge.climate { 
+    background: linear-gradient(135deg, var(--climate-color), #0097a7); 
+}
+.category-badge.blockchain { 
+    background: linear-gradient(135deg, var(--blockchain-color), #5d4037); 
+}
+.category-badge.sensors { 
+    background: linear-gradient(135deg, var(--sensors-color), #455a64); 
+}
+.category-badge.sustainability { 
+    background: linear-gradient(135deg, var(--sustainability-color), #388e3c); 
+}
+
+/* ===== CONTENU DE LA CARTE ===== */
+
+.news-title { 
+    font-size: 1.3rem; 
+    font-weight: 700; 
+    margin-bottom: 15px; 
+    color: var(--dark-bg); 
+    line-height: 1.4;
+    transition: color 0.3s;
+}
+
+.news-card:hover .news-title {
+    color: var(--primary-color);
+}
+
+.news-description { 
+    color: #666; 
+    font-size: 0.95rem; 
+    margin-bottom: 20px; 
+    flex: 1; 
+    overflow: hidden; 
+    line-height: 1.6;
+}
+
+/* Container pour les éléments en bas */
+.news-bottom {
+    position: absolute;
+    bottom: 20px;
+    left: 25px;
+    right: 25px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.read-more { 
+    color: var(--primary-color); 
+    font-weight: 600; 
+    text-decoration: none; 
+    font-size: 0.95rem; 
+    display: inline-flex; 
+    align-items: center; 
+    transition: all 0.3s;
+    position: relative;
+    width: fit-content;
+}
+
+.read-more:after {
+    content: '';
+    position: absolute;
+    bottom: -2px;
+    left: 0;
+    width: 0;
+    height: 2px;
+    background: var(--primary-color);
+    transition: width 0.3s;
+}
+
+.read-more i { 
+    margin-left: 8px; 
+    transition: all 0.3s;
+}
+
+.read-more:hover { 
+    color: #1b5e20;
+}
+
+.read-more:hover:after {
+    width: 100%;
+}
+
+.read-more:hover i { 
+    transform: translateX(6px); 
+    color: var(--accent-color);
+}
+
+/* Badge source en bas à droite */
+.source-badge { 
+    background: #fff; 
+    padding: 8px 12px; 
+    border-radius: 20px; 
+    box-shadow: 0 4px 12px rgba(0,0,0,0.1); 
+    display: flex; 
+    align-items: center; 
+    gap: 8px;
+    font-size: 0.85rem;
+    transition: all 0.3s;
+    z-index: 2;
+}
+
+.news-card:hover .source-badge {
+    background: var(--primary-color);
+    color: white;
+}
+
+.source-badge img { 
+    height: 18px; 
+    transition: filter 0.3s;
+}
+
+.news-card:hover .source-badge img {
+    filter: brightness(0) invert(1);
+}
+
+/* ===== PAGINATION ===== */
+.pagination { 
+    margin: 50px 0; 
+}
+
+.page-link { 
+    color: var(--primary-color) !important; 
+    border-radius: 50% !important;
+    width: 42px;
+    height: 42px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin: 0 5px;
+    border: none;
+    box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+    transition: all 0.3s;
+}
+
+.page-item.active .page-link { 
+    background: var(--primary-color) !important; 
+    border-color: var(--primary-color) !important; 
+    color: #fff !important;
+    transform: scale(1.1);
+    box-shadow: 0 4px 8px rgba(46,125,50,0.3);
+}
+
+.page-item.disabled .page-link { 
+    opacity: 0.5; 
+    box-shadow: none;
+}
+
+.page-link:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 4px 8px rgba(0,0,0,0.15);
+}
+
+/* ===== FOOTER UNIFIÉ ===== */
+footer {
+    background: var(--dark-bg);
+    color: white;
+    padding: 60px 0 30px;
+    margin-top: 60px;
+}
+
+.footer-content {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    gap: 40px;
+    margin-bottom: 40px;
+}
+
+.footer-section h5 {
+    color: var(--accent-color);
+    margin-bottom: 25px;
+    font-size: 1.2rem;
+}
+
+.footer-section a {
+    color: rgba(255, 255, 255, 0.8);
+    text-decoration: none;
+    transition: color 0.3s;
+}
+
+.footer-section a:hover {
+    color: var(--accent-color);
+}
+
+.footer-links {
+    list-style: none;
+    padding: 0;
+}
+
+.footer-links li {
+    margin-bottom: 12px;
+}
+
+.social-icons {
+    display: flex;
+    gap: 15px;
+    margin-top: 25px;
+}
+
+.social-icons a {
+    width: 45px;
+    height: 45px;
+    background: rgba(255, 255, 255, 0.1);
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: all 0.3s;
+}
+
+.social-icons a:hover {
+    background: var(--accent-color);
+    color: var(--dark-bg);
+    transform: translateY(-3px);
+}
+
+.copyright {
+    text-align: center;
+    padding-top: 30px;
+    border-top: 1px solid rgba(255, 255, 255, 0.1);
+    color: rgba(255, 255, 255, 0.7);
+}

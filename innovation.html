@@ -1,0 +1,195 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Innovations Agricoles - Veille Technologique</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="css/innovation.css">
+</head>
+<body>
+    <!-- Header unifié avec logos et navigation -->
+    <header class="header-unified">
+        <div class="logo-container fade-in">
+            <div class="logo-wrapper">
+                <img src="images/logo-ministere.png" alt="Ministère de l'Agriculture" class="logo">
+            </div>
+            <div class="logo-wrapper">
+                <img src="images/logo-pole.png" alt="Pôle Digital" class="logo logo-pole">
+            </div>
+            <div class="logo-wrapper">
+                <img src="images/logo-generation.jpeg" alt="Green Generation" class="logo">
+            </div>
+        </div>
+        
+        <!-- Navigation intégrée -->
+        <nav class="navbar navbar-expand-lg navbar-dark">
+            <div class="container">
+                <a class="navbar-brand" href="index.html">
+                    <img src="images/logo-veille.png" alt="Logo Veille">
+                    <span class="brand-text">Veille Technologique Agricole</span>
+                </a>
+                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+                <div class="collapse navbar-collapse" id="navbarNav">
+                    <ul class="navbar-nav ms-auto">
+                        <li class="nav-item"><a class="nav-link" href="index.html">Accueil</a></li>
+                        <li class="nav-item"><a class="nav-link" href="evenement.html">Événements</a></li>
+                        <li class="nav-item"><a class="nav-link active" href="innovation.html">Innovations</a></li>
+                        <li class="nav-item"><a class="nav-link" href="subvention.html">Subventions</a></li>
+                        <li class="nav-item"><a class="nav-link" href="meteo.html">Météo</a></li>
+                        <li class="nav-item"><a class="nav-link" href="contact.html">Contact</a></li>
+                    </ul>
+                </div>
+            </div>
+        </nav>
+    </header>
+
+    <section class="hero">
+        <div class="container">
+            <h1>Innovations Agricoles</h1>
+            <p class="subtitle">Découvrez les dernières innovations technologiques qui transforment le secteur agricole</p>
+        </div>
+    </section>
+
+    <div class="container">
+        <!-- Filtres combinés dans une seule section compacte -->
+        <div class="filters-section">
+            <div class="row">
+                <!-- Filtres par dates -->
+                <div class="col-lg-5 mb-3">
+                    <div class="filter-group">
+                        <h6><i class="fas fa-calendar-alt me-2"></i>Période</h6>
+                        <div class="filter-buttons">
+                            <button class="filter-btn date-filter active" data-period="all">
+                                <i class="fas fa-clock"></i>
+                                <span>Toutes</span>
+                            </button>
+                            <button class="filter-btn date-filter" data-period="today">
+                                <i class="fas fa-calendar-day"></i>
+                                <span>Aujourd'hui</span>
+                            </button>
+                            <button class="filter-btn date-filter" data-period="week">
+                                <i class="fas fa-calendar-week"></i>
+                                <span>Semaine</span>
+                            </button>
+                            <button class="filter-btn date-filter" data-period="month">
+                                <i class="fas fa-calendar"></i>
+                                <span>Mois</span>
+                            </button>
+                            <button class="filter-btn date-filter" data-period="quarter">
+                                <i class="fas fa-calendar-check"></i>
+                                <span>Trimestre</span>
+                            </button>
+                            <button class="filter-btn date-filter" data-period="year">
+                                <i class="fas fa-calendar-alt"></i>
+                                <span>Année</span>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Filtres par catégories -->
+                <div class="col-lg-7 mb-3">
+                    <div class="filter-group">
+                        <h6><i class="fas fa-layer-group me-2"></i>Catégories</h6>
+                        <div class="filter-buttons">
+                            <button class="filter-btn category-filter all active" data-category="all">
+                                <i class="fas fa-globe"></i>
+                                <span>Toutes</span>
+                            </button>
+                            <button class="filter-btn category-filter ai" data-category="ai">
+                                <i class="fas fa-brain"></i>
+                                <span>IA</span>
+                            </button>
+                            <button class="filter-btn category-filter precision" data-category="precision">
+                                <i class="fas fa-crosshairs"></i>
+                                <span>Précision</span>
+                            </button>
+                            <button class="filter-btn category-filter automation" data-category="automation">
+                                <i class="fas fa-robot"></i>
+                                <span>Robot</span>
+                            </button>
+                            <button class="filter-btn category-filter management" data-category="management">
+                                <i class="fas fa-chart-line"></i>
+                                <span>Gestion</span>
+                            </button>
+                            <button class="filter-btn category-filter climate" data-category="climate">
+                                <i class="fas fa-cloud-rain"></i>
+                                <span>Climat</span>
+                            </button>
+                            <button class="filter-btn category-filter blockchain" data-category="blockchain">
+                                <i class="fas fa-link"></i>
+                                <span>Blockchain</span>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="row" id="news-container">
+            <div class="col-12 text-center">
+                <div class="spinner-border text-success" role="status">
+                    <span class="visually-hidden">Chargement...</span>
+                </div>
+            </div>
+        </div>
+
+        <nav>
+            <ul class="pagination justify-content-center" id="pagination-container"></ul>
+        </nav>
+    </div>
+
+    <!-- Footer unifié avec informations du Pôle Digital -->
+    <footer>
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-section">
+                    <h5>Pôle Digital de l'Agriculture</h5>
+                    <p style="color: rgba(255,255,255,0.8);">
+                        Groupement d'Intérêt Public pour une agriculture 4.0, moderne et innovante dans le cadre de la stratégie Génération Green 2020-2030.
+                    </p>
+                    <div class="social-icons">
+                        <a href="https://www.linkedin.com/company/p%C3%B4le-digital/posts/?feedView=all" target="_blank"><i class="fab fa-linkedin-in"></i></a>
+                        <a href="https://x.com/Pole_Digital_Ma" target="_blank"><i class="fab fa-x-twitter"></i></a>
+                        <a href="https://www.youtube.com/@PoleDigital" target="_blank"><i class="fab fa-youtube"></i></a>
+                        <a href="https://www.facebook.com/poledigital.ma" target="_blank"><i class="fab fa-facebook-f"></i></a>
+                    </div>
+                </div>
+                
+                <div class="footer-section">
+                    <h5>Partenaires Institutionnels</h5>
+                    <ul class="footer-links">
+                        <li><a href="https://www.agriculture.gov.ma" target="_blank">Ministère de l'Agriculture</a></li>
+                        <li><a href="https://www.ada.gov.ma" target="_blank">ADA</a></li>
+                        <li><a href="https://www.onssa.gov.ma" target="_blank">ONSSA</a></li>
+                        <li><a href="https://iav.ac.ma" target="_blank">IAV Hassan II</a></li>
+                        <li><a href="https://www.enameknes.ac.ma" target="_blank">ENA Meknès</a></li>
+                        <li><a href="https://www.inra.ma" target="_blank">INRA</a></li>
+                    </ul>
+                </div>
+                
+                <div class="footer-section">
+                    <h5>Contact Rapide</h5>
+                    <p><i class="fas fa-envelope"></i> contact@poledigital.ma</p>
+                    <p><i class="fas fa-phone"></i> +212 (0) 6 96 98 89 92</p>
+                    <p><i class="fas fa-map-marker-alt"></i> Rabat & Ifrane, Maroc</p>
+                    <a href="mailto:contact@poledigital.ma" style="background: var(--accent-color); color: white; padding: 10px 20px; border-radius: 25px; text-decoration: none; display: inline-block; margin-top: 15px; transition: all 0.3s ease;">
+                        <i class="fas fa-envelope me-2"></i>Nous écrire
+                    </a>
+                </div>
+            </div>
+            
+            <div class="copyright">
+                <p>&copy; 2025 Veille Technologique Agricole - Pôle Digital de l'Agriculture. Tous droits réservés.</p>
+            </div>
+        </div>
+    </footer>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="js/innovation.js"></script> 
+</body>
+</html>

@@ -1,0 +1,1610 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Veille Technologique Agricole | Pôle Digital</title>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        :root {
+            --primary: #2e7d32;
+            --primary-dark: #1b5e20;
+            --primary-light: #78c2ad;
+            --secondary: #ffa000;
+            --accent: #38b6a1;
+            --white: #ffffff;
+            --dark: #1a2e35;
+            --light-bg: rgba(255,255,255,0.1);
+            --card-shadow: 0 15px 40px rgba(0,0,0,0.15);
+            --link-color: #4fc3f7;
+            --success: #4caf50;
+            --error: #f44336;
+        }
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Montserrat', sans-serif;
+        }
+        
+        body {
+            min-height: 100vh;
+            color: var(--white);
+            display: flex;
+            flex-direction: column;
+            position: relative;
+            overflow-x: hidden;
+        }
+        
+        /* Arrière-plan amélioré */
+        body::before {
+            content: '';
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: 
+                linear-gradient(135deg, rgba(26, 46, 53, 0.8) 0%, rgba(27, 94, 32, 0.7) 100%),
+                url('images/agritech.png') no-repeat center center/cover;
+            z-index: -2;
+            background-attachment: fixed;
+        }
+        
+        /* Overlay moderne */
+        body::after {
+            content: '';
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: 
+                radial-gradient(circle at 25% 25%, rgba(255, 160, 0, 0.1) 0%, transparent 50%),
+                radial-gradient(circle at 75% 75%, rgba(56, 182, 161, 0.1) 0%, transparent 50%);
+            z-index: -1;
+            animation: backgroundPulse 10s ease-in-out infinite;
+        }
+        
+        @keyframes backgroundPulse {
+            0%, 100% { opacity: 0.7; }
+            50% { opacity: 1; }
+        }
+        
+        /* Effet de particules modernisé */
+        .particles {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: -1;
+            overflow: hidden;
+        }
+        
+        .particle {
+            position: absolute;
+            background: rgba(255, 255, 255, 0.15);
+            border-radius: 50%;
+            animation: float linear infinite;
+            opacity: 0.3;
+            box-shadow: 0 0 10px rgba(255, 255, 255, 0.2);
+        }
+        
+        @keyframes float {
+            0% {
+                transform: translateY(100vh) rotate(0deg);
+                opacity: 0;
+            }
+            10% {
+                opacity: 0.3;
+            }
+            90% {
+                opacity: 0.3;
+            }
+            100% {
+                transform: translateY(-100px) rotate(360deg);
+                opacity: 0;
+            }
+        }
+        
+        /* Header modernisé */
+        header {
+            padding: 25px 5% 20px;
+            background: rgba(255,255,255,0.98);
+            box-shadow: 0 8px 30px rgba(0,0,0,0.12);
+            position: relative;
+            backdrop-filter: blur(10px);
+            animation: slideDown 1s ease-out;
+        }
+        
+        @keyframes slideDown {
+            from { transform: translateY(-100%); opacity: 0; }
+            to { transform: translateY(0); opacity: 1; }
+        }
+        
+        header::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 100%;
+            height: 3px;
+            background: linear-gradient(90deg, var(--primary), var(--secondary), var(--accent));
+        }
+        
+        .logo-container {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: 60px;
+            max-width: 1000px;
+            margin: 0 auto;
+            flex-wrap: wrap;
+            position: relative;
+        }
+        
+        .logo-wrapper {
+            position: relative;
+            transition: all 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+        
+        .logo-wrapper::before {
+            content: '';
+            position: absolute;
+            top: -10px;
+            left: -10px;
+            right: -10px;
+            bottom: -10px;
+            background: linear-gradient(45deg, rgba(255, 160, 0, 0.2), rgba(56, 182, 161, 0.2));
+            border-radius: 15px;
+            opacity: 0;
+            transition: all 0.4s ease;
+            z-index: -1;
+            filter: blur(5px);
+        }
+        
+        .logo-wrapper:hover::before {
+            opacity: 1;
+            transform: scale(1.1);
+        }
+        
+        .logo {
+            height: 75px;
+            transition: all 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+            filter: drop-shadow(0 5px 15px rgba(0,0,0,0.1));
+            border-radius: 10px;
+            padding: 5px;
+            background: rgba(255, 255, 255, 0.9);
+            border: 1px solid rgba(255, 255, 255, 0.3);
+        }
+        
+        .logo:hover {
+            transform: translateY(-8px) scale(1.08) rotateY(5deg);
+            filter: drop-shadow(0 15px 30px rgba(0,0,0,0.2));
+            background: rgba(255, 255, 255, 1);
+        }
+        
+        .logo-pole {
+            height: 85px;
+            margin: 0 40px;
+            position: relative;
+        }
+        
+        .logo-pole::after {
+            content: '⭐';
+            position: absolute;
+            top: -5px;
+            right: -5px;
+            font-size: 1.2rem;
+            animation: twinkle 2s ease-in-out infinite;
+        }
+        
+        @keyframes twinkle {
+            0%, 100% { opacity: 0.7; transform: scale(1); }
+            50% { opacity: 1; transform: scale(1.2); }
+        }
+        
+        /* Main Content modernisé */
+        main {
+            flex: 1;
+            display: flex;
+            align-items: center;
+            padding: 60px 5%;
+            position: relative;
+        }
+        
+        .content-wrapper {
+            display: flex;
+            width: 100%;
+            max-width: 1400px;
+            margin: 0 auto;
+            gap: 60px;
+            align-items: center;
+        }
+        
+        .left-content {
+            flex: 1;
+            max-width: 650px;
+            animation: slideInLeft 1s ease-out 0.3s both;
+        }
+        
+        @keyframes slideInLeft {
+            from { transform: translateX(-50px); opacity: 0; }
+            to { transform: translateX(0); opacity: 1; }
+        }
+        
+        .right-content {
+            flex: 1;
+            display: flex;
+            justify-content: center;
+            animation: slideInRight 1s ease-out 0.5s both;
+        }
+        
+        @keyframes slideInRight {
+            from { transform: translateX(50px); opacity: 0; }
+            to { transform: translateX(0); opacity: 1; }
+        }
+        
+        h1 {
+            font-size: clamp(2.5rem, 5vw, 3.2rem);
+            margin-bottom: 2rem;
+            font-weight: 800;
+            background: linear-gradient(135deg, var(--secondary), var(--accent), var(--primary-light));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            text-shadow: 0 4px 15px rgba(0,0,0,0.3);
+            position: relative;
+        }
+        
+        h1::after {
+            content: '';
+            position: absolute;
+            bottom: -10px;
+            left: 0;
+            width: 80px;
+            height: 4px;
+            background: linear-gradient(90deg, var(--secondary), var(--accent));
+            border-radius: 2px;
+            animation: expandLine 1s ease-out 1s both;
+        }
+        
+        @keyframes expandLine {
+            from { width: 0; }
+            to { width: 80px; }
+        }
+        
+        .subtitle {
+            font-size: clamp(1.1rem, 2.5vw, 1.3rem);
+            line-height: 1.7;
+            color: rgba(255,255,255,0.95);
+            margin-bottom: 2rem;
+            position: relative;
+            font-weight: 400;
+        }
+        
+        /* ===== NOUVEAU BOX DE CONNEXION ULTRA-MODERNE ===== */
+        .login-card {
+            position: relative;
+            width: 100%;
+            max-width: 380px;
+            background: linear-gradient(145deg, rgba(255, 255, 255, 0.15), rgba(255, 255, 255, 0.05));
+            backdrop-filter: blur(30px);
+            border-radius: 28px;
+            padding: 35px 30px;
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            box-shadow: 
+                0 25px 45px rgba(0, 0, 0, 0.1),
+                inset 0 1px 0 rgba(255, 255, 255, 0.3),
+                0 0 80px rgba(56, 182, 161, 0.1);
+            overflow: hidden;
+            transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            font-family: 'Space Grotesk', sans-serif;
+        }
+
+        /* Animated border gradient */
+        .login-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            border-radius: 28px;
+            padding: 2px;
+            background: linear-gradient(45deg, 
+                transparent, 
+                rgba(255, 160, 0, 0.4), 
+                rgba(56, 182, 161, 0.4), 
+                rgba(46, 125, 50, 0.4),
+                transparent);
+            background-size: 300% 300%;
+            animation: borderGlow 4s ease-in-out infinite;
+            -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+            -webkit-mask-composite: exclude;
+            mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+            mask-composite: exclude;
+        }
+
+        @keyframes borderGlow {
+            0%, 100% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+        }
+
+        /* Floating orbs inside card */
+        .login-card::after {
+            content: '';
+            position: absolute;
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            background: 
+                radial-gradient(circle at 30% 20%, rgba(255, 160, 0, 0.1) 0%, transparent 50%),
+                radial-gradient(circle at 70% 80%, rgba(56, 182, 161, 0.15) 0%, transparent 50%),
+                radial-gradient(circle at 40% 60%, rgba(46, 125, 50, 0.1) 0%, transparent 50%);
+            animation: floatingOrbs 20s ease-in-out infinite;
+            z-index: -1;
+        }
+
+        @keyframes floatingOrbs {
+            0%, 100% { transform: rotate(0deg) scale(1); }
+            33% { transform: rotate(120deg) scale(1.1); }
+            66% { transform: rotate(240deg) scale(0.9); }
+        }
+
+        .login-card:hover {
+            transform: translateY(-8px) scale(1.02);
+            box-shadow: 
+                0 35px 65px rgba(0, 0, 0, 0.15),
+                inset 0 1px 0 rgba(255, 255, 255, 0.4),
+                0 0 120px rgba(56, 182, 161, 0.2);
+        }
+
+        /* Cyber grid pattern */
+        .login-card .cyber-grid {
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            opacity: 0.03;
+            background-image: 
+                linear-gradient(rgba(56, 182, 161, 0.5) 1px, transparent 1px),
+                linear-gradient(90deg, rgba(56, 182, 161, 0.5) 1px, transparent 1px);
+            background-size: 20px 20px;
+            animation: gridMove 10s linear infinite;
+            pointer-events: none;
+        }
+
+        @keyframes gridMove {
+            0% { transform: translate(0, 0); }
+            100% { transform: translate(20px, 20px); }
+        }
+
+        /* Header with animated icon */
+        .form-header {
+            text-align: center;
+            margin-bottom: 35px;
+            position: relative;
+        }
+
+        .form-icon {
+            width: 60px;
+            height: 60px;
+            margin: 0 auto 15px;
+            background: linear-gradient(135deg, var(--accent), var(--primary));
+            border-radius: 20px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 24px;
+            color: white;
+            box-shadow: 
+                0 10px 25px rgba(56, 182, 161, 0.3),
+                inset 0 1px 0 rgba(255, 255, 255, 0.2);
+            animation: iconFloat 3s ease-in-out infinite;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .form-icon::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            background: linear-gradient(45deg, transparent, rgba(255, 255, 255, 0.1), transparent);
+            animation: iconShine 2s ease-in-out infinite;
+        }
+
+        @keyframes iconFloat {
+            0%, 100% { transform: translateY(0) rotateY(0deg); }
+            50% { transform: translateY(-10px) rotateY(10deg); }
+        }
+
+        @keyframes iconShine {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+
+        .form-title {
+            font-size: 26px;
+            font-weight: 700;
+            color: rgba(255, 255, 255, 0.95);
+            margin-bottom: 6px;
+            background: linear-gradient(135deg, #ffffff, rgba(255, 255, 255, 0.8));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            letter-spacing: -0.02em;
+        }
+
+        .form-subtitle {
+            font-size: 14px;
+            color: rgba(255, 255, 255, 0.7);
+            font-weight: 400;
+            line-height: 1.4;
+        }
+
+        /* Advanced Input Design */
+        .input-group {
+            margin-bottom: 25px;
+            position: relative;
+        }
+
+        .input-wrapper {
+            position: relative;
+            border-radius: 16px;
+            overflow: hidden;
+            background: rgba(255, 255, 255, 0.08);
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.15);
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        .input-wrapper::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.1), transparent);
+            transition: left 0.5s ease;
+        }
+
+        .input-wrapper:hover::before,
+        .input-wrapper:focus-within::before {
+            left: 100%;
+        }
+
+        .input-wrapper:focus-within {
+            background: rgba(255, 255, 255, 0.12);
+            border-color: rgba(56, 182, 161, 0.6);
+            box-shadow: 
+                0 0 0 3px rgba(56, 182, 161, 0.1),
+                0 8px 25px rgba(56, 182, 161, 0.15);
+            transform: translateY(-2px);
+        }
+
+        .input-field {
+            width: 100%;
+            height: 56px;
+            padding: 16px 50px 16px 20px;
+            border: none;
+            background: transparent;
+            font-size: 15px;
+            font-weight: 500;
+            color: rgba(255, 255, 255, 0.95);
+            outline: none;
+            font-family: 'Space Grotesk', sans-serif;
+            letter-spacing: 0.3px;
+        }
+
+        .input-field::placeholder {
+            color: rgba(255, 255, 255, 0.5);
+            font-weight: 400;
+        }
+
+        /* Floating Label Effect */
+        .floating-label {
+            position: absolute;
+            left: 20px;
+            top: 50%;
+            transform: translateY(-50%);
+            color: rgba(255, 255, 255, 0.6);
+            font-size: 15px;
+            font-weight: 500;
+            pointer-events: none;
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            background: rgba(255, 255, 255, 0.1);
+            padding: 0 6px;
+            border-radius: 6px;
+            backdrop-filter: blur(10px);
+        }
+
+        .input-field:focus + .floating-label,
+        .input-field:not(:placeholder-shown) + .floating-label {
+            top: -8px;
+            left: 16px;
+            font-size: 11px;
+            color: var(--accent);
+            font-weight: 600;
+            background: linear-gradient(135deg, var(--accent), var(--primary));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        /* Status Icons with Animation */
+        .input-status {
+            position: absolute;
+            right: 16px;
+            top: 50%;
+            transform: translateY(-50%);
+            width: 20px;
+            height: 20px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: all 0.3s ease;
+            opacity: 0;
+            scale: 0.8;
+        }
+
+        .input-status.show {
+            opacity: 1;
+            scale: 1;
+        }
+
+        .input-status.success {
+            background: linear-gradient(135deg, #4caf50, #81c784);
+            color: white;
+            animation: successPulse 0.6s ease;
+        }
+
+        .input-status.error {
+            background: linear-gradient(135deg, #f44336, #ef5350);
+            color: white;
+            animation: errorShake 0.5s ease;
+        }
+
+        .input-status.loading {
+            background: linear-gradient(135deg, var(--accent), var(--primary));
+        }
+
+        @keyframes successPulse {
+            0% { scale: 0.8; }
+            50% { scale: 1.2; }
+            100% { scale: 1; }
+        }
+
+        @keyframes errorShake {
+            0%, 100% { transform: translateY(-50%) translateX(0); }
+            25% { transform: translateY(-50%) translateX(-3px); }
+            75% { transform: translateY(-50%) translateX(3px); }
+        }
+
+        /* Loading Spinner */
+        .spinner {
+            width: 16px;
+            height: 16px;
+            border: 2px solid rgba(255, 255, 255, 0.3);
+            border-top: 2px solid white;
+            border-radius: 50%;
+            animation: spin 1s linear infinite;
+        }
+
+        @keyframes spin {
+            100% { transform: rotate(360deg); }
+        }
+
+        /* Advanced Feedback */
+        .input-feedback {
+            margin-top: 12px;
+            font-size: 14px;
+            font-weight: 500;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            opacity: 0;
+            transform: translateY(-8px);
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        .input-feedback.show {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        .input-feedback.success {
+            color: #4caf50;
+        }
+
+        .input-feedback.error {
+            color: #f44336;
+        }
+
+        .input-feedback.warning {
+            color: #ff9800;
+        }
+
+        .input-feedback::before {
+            content: '';
+            width: 4px;
+            height: 4px;
+            border-radius: 50%;
+            background: currentColor;
+            animation: pulse 2s ease-in-out infinite;
+        }
+
+        @keyframes pulse {
+            0%, 100% { opacity: 1; scale: 1; }
+            50% { opacity: 0.6; scale: 1.2; }
+        }
+
+        /* Futuristic Submit Button */
+        .submit-btn {
+            width: 100%;
+            height: 56px;
+            border: none;
+            border-radius: 16px;
+            background: linear-gradient(135deg, var(--primary), var(--accent));
+            color: white;
+            font-size: 15px;
+            font-weight: 700;
+            cursor: pointer;
+            position: relative;
+            overflow: hidden;
+            margin-top: 10px;
+            font-family: 'Space Grotesk', sans-serif;
+            letter-spacing: 0.4px;
+            text-transform: uppercase;
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            box-shadow: 
+                0 10px 25px rgba(46, 125, 50, 0.3),
+                inset 0 1px 0 rgba(255, 255, 255, 0.2);
+        }
+
+        .submit-btn::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent);
+            transition: left 0.6s ease;
+        }
+
+        .submit-btn::after {
+            content: '';
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            width: 0;
+            height: 0;
+            background: rgba(255, 255, 255, 0.2);
+            border-radius: 50%;
+            transform: translate(-50%, -50%);
+            transition: all 0.3s ease;
+        }
+
+        .submit-btn:hover::before {
+            left: 100%;
+        }
+
+        .submit-btn:hover::after {
+            width: 300px;
+            height: 300px;
+        }
+
+        .submit-btn:hover {
+            transform: translateY(-3px);
+            box-shadow: 
+                0 15px 35px rgba(46, 125, 50, 0.4),
+                inset 0 1px 0 rgba(255, 255, 255, 0.3),
+                0 0 60px rgba(56, 182, 161, 0.3);
+        }
+
+        .submit-btn:active {
+            transform: translateY(-1px);
+        }
+
+        .submit-btn:disabled {
+            opacity: 0.7;
+            cursor: not-allowed;
+            transform: none;
+        }
+
+        .btn-content {
+            position: relative;
+            z-index: 2;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+            transition: all 0.3s ease;
+        }
+
+        .btn-loading {
+            position: absolute;
+            z-index: 2;
+            opacity: 0;
+            transition: opacity 0.3s ease;
+        }
+
+        .submit-btn.loading .btn-content {
+            opacity: 0;
+        }
+
+        .submit-btn.loading .btn-loading {
+            opacity: 1;
+        }
+
+        .submit-btn.success {
+            background: linear-gradient(135deg, #4caf50, #81c784);
+            animation: successScale 0.5s ease;
+        }
+
+        @keyframes successScale {
+            0% { scale: 1; }
+            50% { scale: 1.05; }
+            100% { scale: 1; }
+        }
+
+        /* Holographic Messages */
+        .message {
+            padding: 16px 20px;
+            border-radius: 14px;
+            margin-top: 20px;
+            display: none;
+            font-size: 13px;
+            font-weight: 600;
+            position: relative;
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            animation: messageSlide 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+            overflow: hidden;
+        }
+
+        .message::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.1), transparent);
+            animation: messageShine 2s ease-in-out infinite;
+        }
+
+        @keyframes messageSlide {
+            from {
+                opacity: 0;
+                transform: translateY(20px) scale(0.95);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0) scale(1);
+            }
+        }
+
+        @keyframes messageShine {
+            0% { left: -100%; }
+            100% { left: 100%; }
+        }
+
+        .message.error {
+            background: linear-gradient(135deg, rgba(244, 67, 54, 0.15), rgba(244, 67, 54, 0.05));
+            color: #ff6b6b;
+            border-color: rgba(244, 67, 54, 0.3);
+        }
+
+        .message.success {
+            background: linear-gradient(135deg, rgba(76, 175, 80, 0.15), rgba(76, 175, 80, 0.05));
+            color: #4caf50;
+            border-color: rgba(76, 175, 80, 0.3);
+        }
+
+        .message-icon {
+            margin-right: 10px;
+            font-size: 16px;
+        }
+
+        /* Animation pour shake sur erreur */
+        @keyframes shake {
+            0%, 100% { transform: translateX(0); }
+            25% { transform: translateX(-5px); }
+            75% { transform: translateX(5px); }
+        }
+        /* ===== FIN NOUVEAU BOX ULTRA-MODERNE ===== */
+        
+        /* Footer modernisé */
+        footer {
+            background: rgba(26, 46, 53, 0.98);
+            padding: 50px 5%;
+            color: var(--white);
+            position: relative;
+            backdrop-filter: blur(10px);
+        }
+        
+        footer::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 2px;
+            background: linear-gradient(90deg, var(--secondary), var(--accent), var(--primary));
+        }
+        
+        .footer-content {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 40px;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+        
+        .footer-section h3 {
+            color: var(--secondary);
+            margin-bottom: 25px;
+            font-size: 1.3rem;
+            font-weight: 600;
+        }
+        
+        .footer-section p {
+            line-height: 1.6;
+            margin-bottom: 15px;
+            color: rgba(255, 255, 255, 0.9);
+        }
+        
+        .contact-info {
+            margin-bottom: 18px;
+            display: flex;
+            align-items: flex-start;
+            transition: transform 0.3s ease;
+        }
+        
+        .contact-info:hover {
+            transform: translateX(5px);
+        }
+        
+        .contact-icon {
+            color: var(--accent);
+            margin-right: 12px;
+            width: 20px;
+            text-align: center;
+            margin-top: 2px;
+        }
+        
+        .social-links {
+            display: flex;
+            gap: 18px;
+            margin-top: 20px;
+        }
+        
+        .social-links a {
+            color: var(--white);
+            font-size: 1.4rem;
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            padding: 10px;
+            border-radius: 50%;
+            background: rgba(255, 255, 255, 0.1);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            width: 45px;
+            height: 45px;
+        }
+        
+        .social-links a:hover {
+            color: var(--accent);
+            transform: translateY(-5px) scale(1.1);
+            background: rgba(56, 182, 161, 0.2);
+        }
+        
+        .website-link, .email-link {
+            color: var(--link-color);
+            text-decoration: none;
+            transition: all 0.3s ease;
+            font-weight: 500;
+        }
+        
+        .website-link:hover, .email-link:hover {
+            color: var(--secondary);
+            text-decoration: underline;
+        }
+        
+        .copyright {
+            text-align: center;
+            margin-top: 45px;
+            padding-top: 25px;
+            border-top: 1px solid rgba(255,255,255,0.15);
+            color: rgba(255,255,255,0.8);
+            font-size: 0.95rem;
+        }
+        
+        /* Responsive amélioré */
+        @media (max-width: 1024px) {
+            .content-wrapper {
+                flex-direction: column;
+                gap: 50px;
+            }
+            
+            .left-content {
+                text-align: center;
+                max-width: 100%;
+            }
+            
+            .logo-container {
+                gap: 50px;
+            }
+            
+            .logo-pole {
+                margin: 0 30px;
+            }
+        }
+        
+        @media (max-width: 768px) {
+            header {
+                padding: 20px 4% 15px;
+            }
+            
+            .logo {
+                height: 60px;
+            }
+            
+            .logo-pole {
+                height: 70px;
+                margin: 0 20px;
+            }
+            
+            .login-card {
+                padding: 30px 25px;
+                margin: 0 20px;
+            }
+            
+            .logo-container {
+                gap: 25px;
+            }
+            
+            main {
+                padding: 40px 4%;
+            }
+
+            .form-icon {
+                width: 50px;
+                height: 50px;
+                font-size: 20px;
+            }
+
+            .form-title {
+                font-size: 22px;
+            }
+        }
+        
+        @media (max-width: 480px) {
+            .logo-container {
+                flex-direction: column;
+                gap: 20px;
+            }
+            
+            .logo-pole {
+                order: -1;
+                margin: 0;
+            }
+            
+            .login-card {
+                padding: 25px 20px;
+                margin: 0 15px;
+                max-width: 100%;
+            }
+            
+            .form-title {
+                font-size: 20px;
+            }
+
+            .input-field {
+                height: 52px;
+                padding: 14px 45px 14px 18px;
+                font-size: 14px;
+            }
+
+            .submit-btn {
+                height: 52px;
+                font-size: 14px;
+            }
+        }
+        
+        /* Animations d'entrée */
+        .fade-in {
+            opacity: 0;
+            animation: fadeIn 1s ease-out forwards;
+        }
+        
+        @keyframes fadeIn {
+            to { opacity: 1; }
+        }
+    </style>
+</head>
+<body>
+    <!-- Effet de particules modernisé -->
+    <div class="particles" id="particles"></div>
+    
+    <header>
+        <div class="logo-container fade-in">
+            <div class="logo-wrapper">
+                <img src="images/logo-ministere.png" alt="Ministère" class="logo">
+            </div>
+            <div class="logo-wrapper">
+                <img src="images/logo-pole.png" alt="Pôle Digital" class="logo logo-pole">
+            </div>
+            <div class="logo-wrapper">
+                <img src="images/logo-generation.jpeg" alt="Green Generation" class="logo">
+            </div>
+        </div>
+    </header>
+
+    <main>
+        <div class="content-wrapper">
+            <div class="left-content">
+                <h1>Veille Technologique Agricole</h1>
+                <p class="subtitle">
+                    Le Pôle Digital de l'Agriculture, de la Forêt et Observatoire de la Sécheresse vous propose une plateforme stratégique de veille technologique agricole.
+                </p>
+                <p class="subtitle">
+                    Bénéficiez d'un accès privilégié aux dernières innovations, réglementations, tendances stratégiques et opportunités d'investissement du secteur agricole, au Maroc et à l'international.
+                </p>
+            </div>
+            
+            <div class="right-content">
+                <div class="login-card">
+                    <div class="cyber-grid"></div>
+                    
+                    <div class="form-header">
+                        <div class="form-icon">
+                            <i class="fas fa-seedling"></i>
+                        </div>
+                        <h2 class="form-title">Connexion</h2>
+                        <p class="form-subtitle">Accédez à votre espace de veille technologique avancée</p>
+                    </div>
+
+                    <form id="loginForm">
+                        <div class="input-group">
+                            <div class="input-wrapper">
+                                <input 
+                                    type="email" 
+                                    id="email" 
+                                    name="email"
+                                    class="input-field"
+                                    placeholder=" "
+                                    required 
+                                    autocomplete="email"
+                                    spellcheck="false"
+                                >
+                                <label class="floating-label">Adresse email autorisée</label>
+                                <div class="input-status" id="emailStatus">
+                                    <i class="fas fa-check"></i>
+                                </div>
+                            </div>
+                            <div class="input-feedback" id="emailFeedback">
+                                <span>Seuls les emails autorisés peuvent accéder à la plateforme</span>
+                            </div>
+                        </div>
+
+                        <button type="submit" class="submit-btn" id="submitBtn">
+                            <div class="btn-content">
+                                <i class="fas fa-rocket"></i>
+                                <span>Accéder à la plateforme</span>
+                            </div>
+                            <div class="btn-loading">
+                                <div class="spinner"></div>
+                            </div>
+                        </button>
+
+                        <div class="message error" id="errorMessage">
+                            <i class="fas fa-exclamation-triangle message-icon"></i>
+                            <span id="errorText">Une erreur s'est produite</span>
+                        </div>
+
+                        <div class="message success" id="successMessage">
+                            <i class="fas fa-check-circle message-icon"></i>
+                            <span>Connexion réussie ! Redirection en cours...</span>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <footer>
+        <div class="footer-content">
+            <div class="footer-section">
+                <h3>Pôle Digital Agricole</h3>
+                <p>Plateforme de veille technologique stratégique pour le secteur agricole marocain</p>
+                <a href="https://poledigital.ma/" target="_blank" class="website-link">poledigital.ma</a>
+            </div>
+            
+            <div class="footer-section">
+                <h3>Contact</h3>
+                <div class="contact-info">
+                    <i class="fas fa-map-marker-alt contact-icon"></i>
+                    <p>IAV Hassan II, Madinat Al Irfane, BP 6202, Rabat</p>
+                </div>
+                <div class="contact-info">
+                    <i class="fas fa-map-marker-alt contact-icon"></i>
+                    <p>Route de Boulemane BP 227, Ifrane</p>
+                </div>
+                <div class="contact-info">
+                    <i class="fas fa-phone contact-icon"></i>
+                    <p>+212 (0) 6 96 98 89 92</p>
+                </div>
+                <div class="contact-info">
+                    <i class="fas fa-envelope contact-icon"></i>
+                    <a href="mailto:contact@poledigital.ma" class="email-link">contact@poledigital.ma</a>
+                </div>
+            </div>
+            
+            <div class="footer-section">
+                <h3>Réseaux Sociaux</h3>
+                <div class="social-links">
+                    <a href="https://www.linkedin.com/company/p%C3%B4le-digital/posts/?feedView=all" target="_blank" title="LinkedIn">
+                        <i class="fab fa-linkedin-in"></i>
+                    </a>
+                    <a href="https://x.com/Pole_Digital_Ma" target="_blank" title="X (Twitter)">
+                        <i class="fab fa-x-twitter"></i>
+                    </a>
+                    <a href="https://www.youtube.com/@PoleDigital" target="_blank" title="YouTube">
+                        <i class="fab fa-youtube"></i>
+                    </a>
+                </div>
+            </div>
+        </div>
+        
+        <div class="copyright">
+            &copy; 2025 Pôle Digital Agricole. Tous droits réservés.
+        </div>
+    </footer>
+
+    <script>
+        // Création des particules améliorée
+        function createParticles() {
+            const container = document.getElementById('particles');
+            const particleCount = window.innerWidth < 768 ? 25 : 50;
+            
+            // Clear existing particles
+            container.innerHTML = '';
+            
+            for (let i = 0; i < particleCount; i++) {
+                const particle = document.createElement('div');
+                particle.classList.add('particle');
+                
+                // Position aléatoire
+                particle.style.left = Math.random() * 100 + '%';
+                
+                // Taille aléatoire
+                const size = Math.random() * 6 + 3;
+                particle.style.width = size + 'px';
+                particle.style.height = size + 'px';
+                
+                // Animation aléatoire
+                const duration = Math.random() * 15 + 15;
+                const delay = Math.random() * 10;
+                particle.style.animation = `float ${duration}s linear ${delay}s infinite`;
+                
+                container.appendChild(particle);
+            }
+        }
+        
+        // ===== NOUVEAU JAVASCRIPT AVEC VALIDATION EMAILS AUTORISÉS =====
+        class FuturisticLogin {
+            constructor() {
+                this.form = document.getElementById('loginForm');
+                this.emailInput = document.getElementById('email');
+                this.emailStatus = document.getElementById('emailStatus');
+                this.emailFeedback = document.getElementById('emailFeedback');
+                this.submitBtn = document.getElementById('submitBtn');
+                this.errorMessage = document.getElementById('errorMessage');
+                this.successMessage = document.getElementById('successMessage');
+                this.errorText = document.getElementById('errorText');
+                
+                // Liste des emails autorisés
+                this.authorizedEmails = [
+                    'rachid.hadria@poledigital.ma',
+                    'reda.trankil@poledigital.ma',
+                    'safae.elkour@poledigital.ma',
+                    'soumia.elalaoui.ismaili@poledigital.ma',
+                    'walid.khaddi@poledigital.ma',
+                    'wissal.hajjaj@poledigital.ma',
+                    'hassan.issoummour@poledigital.ma',
+                    'imane.rahali@poledigital.ma',
+                    'loubna.elmansouri@poledigital.ma',
+                    'mehdi.fakes@poledigital.ma',
+                    'mouad.alami@poledigital.ma',
+                    'nour.lahlou@poledigital.ma',
+                    'oussama.sbai@poledigital.ma',
+                    'communication@poledigital.ma',
+                    'contact@poledigital.ma',
+                    'equipe@poledigital.ma',
+                    'ayoubkhattoumsig@gmail.com',
+                    'kaiserkhattoum2018@gmail.com'
+                ];
+                
+                this.init();
+            }
+
+            init() {
+                this.emailInput.addEventListener('input', this.handleEmailInput.bind(this));
+                this.emailInput.addEventListener('focus', this.handleEmailFocus.bind(this));
+                this.emailInput.addEventListener('blur', this.handleEmailBlur.bind(this));
+                this.form.addEventListener('submit', this.handleSubmit.bind(this));
+                
+                // Hide messages on input
+                this.emailInput.addEventListener('input', this.hideMessages.bind(this));
+                
+                // Add some interactive particles to the card
+                this.addInteractiveEffects();
+            }
+
+            addInteractiveEffects() {
+                const card = document.querySelector('.login-card');
+                
+                // Mouse tracking effect
+                card.addEventListener('mousemove', (e) => {
+                    const rect = card.getBoundingClientRect();
+                    const x = ((e.clientX - rect.left) / rect.width) * 100;
+                    const y = ((e.clientY - rect.top) / rect.height) * 100;
+                    
+                    card.style.setProperty('--mouse-x', `${x}%`);
+                    card.style.setProperty('--mouse-y', `${y}%`);
+                });
+            }
+
+            handleEmailFocus() {
+                this.playFocusSound();
+            }
+
+            handleEmailInput() {
+                const email = this.emailInput.value.trim().toLowerCase();
+                
+                if (!email) {
+                    this.resetEmailState();
+                    return;
+                }
+
+                // Show loading state briefly
+                this.setEmailState('loading', 'Vérification de l\'autorisation...', 'spinner');
+                
+                // Simulate validation delay for better UX
+                setTimeout(() => {
+                    if (!this.isValidEmail(email)) {
+                        this.setEmailState('error', 'Format d\'email invalide', 'fas fa-times');
+                        this.shakeInput();
+                        return;
+                    }
+
+                    if (!this.isAuthorizedEmail(email)) {
+                        this.setEmailState('error', 'Email non autorisé - Accès restreint', 'fas fa-shield-alt');
+                        return;
+                    }
+
+                    this.setEmailState('success', 'Email autorisé et vérifié', 'fas fa-check');
+                    this.playSuccessSound();
+                }, 500);
+            }
+
+            handleEmailBlur() {
+                const email = this.emailInput.value.trim().toLowerCase();
+                
+                if (email && !this.isValidEmail(email)) {
+                    this.setEmailState('error', 'Format d\'email invalide', 'fas fa-times');
+                }
+            }
+
+            isValidEmail(email) {
+                const regex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+                return regex.test(email);
+            }
+
+            isAuthorizedEmail(email) {
+                return this.authorizedEmails.includes(email.toLowerCase());
+            }
+
+            setEmailState(state, message, icon) {
+                // Update status icon
+                this.emailStatus.className = `input-status show ${state}`;
+                
+                if (state === 'loading') {
+                    this.emailStatus.innerHTML = '<div class="spinner"></div>';
+                } else {
+                    this.emailStatus.innerHTML = `<i class="${icon}"></i>`;
+                }
+                
+                // Update feedback
+                this.emailFeedback.className = `input-feedback show ${state}`;
+                this.emailFeedback.innerHTML = `<span>${message}</span>`;
+                
+                // Update input wrapper style
+                const wrapper = this.emailInput.closest('.input-wrapper');
+                wrapper.setAttribute('data-state', state);
+            }
+
+            resetEmailState() {
+                this.emailStatus.className = 'input-status';
+                this.emailFeedback.className = 'input-feedback';
+                this.emailFeedback.innerHTML = '<span>Seuls les emails autorisés peuvent accéder à la plateforme</span>';
+                
+                const wrapper = this.emailInput.closest('.input-wrapper');
+                wrapper.removeAttribute('data-state');
+            }
+
+            shakeInput() {
+                const wrapper = this.emailInput.closest('.input-wrapper');
+                wrapper.style.animation = 'none';
+                wrapper.offsetHeight; // Trigger reflow
+                wrapper.style.animation = 'shake 0.5s ease-in-out';
+            }
+
+            hideMessages() {
+                this.errorMessage.style.display = 'none';
+                this.successMessage.style.display = 'none';
+            }
+
+            showError(message) {
+                this.errorText.textContent = message;
+                this.errorMessage.style.display = 'block';
+                this.successMessage.style.display = 'none';
+                this.playErrorSound();
+            }
+
+            showSuccess() {
+                this.successMessage.style.display = 'block';
+                this.errorMessage.style.display = 'none';
+                this.playSuccessSound();
+            }
+
+            setLoading(loading) {
+                if (loading) {
+                    this.submitBtn.classList.add('loading');
+                    this.submitBtn.disabled = true;
+                } else {
+                    this.submitBtn.classList.remove('loading');
+                    this.submitBtn.disabled = false;
+                }
+            }
+
+            setSuccess() {
+                this.submitBtn.classList.add('success');
+                this.submitBtn.querySelector('.btn-content').innerHTML = `
+                    <i class="fas fa-check"></i>
+                    <span>Connexion autorisée !</span>
+                `;
+            }
+
+            // Sound effects (optional - can be muted in production)
+            playFocusSound() {
+                // Subtle audio feedback
+                try {
+                    const audioContext = new (window.AudioContext || window.webkitAudioContext)();
+                    const oscillator = audioContext.createOscillator();
+                    const gainNode = audioContext.createGain();
+                    
+                    oscillator.connect(gainNode);
+                    gainNode.connect(audioContext.destination);
+                    
+                    oscillator.frequency.setValueAtTime(800, audioContext.currentTime);
+                    gainNode.gain.setValueAtTime(0.1, audioContext.currentTime);
+                    gainNode.gain.exponentialRampToValueAtTime(0.01, audioContext.currentTime + 0.1);
+                    
+                    oscillator.start(audioContext.currentTime);
+                    oscillator.stop(audioContext.currentTime + 0.1);
+                } catch (e) {
+                    // Audio not supported or blocked
+                }
+            }
+
+            playSuccessSound() {
+                try {
+                    const audioContext = new (window.AudioContext || window.webkitAudioContext)();
+                    const oscillator = audioContext.createOscillator();
+                    const gainNode = audioContext.createGain();
+                    
+                    oscillator.connect(gainNode);
+                    gainNode.connect(audioContext.destination);
+                    
+                    oscillator.frequency.setValueAtTime(600, audioContext.currentTime);
+                    oscillator.frequency.setValueAtTime(800, audioContext.currentTime + 0.1);
+                    gainNode.gain.setValueAtTime(0.1, audioContext.currentTime);
+                    gainNode.gain.exponentialRampToValueAtTime(0.01, audioContext.currentTime + 0.2);
+                    
+                    oscillator.start(audioContext.currentTime);
+                    oscillator.stop(audioContext.currentTime + 0.2);
+                } catch (e) {
+                    // Audio not supported or blocked
+                }
+            }
+
+            playErrorSound() {
+                try {
+                    const audioContext = new (window.AudioContext || window.webkitAudioContext)();
+                    const oscillator = audioContext.createOscillator();
+                    const gainNode = audioContext.createGain();
+                    
+                    oscillator.connect(gainNode);
+                    gainNode.connect(audioContext.destination);
+                    
+                    oscillator.frequency.setValueAtTime(400, audioContext.currentTime);
+                    oscillator.frequency.setValueAtTime(300, audioContext.currentTime + 0.1);
+                    gainNode.gain.setValueAtTime(0.1, audioContext.currentTime);
+                    gainNode.gain.exponentialRampToValueAtTime(0.01, audioContext.currentTime + 0.2);
+                    
+                    oscillator.start(audioContext.currentTime);
+                    oscillator.stop(audioContext.currentTime + 0.2);
+                } catch (e) {
+                    // Audio not supported or blocked
+                }
+            }
+
+            async handleSubmit(e) {
+                e.preventDefault();
+                
+                const email = this.emailInput.value.trim().toLowerCase();
+                
+                // Validation
+                if (!email) {
+                    this.showError('Veuillez saisir votre adresse email');
+                    this.shakeInput();
+                    return;
+                }
+
+                if (!this.isValidEmail(email)) {
+                    this.showError('Format d\'email invalide');
+                    this.shakeInput();
+                    return;
+                }
+
+                if (!this.isAuthorizedEmail(email)) {
+                    this.showError('Accès refusé - Votre email n\'est pas dans la liste des utilisateurs autorisés');
+                    this.shakeInput();
+                    return;
+                }
+
+                // Simulate advanced login process for authorized users
+                this.setLoading(true);
+                this.hideMessages();
+
+                try {
+                    // Simulate authentication process
+                    await this.simulateAdvancedLogin();
+                    
+                    this.setLoading(false);
+                    this.setSuccess();
+                    this.showSuccess();
+                    
+                    // Add celebration effect
+                    this.triggerCelebration();
+                    
+                    // Store authorized user info (optional)
+                    sessionStorage.setItem('authorizedUser', email);
+                    
+                    // Redirect after delay to the main platform
+                    setTimeout(() => {
+                        window.location.href = 'index.html';
+                    }, 2500);
+                    
+                } catch (error) {
+                    this.setLoading(false);
+                    this.showError('Erreur de connexion sécurisée. Veuillez réessayer.');
+                }
+            }
+
+            async simulateAdvancedLogin() {
+                // Simulate multiple authentication steps
+                const steps = [
+                    { delay: 600, status: 'Vérification des autorisations...' },
+                    { delay: 800, status: 'Authentification sécurisée...' },
+                    { delay: 700, status: 'Chargement du profil utilisateur...' },
+                    { delay: 500, status: 'Accès accordé...' }
+                ];
+
+                for (const step of steps) {
+                    await new Promise(resolve => setTimeout(resolve, step.delay));
+                    // Could update a status indicator here
+                }
+            }
+
+            triggerCelebration() {
+                // Add success animation
+                const card = document.querySelector('.login-card');
+                card.style.animation = 'successScale 0.6s ease';
+                
+                // Reset animation
+                setTimeout(() => {
+                    card.style.animation = '';
+                }, 600);
+                
+                // Create success particles
+                this.createSuccessParticles();
+            }
+
+            createSuccessParticles() {
+                const colors = ['#4caf50', '#81c784', '#a5d6a7'];
+                const container = document.querySelector('.login-card');
+                
+                for (let i = 0; i < 20; i++) {
+                    const particle = document.createElement('div');
+                    particle.style.position = 'absolute';
+                    particle.style.width = '6px';
+                    particle.style.height = '6px';
+                    particle.style.backgroundColor = colors[Math.floor(Math.random() * colors.length)];
+                    particle.style.borderRadius = '50%';
+                    particle.style.left = Math.random() * 100 + '%';
+                    particle.style.top = Math.random() * 100 + '%';
+                    particle.style.pointerEvents = 'none';
+                    particle.style.zIndex = '1000';
+                    particle.style.animation = `
+                        successParticle 1s ease-out forwards
+                    `;
+                    
+                    container.appendChild(particle);
+                    
+                    // Remove particle after animation
+                    setTimeout(() => {
+                        if (particle.parentNode) {
+                            particle.parentNode.removeChild(particle);
+                        }
+                    }, 1000);
+                }
+            }
+        }
+        // ===== FIN JAVASCRIPT AVEC VALIDATION =====
+        
+        // Ajouter les keyframes pour les particules de succès
+        const successParticleStyle = document.createElement('style');
+        successParticleStyle.textContent = `
+            @keyframes successParticle {
+                0% {
+                    opacity: 1;
+                    transform: scale(0) translateY(0);
+                }
+                50% {
+                    opacity: 1;
+                    transform: scale(1) translateY(-20px);
+                }
+                100% {
+                    opacity: 0;
+                    transform: scale(0.5) translateY(-40px);
+                }
+            }
+        `;
+        document.head.appendChild(successParticleStyle);
+        
+        // Initialisation
+        window.addEventListener('load', () => {
+            createParticles();
+            
+            // Initialize futuristic login with email authorization
+            new FuturisticLogin();
+            
+            // Smooth entrance animation
+            document.body.style.opacity = '0';
+            setTimeout(() => {
+                document.body.style.transition = 'opacity 1s ease-in-out';
+                document.body.style.opacity = '1';
+            }, 100);
+        });
+        
+        // Recreate particles on resize
+        window.addEventListener('resize', createParticles);
+    </script>
+</body>
+</html>

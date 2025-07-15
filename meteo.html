@@ -1,0 +1,1540 @@
+<script>
+        // Liste complète des villes marocaines importantes pour l'agriculture
+        const villes = [
+            // Nord-Ouest
+            { name: "Tanger", lat: 35.7595, lng: -5.8340, region: "Tanger-Tétouan-Al Hoceïma" },
+            { name: "Tétouan", lat: 35.5719, lng: -5.3724, region: "Tanger-Tétouan-Al Hoceïma" },
+            { name: "Larache", lat: 35.1910, lng: -6.1580, region: "Tanger-Tétouan-Al Hoceïma" },
+            { name: "Kénitra", lat: 34.2500, lng: -6.5833, region: "Rabat-Salé-Kénitra" },
+            
+            // Centre Atlantique
+            { name: "Rabat", lat: 34.0209, lng: -6.8416, region: "Rabat-Salé-Kénitra" },
+            { name: "Casablanca", lat: 33.5731, lng: -7.5898, region: "Casablanca-Settat" },
+            { name: "El Jadida", lat: 33.2316, lng: -8.5004, region: "Casablanca-Settat" },
+            { name: "Safi", lat: 32.2833, lng: -9.2333, region: "Marrakech-Safi" },
+            
+            // Nord-Est
+            { name: "Oujda", lat: 34.6810, lng: -1.9007, region: "L'Oriental" },
+            { name: "Nador", lat: 35.1687, lng: -2.9330, region: "L'Oriental" },
+            { name: "Al Hoceïma", lat: 35.2490, lng: -3.9370, region: "Tanger-Tétouan-Al Hoceïma" },
+            
+            // Centre Intérieur
+            { name: "Fès", lat: 34.0333, lng: -5.0000, region: "Fès-Meknès" },
+            { name: "Meknès", lat: 33.8833, lng: -5.5000, region: "Fès-Meknès" },
+            { name: "Ifrane", lat: 33.5260, lng: -5.1100, region: "Fès-Meknès" },
+            { name: "Sefrou", lat: 33.8314, lng: -4.8280, region: "Fès-Meknès" },
+            
+            // Centre Sud
+            { name: "Marrakech", lat: 31.6295, lng: -8.0089, region: "Marrakech-Safi" },
+            { name: "Beni Mellal", lat: 32.3373, lng: -6.3498, region: "Béni Mellal-Khénifra" },
+            { name: "Khouribga", lat: 32.8800, lng: -6.9000, region: "Béni Mellal-Khénifra" },
+            
+            // Sud-Ouest
+            { name: "Agadir", lat: 30.4278, lng: -9.5981, region: "Souss-Massa" },
+            { name: "Taroudant", lat: 30.4700, lng: -8.8700, region: "Souss-Massa" },
+            { name: "Tiznit", lat: 29.7000, lng: -9.7333, region: "Souss-Massa" },
+            
+            // Sud
+            { name: "Ouarzazate", lat: 30.9200, lng: -6.9100, region: "Drâa-Tafilalet" },
+            { name: "Errachidia", lat: 31.9317, lng: -4.4244, region: "Drâa-Tafilalet" },
+            { name: "Tinghir", lat: 31.5167, lng: -5.5333, region: "Drâa-Tafilalet" },
+            
+            // Extrême Sud
+            { name: "Laâyoune", lat: 27.1536, lng: -13.2033, region: "Laâyoune-Sakia El Hamra" },
+            { name: "Dakhla", lat: 23.6842, lng: -15.9578, region: "Dakhla-Oued Ed-Dahab" },
+            { name: "Guelmim", lat: 28.9833, lng: -10.0667, region: "Guelmim-Oued Noun" }
+        ];
+
+        const DEFAULT_VILLE = 'Rabat';
+        const API_URL = "https://api.open-meteo.com/v1/forecast";
+        
+        let currentVille = null;
+        let map = null;
+        let temperatureChart = null;
+        let markers = [];
+        let currentMarker = null;
+        
+        const weatherIcons = {
+            0: "fas fa-sun text-yellow-400",
+            1: "fas fa-cloud-sun text-yellow-400", 
+            2: "fas fa-cloud-sun text-blue-400",
+            3: "fas fa-cloud text-gray-400",
+            45: "fas fa-smog text-gray-500",
+            48: "fas fa-smog text-gray-500",
+            51: "fas fa-cloud-drizzle text-blue-400",
+            53: "fas fa-cloud-drizzle text-blue-500",
+            55: "fas fa-cloud-rain text-blue-500",
+            61: "fas fa-cloud-rain text-blue-500",
+            63: "fas fa-cloud-rain text-blue-600",
+            65: "fas fa-cloud-showers-heavy text-blue-700",
+            71: "fas fa-snowflake text-blue-300",
+            73: "fas fa-snowflake text-blue-400",
+            75: "fas fa-snowflake text-blue-500",
+            80: "fas fa-cloud-rain text-blue-500",
+            81: "fas fa-cloud-showers-heavy text-blue-600",
+            82: "fas fa-cloud-showers-heavy text-blue-700",
+            95: "fas fa-bolt text-yellow-500",
+            96: "fas fa-bolt text-yellow-600",
+            99: "fas fa-bolt text-red-500"
+        };
+        
+        const agricultureAdvice = {
+            sunny: [
+                "Conditions idéales pour les travaux de récolte et de séchage",
+                "Augmentez la fréquence d'irrigation, surtout pour les cultures sensibles",
+                "Protégez les jeunes plants avec des ombrages temporaires",
+                "Profitez de ces conditions pour les traitements phytosanitaires"
+            ],
+            cloudy: [
+                "Conditions favorables pour la plantation et le repiquage",
+                "Réduisez légèrement l'irrigation grâce à l'évaporation moindre",
+                "Période propice pour les travaux de labour et de préparation du sol",
+                "Surveillez l'humidité du sol pour éviter l'excès d'eau"
+            ],
+            rainy: [
+                "Suspendez les traitements phytosanitaires jusqu'à l'arrêt de la pluie",
+                "Vérifiez le drainage des parcelles pour éviter la stagnation",
+                "Protégez les cultures sensibles à l'humidité excessive",
+                "Profitez de cette période pour planifier les prochaines activités"
+            ],
+            windy: [
+                "Évitez les pulvérisations pour prévenir la dérive des produits",
+                "Renforcez les tuteurages des cultures hautes",
+                "Surveillez les serres et structures légères",
+                "Reportez les semis de graines légères"
+            ],
+            hot: [
+                "Intensifiez l'irrigation, de préférence tôt le matin ou le soir",
+                "Installez des systèmes d'ombrage pour les cultures sensibles",
+                "Surveillez les signes de stress hydrique sur les plantes",
+                "Évitez les travaux lourds aux heures les plus chaudes"
+            ],
+            cold: [
+                "Protégez les cultures sensibles au gel avec des voiles",
+                "Retardez les semis des espèces thermophiles",
+                "Vérifiez les systèmes de chauffage des serres",
+                "Préparez les abris pour le bétail"
+            ]
+        };
+        
+        function initMap() {
+            map = L.map('map', {
+                zoomControl: false,
+                attributionControl: true
+            }).setView([31.7917, -7.0926], 6);
+            
+            L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+                attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a>',
+                maxZoom: 18,
+                opacity: 0.8
+            }).addTo(map);
+            
+            addVilleMarkers();
+            
+            document.getElementById('zoom-in').addEventListener('click', () => {
+                map.zoomIn();
+            });
+            
+            document.getElementById('zoom-out').addEventListener('click', () => {
+                map.zoomOut();
+            });
+            
+            return map;
+        }
+        
+        function addVilleMarkers() {
+            villes.forEach(ville => {
+                const pulsingIcon = L.divIcon({
+                    className: 'pulsing-marker',
+                    iconSize: [20, 20],
+                    iconAnchor: [10, 10]
+                });
+                
+                const marker = L.marker([ville.lat, ville.lng], {
+                    icon: pulsingIcon
+                }).addTo(map);
+                
+                marker.bindPopup(`
+                    <div class="text-center p-2">
+                        <h3 class="font-bold text-lg text-green-700">${ville.name}</h3>
+                        <p class="text-sm text-gray-600">${ville.region}</p>
+                        <button onclick="selectVille('${ville.name}')" class="mt-2 bg-green-600 text-white px-3 py-1 rounded text-sm hover:bg-green-700">
+                            Voir la météo
+                        </button>
+                    </div>
+                `, {
+                    maxWidth: 200
+                });
+                
+                marker.on('click', () => {
+                    selectVille(ville.name);
+                });
+                
+                markers.push(marker);
+            });
+            
+            setTimeout(() => {
+                selectVille(DEFAULT_VILLE);
+            }, 1000);
+        }
+        
+        function selectVille(villeName) {
+            const ville = villes.find(v => v.name === villeName);
+            if (!ville) return;
+            
+            currentVille = ville;
+            
+            // Mise à jour de l'affichage de la ville sélectionnée
+            document.getElementById('selected-city').textContent = ville.name;
+            
+            // Centrer la carte sur la ville sélectionnée
+            map.setView([ville.lat, ville.lng], 9);
+            
+            // Mettre à jour les données météo
+            updateWeatherForVille(ville);
+        }
+        
+        async function getWeatherData(latitude, longitude, villeName) {
+            const params = {
+                latitude: latitude,
+                longitude: longitude,
+                current: "temperature_2m,relative_humidity_2m,apparent_temperature,precipitation,weather_code,wind_speed_10m",
+                daily: "weather_code,temperature_2m_max,temperature_2m_min,precipitation_sum,wind_speed_10m_max",
+                timezone: "auto",
+                forecast_days: 5
+            };
+            
+            const queryString = new URLSearchParams(params).toString();
+            const url = `${API_URL}?${queryString}`;
+            
+            try {
+                const response = await fetch(url);
+                if (!response.ok) throw new Error('Erreur API');
+                
+                const data = await response.json();
+                return {
+                    ville: villeName,
+                    current: data.current,
+                    daily: data.daily
+                };
+            } catch (error) {
+                console.error("Erreur de récupération des données météo:", error);
+                return generateFallbackData(latitude, villeName);
+            }
+        }
+        
+        function generateFallbackData(latitude, villeName) {
+            const baseTemp = 15 + (latitude - 31) * 0.8;
+            const conditionCodes = [0, 1, 2, 3, 45, 48, 51, 53, 55, 61, 63, 65, 80, 81, 95];
+            
+            return {
+                ville: villeName,
+                current: {
+                    time: new Date().toISOString(),
+                    temperature_2m: Math.round(baseTemp + (Math.random() * 6 - 3)),
+                    relative_humidity_2m: Math.round(40 + Math.random() * 40),
+                    apparent_temperature: Math.round(baseTemp + (Math.random() * 4 - 2)),
+                    precipitation: (Math.random() * 5).toFixed(1),
+                    weather_code: conditionCodes[Math.floor(Math.random() * conditionCodes.length)],
+                    wind_speed_10m: Math.round(5 + Math.random() * 15)
+                },
+                daily: {
+                    time: Array.from({length: 5}, (_, i) => {
+                        const date = new Date();
+                        date.setDate(date.getDate() + i);
+                        return date.toISOString().split('T')[0];
+                    }),
+                    weather_code: Array.from({length: 5}, () => conditionCodes[Math.floor(Math.random() * conditionCodes.length)]),
+                    temperature_2m_max: Array.from({length: 5}, () => Math.round(baseTemp + 5 + (Math.random() * 6 - 3))),
+                    temperature_2m_min: Array.from({length: 5}, () => Math.round(baseTemp - 5 + (Math.random() * 6 - 3))),
+                    precipitation_sum: Array.from({length: 5}, () => (Math.random() * 8).toFixed(1)),
+                    wind_speed_10m_max: Array.from({length: 5}, () => Math.round(10 + Math.random() * 20))
+                }
+            };
+        }
+        
+        async function updateWeatherForVille(ville) {
+            showLoadingState();
+            
+            try {
+                const weatherData = await getWeatherData(
+                    ville.lat, 
+                    ville.lng, 
+                    ville.name
+                );
+                
+                updateCurrentWeatherDisplay(weatherData);
+                updateExtraInfoDisplay(weatherData);
+                updateDailyForecastDisplay(weatherData);
+                updateTemperatureChart(weatherData);
+                updateAgricultureTips(weatherData, ville.region);
+                updateLastUpdateTime();
+                
+            } catch (error) {
+                console.error('Erreur lors de la mise à jour météo:', error);
+                showErrorState();
+            }
+        }
+        
+        function showLoadingState() {
+            document.getElementById('current-weather').innerHTML = `
+                <div class="flex flex-col items-center justify-center h-32 space-y-4">
+                    <i class="fas fa-sync-alt loading-spinner text-4xl text-green-600"></i>
+                    <div class="text-gray-600">Chargement des données météo...</div>
+                </div>
+            `;
+        }
+        
+        function showErrorState() {
+            document.getElementById('current-weather').innerHTML = `
+                <div class="flex flex-col items-center justify-center h-32 space-y-4">
+                    <i class="fas fa-exclamation-triangle text-4xl text-red-500"></i>
+                    <div class="text-gray-600">Erreur de chargement</div>
+                    <button onclick="retryUpdate()" class="btn-primary text-sm">
+                        Réessayer
+                    </button>
+                </div>
+            `;
+        }
+        
+        function updateCurrentWeatherDisplay(weatherData) {
+            const current = weatherData.current;
+            const iconClass = weatherIcons[current.weather_code] || "fas fa-question text-gray-400";
+            
+            document.getElementById('current-weather').innerHTML = `
+                <div class="text-center fade-in">
+                    <div class="region-name mb-2">${weatherData.ville}</div>
+                    <div class="flex justify-center mb-4">
+                        <i class="${iconClass} text-6xl weather-icon"></i>
+                    </div>
+                    <div class="temperature-display mb-2">${Math.round(current.temperature_2m)}°C</div>
+                    <div class="text-gray-600 text-sm mb-4">${getWeatherDescription(current.weather_code)}</div>
+                    <div class="grid grid-cols-2 gap-4 text-sm">
+                        <div class="bg-blue-50 p-2 rounded">
+                            <div class="text-blue-600 font-semibold">Max</div>
+                            <div class="text-lg">${Math.round(current.temperature_2m + 3)}°C</div>
+                        </div>
+                        <div class="bg-orange-50 p-2 rounded">
+                            <div class="text-orange-600 font-semibold">Min</div>
+                            <div class="text-lg">${Math.round(current.temperature_2m - 5)}°C</div>
+                        </div>
+                    </div>
+                </div>
+            `;
+        }
+        
+        function updateExtraInfoDisplay(weatherData) {
+            const current = weatherData.current;
+            
+            document.getElementById('wind-speed').textContent = Math.round(current.wind_speed_10m);
+            document.getElementById('humidity').textContent = Math.round(current.relative_humidity_2m);
+            document.getElementById('feels-like').textContent = Math.round(current.apparent_temperature);
+            document.getElementById('precipitation').textContent = current.precipitation;
+        }
+        
+        function updateDailyForecastDisplay(weatherData) {
+            const daily = weatherData.daily;
+            const forecastContainer = document.getElementById('daily-forecast');
+            
+            forecastContainer.innerHTML = '';
+            
+            for (let i = 0; i < 5; i++) {
+                const date = new Date(daily.time[i]);
+                const dayName = i === 0 ? 'Aujourd\'hui' : date.toLocaleDateString('fr-FR', { weekday: 'short' });
+                const iconClass = weatherIcons[daily.weather_code[i]] || "fas fa-question text-gray-400";
+                
+                const forecastCard = document.createElement('div');
+                forecastCard.className = 'forecast-card p-4 rounded-xl text-center';
+                forecastCard.innerHTML = `
+                    <div class="font-semibold text-gray-800 mb-2">${dayName}</div>
+                    <div class="text-xs text-gray-600 mb-3">${date.toLocaleDateString('fr-FR', { day: 'numeric', month: 'short' })}</div>
+                    <div class="flex justify-center mb-3">
+                        <i class="${iconClass} text-3xl"></i>
+                    </div>
+                    <div class="space-y-1">
+                        <div class="text-lg font-bold text-gray-800">${Math.round(daily.temperature_2m_max[i])}°</div>
+                        <div class="text-sm text-gray-600">${Math.round(daily.temperature_2m_min[i])}°</div>
+                    </div>
+                    <div class="mt-3 text-xs text-blue-600">
+                        <i class="fas fa-tint mr-1"></i>${daily.precipitation_sum[i]} mm
+                    </div>
+                    <div class="text-xs text-gray-500 mt-1">
+                        <i class="fas fa-wind mr-1"></i>${Math.round(daily.wind_speed_10m_max[i])} km/h
+                    </div>
+                `;
+                
+                forecastContainer.appendChild(forecastCard);
+            }
+        }
+        
+        function updateTemperatureChart(weatherData) {
+            const ctx = document.getElementById('temperature-chart').getContext('2d');
+            const daily = weatherData.daily;
+            
+            if (temperatureChart) {
+                temperatureChart.destroy();
+            }
+            
+            const labels = daily.time.map(date => {
+                const d = new Date(date);
+                return d.toLocaleDateString('fr-FR', { weekday: 'short', day: 'numeric' });
+            });
+            
+            temperatureChart = new Chart(ctx, {
+                type: 'line',
+                data: {
+                    labels: labels,
+                    datasets: [
+                        {
+                            label: 'Température Max (°C)',
+                            data: daily.temperature_2m_max,
+                            borderColor: '#ff8c00',
+                            backgroundColor: 'rgba(255, 140, 0, 0.1)',
+                            borderWidth: 3,
+                            fill: true,
+                            tension: 0.4,
+                            pointBackgroundColor: '#ff8c00',
+                            pointBorderColor: '#fff',
+                            pointBorderWidth: 2,
+                            pointRadius: 6
+                        },
+                        {
+                            label: 'Température Min (°C)',
+                            data: daily.temperature_2m_min,
+                            borderColor: '#4682b4',
+                            backgroundColor: 'rgba(70, 130, 180, 0.1)',
+                            borderWidth: 3,
+                            fill: true,
+                            tension: 0.4,
+                            pointBackgroundColor: '#4682b4',
+                            pointBorderColor: '#fff',
+                            pointBorderWidth: 2,
+                            pointRadius: 6
+                        }
+                    ]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    plugins: {
+                        legend: {
+                            position: 'top',
+                            labels: {
+                                usePointStyle: true,
+                                padding: 20,
+                                font: {
+                                    size: 12,
+                                    weight: 'bold'
+                                }
+                            }
+                        },
+                        tooltip: {
+                            mode: 'index',
+                            intersect: false,
+                            backgroundColor: 'rgba(255, 255, 255, 0.95)',
+                            titleColor: '#2d5016',
+                            bodyColor: '#4a7c59',
+                            borderColor: '#8fbc8f',
+                            borderWidth: 1
+                        }
+                    },
+                    scales: {
+                        x: {
+                            grid: {
+                                display: false
+                            },
+                            ticks: {
+                                font: {
+                                    weight: 'bold'
+                                }
+                            }
+                        },
+                        y: {
+                            beginAtZero: false,
+                            grid: {
+                                color: 'rgba(0, 0, 0, 0.1)'
+                            },
+                            ticks: {
+                                callback: function(value) {
+                                    return value + '°C';
+                                },
+                                font: {
+                                    weight: 'bold'
+                                }
+                            }
+                        }
+                    },
+                    interaction: {
+                        mode: 'nearest',
+                        axis: 'x',
+                        intersect: false
+                    }
+                }
+            });
+        }
+        
+        function updateAgricultureTips(weatherData, regionName) {
+            const current = weatherData.current;
+            const tipsContainer = document.getElementById('agriculture-tips');
+            
+            let tips = [];
+            let weatherCondition = 'sunny';
+            
+            if (current.precipitation > 1) {
+                weatherCondition = 'rainy';
+            } else if (current.wind_speed_10m > 20) {
+                weatherCondition = 'windy';
+            } else if (current.temperature_2m > 30) {
+                weatherCondition = 'hot';
+            } else if (current.temperature_2m < 10) {
+                weatherCondition = 'cold';
+            } else if (current.weather_code > 2) {
+                weatherCondition = 'cloudy';
+            }
+            
+            tips = agricultureAdvice[weatherCondition] || agricultureAdvice.sunny;
+            
+            // Ajouter des conseils spécifiques à la région
+            const regionSpecificTips = getRegionSpecificTips(regionName, weatherCondition);
+            tips = [...tips, ...regionSpecificTips];
+            
+            tipsContainer.innerHTML = tips.map((tip, index) => `
+                <div class="flex items-start mb-3 slide-in" style="animation-delay: ${index * 0.1}s">
+                    <i class="fas fa-leaf text-green-600 mt-1 mr-3 text-sm"></i>
+                    <div class="text-sm text-gray-700">${tip}</div>
+                </div>
+            `).join('');
+        }
+        
+        function getRegionSpecificTips(regionName, weatherCondition) {
+            const regionTips = {
+                "Souss-Massa": ["Surveillez l'irrigation des agrumes", "Attention aux vents chauds du Sahara"],
+                "Marrakech-Safi": ["Protégez les oliviers des variations thermiques", "Optimisez l'irrigation goutte-à-goutte"],
+                "Casablanca-Settat": ["Profitez de l'humidité maritime", "Attention aux brouillards matinaux"],
+                "Rabat-Salé-Kénitra": ["Conditions favorables aux céréales", "Surveillez l'humidité du sol"],
+                "Fès-Meknès": ["Altitude favorable aux cultures de montagne", "Attention aux gelées matinales"],
+                "Tanger-Tétouan-Al Hoceïma": ["Profitez du climat méditerranéen", "Surveillez les vents du détroit"],
+                "L'Oriental": ["Économisez l'eau en zone semi-aride", "Protégez contre les vents de sable"],
+                "Béni Mellal-Khénifra": ["Altitude modérée favorable", "Attention aux variations thermiques"],
+                "Drâa-Tafilalet": ["Irrigation essentielle en zone aride", "Protégez contre les tempêtes de sable"],
+                "Guelmim-Oued Noun": ["Économie d'eau prioritaire", "Cultures adaptées au climat saharien"],
+                "Laâyoune-Sakia El Hamra": ["Agriculture oasienne recommandée", "Protection contre les vents de sable"],
+                "Dakhla-Oued Ed-Dahab": ["Aquaculture et pêche favorisées", "Agriculture sous serre recommandée"]
+            };
+            
+            return regionTips[regionName] || ["Adaptez vos pratiques au climat local"];
+        }
+        
+        function getWeatherDescription(code) {
+            const descriptions = {
+                0: "Ciel dégagé",
+                1: "Principalement dégagé", 
+                2: "Partiellement nuageux",
+                3: "Couvert",
+                45: "Brouillard",
+                48: "Brouillard givrant",
+                51: "Bruine légère",
+                53: "Bruine modérée", 
+                55: "Bruine forte",
+                61: "Pluie légère",
+                63: "Pluie modérée",
+                65: "Pluie forte",
+                71: "Neige légère",
+                73: "Neige modérée",
+                75: "Neige forte",
+                80: "Averses légères",
+                81: "Averses modérées",
+                82: "Averses fortes",
+                95: "Orage",
+                96: "Orage avec grêle légère",
+                99: "Orage avec grêle forte"
+            };
+            
+            return descriptions[code] || "Conditions inconnues";
+        }
+        
+        function updateLastUpdateTime() {
+            const now = new Date();
+            const timeString = now.toLocaleTimeString('fr-FR', { 
+                hour: '2-digit', 
+                minute: '2-digit' 
+            });
+            const dateString = now.toLocaleDateString('fr-FR');
+            
+            document.getElementById('last-update').textContent = `${timeString}`;
+            document.getElementById('footer-update').textContent = `${dateString} à ${timeString}`;
+        }
+        
+        function retryUpdate() {
+            if (currentVille) {
+                updateWeatherForVille(currentVille);
+            }
+        }
+        
+        document.addEventListener('DOMContentLoaded', function() {
+            initMap();
+            
+            document.getElementById('refresh-data').addEventListener('click', function() {
+                if (currentVille) {
+                    updateWeatherForVille(currentVille);
+                }
+            });
+            
+            document.getElementById('chart-temp').addEventListener('click', function() {
+                this.classList.add('active');
+                document.getElementById('chart-rain').classList.remove('active');
+            });
+            
+            document.getElementById('chart-rain').addEventListener('click', function() {
+                this.classList.add('active');
+                document.getElementById('chart-temp').classList.remove('active');
+            });
+            
+            updateLastUpdateTime();
+            
+            setInterval(() => {
+                if (currentVille) {
+                    updateWeatherForVille(currentVille);
+                }
+            }, 600000);
+        });
+        
+        window.selectVille = selectVille;
+        window.retryUpdate = retryUpdate;
+    </script>
+</body>
+</html><!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Météo Agricole des Villes du Maroc - INOV2</title>
+    
+    <!-- Feuilles de style -->
+    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.7.1/dist/leaflet.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    
+    <!-- Bibliothèques JavaScript -->
+    <script src="https://unpkg.com/leaflet@1.7.1/dist/leaflet.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    
+    <style>
+        /* Variables CSS communes */
+        :root {
+            --primary-green: #2d5016;
+            --secondary-green: #4a7c59;
+            --accent-green: #6b8e23;
+            --light-green: #8fbc8f;
+            --earth-brown: #8b4513;
+            --sky-blue: #4682b4;
+            --warm-orange: #ff8c00;
+            --cream: #f5f5dc;
+            
+            /* Variables du header */
+            --primary-color: #2e7d32; 
+            --secondary-color: #81c784;
+            --accent-color: #ffab00;
+            --text-color: #333; 
+            --light-bg: #f5f5f5;
+            --card-bg: #fff;
+            --dark-bg: #263238;
+        }
+
+        /* Styles du header unifié avec logos */
+        .header-unified {
+            background: linear-gradient(135deg, #ffffff 0%, #f8f9fa 100%);
+            padding: 20px 0 0 0;
+            box-shadow: 0 4px 25px rgba(0,0,0,0.1);
+            position: relative;
+        }
+
+        .header-unified::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 100%;
+            height: 2px;
+            background: linear-gradient(90deg, var(--primary-color) 0%, var(--accent-color) 50%, var(--primary-color) 100%);
+        }
+
+        .logo-container {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: 60px;
+            max-width: 1000px;
+            margin: 0 auto 20px auto;
+            padding: 0 20px;
+            background: rgba(255, 255, 255, 0.95);
+            border-radius: 15px;
+            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.08);
+            backdrop-filter: blur(15px);
+            border: 1px solid rgba(255, 255, 255, 0.3);
+            flex-wrap: wrap;
+            position: relative;
+        }
+
+        .logo-wrapper {
+            position: relative;
+            transition: all 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        .logo-wrapper::before {
+            content: '';
+            position: absolute;
+            top: -10px;
+            left: -10px;
+            right: -10px;
+            bottom: -10px;
+            background: linear-gradient(45deg, rgba(255, 160, 0, 0.2), rgba(56, 182, 161, 0.2));
+            border-radius: 15px;
+            opacity: 0;
+            transition: all 0.4s ease;
+            z-index: -1;
+            filter: blur(5px);
+        }
+
+        .logo-wrapper:hover::before {
+            opacity: 1;
+            transform: scale(1.1);
+        }
+
+        .logo {
+            height: 75px;
+            transition: all 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+            filter: drop-shadow(0 5px 15px rgba(0,0,0,0.1));
+            border-radius: 10px;
+            padding: 5px;
+            background: rgba(255, 255, 255, 0.9);
+            border: 1px solid rgba(255, 255, 255, 0.3);
+        }
+
+        .logo:hover {
+            transform: translateY(-8px) scale(1.08) rotateY(5deg);
+            filter: drop-shadow(0 15px 30px rgba(0,0,0,0.2));
+            background: rgba(255, 255, 255, 1);
+        }
+
+        .logo-pole {
+            height: 85px;
+            margin: 0 40px;
+            position: relative;
+        }
+
+        .logo-pole::after {
+            content: '⭐';
+            position: absolute;
+            top: -5px;
+            right: -5px;
+            font-size: 1.2rem;
+            animation: twinkle 2s ease-in-out infinite;
+        }
+
+        @keyframes twinkle {
+            0%, 100% { opacity: 0.7; transform: scale(1); }
+            50% { opacity: 1; transform: scale(1.2); }
+        }
+
+        /* Navigation intégrée */
+        .navbar { 
+            background: linear-gradient(135deg, rgba(38, 50, 56, 0.95) 0%, rgba(26, 37, 47, 0.95) 100%); 
+            backdrop-filter: blur(15px);
+            box-shadow: none;
+            padding: 15px 0;
+            border-top: 1px solid rgba(255,255,255,0.1);
+            margin: 0;
+        }
+
+        .navbar-brand { 
+            display: flex; 
+            align-items: center; 
+        }
+
+        .navbar-brand img { 
+            height: 36px; 
+            margin-right: 12px; 
+            transition: transform 0.3s; 
+        }
+
+        .navbar-brand:hover img { 
+            transform: rotate(15deg); 
+        }
+
+        .navbar-brand .brand-text { 
+            font-weight: 700; 
+            font-size: 1.3rem; 
+            color: white; 
+            letter-spacing: 0.5px; 
+        }
+
+        .nav-link { 
+            color: rgba(255,255,255,0.9) !important; 
+            margin: 0 8px; 
+            font-weight: 500; 
+            position: relative; 
+            padding: 8px 12px !important; 
+            transition: all 0.3s; 
+        }
+
+        .nav-link:before { 
+            content: ''; 
+            position: absolute; 
+            bottom: 0; 
+            left: 50%; 
+            transform: translateX(-50%); 
+            width: 0; 
+            height: 2px; 
+            background: var(--accent-color); 
+            transition: width 0.3s; 
+        }
+
+        .nav-link:hover { 
+            color: white !important; 
+            transform: translateY(-2px); 
+        }
+
+        .nav-link:hover:before { 
+            width: 80%; 
+        }
+
+        .nav-link.active { 
+            color: white !important; 
+            font-weight: 600; 
+        }
+
+        .nav-link.active:before { 
+            width: 80%; 
+            background: var(--primary-color); 
+        }
+
+        /* Animations et transitions */
+        .fade-in {
+            animation: fadeIn 0.8s ease-in-out;
+        }
+        
+        .slide-in {
+            animation: slideIn 0.6s ease-out;
+        }
+        
+        .pulse-marker {
+            animation: pulse 2s infinite;
+        }
+        
+        .card-hover {
+            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+        
+        .card-hover:hover {
+            transform: translateY(-8px) scale(1.02);
+            box-shadow: 0 25px 50px -12px rgba(45, 80, 22, 0.25);
+        }
+        
+        .glass-effect {
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+        }
+        
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        
+        @keyframes slideIn {
+            from { transform: translateX(-30px); opacity: 0; }
+            to { transform: translateX(0); opacity: 1; }
+        }
+        
+        @keyframes pulse {
+            0%, 100% { transform: scale(1); opacity: 1; }
+            50% { transform: scale(1.1); opacity: 0.7; }
+        }
+        
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+        
+        @keyframes float {
+            0%, 100% { transform: translateY(0px); }
+            50% { transform: translateY(-10px); }
+        }
+
+        /* Styles personnalisés avec thème agricole */
+        body {
+            background: linear-gradient(135deg, var(--cream) 0%, #e8f5e8 50%, #d4f1d4 100%);
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+        
+        .weather-icon {
+            filter: drop-shadow(0 4px 8px rgba(45, 80, 22, 0.2));
+            animation: float 3s ease-in-out infinite;
+        }
+        
+        .map-container {
+            border-radius: 16px;
+            overflow: hidden;
+            box-shadow: 0 20px 25px -5px rgba(45, 80, 22, 0.1), 0 10px 10px -5px rgba(45, 80, 22, 0.04);
+            border: 2px solid var(--light-green);
+        }
+        
+        .info-card {
+            border-left: 4px solid var(--secondary-green);
+            background: linear-gradient(135deg, rgba(139, 188, 143, 0.1) 0%, rgba(255, 255, 255, 0.9) 100%);
+        }
+        
+        .chart-container {
+            height: 300px;
+            position: relative;
+        }
+        
+        .loading-spinner {
+            animation: spin 1.5s linear infinite;
+            color: var(--secondary-green);
+        }
+        
+        .region-boundary {
+            fill: none;
+            stroke: var(--secondary-green);
+            stroke-width: 2;
+            stroke-dasharray: 5, 5;
+        }
+        
+        .agriculture-card {
+            background: linear-gradient(135deg, #f0fff4 0%, #dcfce7 50%, #bbf7d0 100%);
+            border-left: 4px solid var(--accent-green);
+            border-radius: 12px;
+        }
+        
+        .region-highlight {
+            fill: var(--accent-green) !important;
+            fill-opacity: 0.6 !important;
+            stroke: var(--primary-green) !important;
+            stroke-width: 3 !important;
+        }
+        
+        .region-normal {
+            fill: var(--light-green);
+            fill-opacity: 0.3;
+            stroke: var(--secondary-green);
+            stroke-width: 2;
+        }
+        
+        .region-hover {
+            fill: var(--secondary-green);
+            fill-opacity: 0.5;
+            stroke: var(--primary-green);
+            stroke-width: 2.5;
+        }
+        
+        .weather-card {
+            background: linear-gradient(135deg, rgba(70, 130, 180, 0.1) 0%, rgba(255, 255, 255, 0.95) 100%);
+        }
+        
+        .temperature-display {
+            font-size: 3rem;
+            font-weight: 700;
+            color: var(--primary-green);
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.1);
+        }
+        
+        .region-name {
+            color: var(--primary-green);
+            font-weight: 600;
+            font-size: 1.2rem;
+        }
+        
+        .forecast-card {
+            background: linear-gradient(135deg, rgba(255, 255, 255, 0.9) 0%, rgba(245, 245, 220, 0.8) 100%);
+            border: 1px solid var(--light-green);
+            transition: all 0.3s ease;
+        }
+        
+        .forecast-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 20px rgba(45, 80, 22, 0.15);
+        }
+        
+        .header-gradient {
+            background: linear-gradient(135deg, var(--primary-green) 0%, var(--secondary-green) 50%, var(--accent-green) 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+        
+        .btn-primary {
+            background: linear-gradient(135deg, var(--secondary-green) 0%, var(--accent-green) 100%);
+            color: white;
+            border: none;
+            padding: 12px 24px;
+            border-radius: 8px;
+            font-weight: 600;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 15px rgba(45, 80, 22, 0.2);
+        }
+        
+        .btn-primary:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 25px rgba(45, 80, 22, 0.3);
+        }
+        
+        .city-selector {
+            position: absolute;
+            top: 120px;
+            right: 20px;
+            z-index: 1000;
+            background: rgba(255, 255, 255, 0.95);
+            border-radius: 12px;
+            padding: 15px;
+            width: 250px;
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
+            border: 1px solid var(--light-green);
+            max-height: 70vh;
+            overflow-y: auto;
+        }
+        
+        .city-selector h3 {
+            margin-top: 0;
+            margin-bottom: 15px;
+            color: var(--primary-green);
+            font-size: 1.1rem;
+            display: flex;
+            align-items: center;
+        }
+        
+        .city-selector h3 i {
+            margin-right: 8px;
+        }
+        
+        .city-group {
+            margin-bottom: 15px;
+        }
+        
+        .city-group h4 {
+            margin: 0 0 10px 0;
+            font-size: 0.9rem;
+            color: var(--secondary-green);
+            padding-bottom: 5px;
+            border-bottom: 1px dashed var(--light-green);
+        }
+        
+        .city-btn {
+            display: block;
+            width: 100%;
+            padding: 8px 12px;
+            margin-bottom: 8px;
+            background: rgba(143, 188, 143, 0.15);
+            border: none;
+            border-radius: 6px;
+            text-align: left;
+            font-size: 0.9rem;
+            color: var(--primary-green);
+            cursor: pointer;
+            transition: all 0.2s;
+        }
+        
+        .city-btn:hover {
+            background: rgba(107, 142, 35, 0.25);
+            transform: translateX(5px);
+        }
+        
+        .city-btn i {
+            margin-right: 8px;
+            color: var(--accent-green);
+        }
+
+        /* Footer Styles */
+        footer {
+            background: var(--dark-bg);
+            color: white;
+            padding: 60px 0 30px;
+        }
+
+        .footer-content {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 40px;
+            margin-bottom: 40px;
+        }
+
+        .footer-section h5 {
+            color: var(--accent-color);
+            margin-bottom: 25px;
+            font-size: 1.2rem;
+        }
+
+        .footer-section a {
+            color: rgba(255, 255, 255, 0.8);
+            text-decoration: none;
+            transition: color 0.3s;
+        }
+
+        .footer-section a:hover {
+            color: var(--accent-color);
+        }
+
+        .footer-links {
+            list-style: none;
+            padding: 0;
+        }
+
+        .footer-links li {
+            margin-bottom: 12px;
+        }
+
+        .social-icons {
+            display: flex;
+            gap: 15px;
+            margin-top: 25px;
+        }
+
+        .social-icons a {
+            width: 45px;
+            height: 45px;
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: all 0.3s;
+        }
+
+        .social-icons a:hover {
+            background: var(--accent-color);
+            color: var(--dark-bg);
+            transform: translateY(-3px);
+        }
+
+        .copyright {
+            text-align: center;
+            padding-top: 30px;
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+            color: rgba(255, 255, 255, 0.7);
+        }
+        
+        /* Responsive design amélioré */
+        @media (max-width: 768px) {
+            .temperature-display {
+                font-size: 2rem;
+            }
+            
+            .map-container {
+                height: 300px;
+            }
+            
+            .chart-container {
+                height: 250px;
+            }
+            
+            .city-selector {
+                position: relative;
+                top: 0;
+                right: 0;
+                width: 100%;
+                margin-bottom: 20px;
+                max-height: 200px;
+            }
+
+            .logo-container { 
+                gap: 25px; 
+                padding: 20px; 
+            }
+            
+            .logo { 
+                height: 60px; 
+            }
+            
+            .logo-pole { 
+                height: 70px; 
+                margin: 0 20px; 
+            }
+        }
+
+        @media (max-width: 480px) {
+            .logo-container { 
+                flex-direction: column; 
+                gap: 20px; 
+            }
+            
+            .logo-pole { 
+                order: -1; 
+                margin: 0; 
+            }
+        }
+        
+        /* Styles pour les marqueurs pulsants */
+        .pulsing-marker {
+            width: 20px;
+            height: 20px;
+            background: var(--warm-orange);
+            border: 3px solid white;
+            border-radius: 50%;
+            box-shadow: 0 0 0 0 rgba(255, 140, 0, 0.7);
+            animation: pulse-marker 2s infinite;
+        }
+        
+        @keyframes pulse-marker {
+            0% {
+                transform: scale(0.95);
+                box-shadow: 0 0 0 0 rgba(255, 140, 0, 0.7);
+            }
+            70% {
+                transform: scale(1);
+                box-shadow: 0 0 0 10px rgba(255, 140, 0, 0);
+            }
+            100% {
+                transform: scale(0.95);
+                box-shadow: 0 0 0 0 rgba(255, 140, 0, 0);
+            }
+        }
+    </style>
+</head>
+<body class="min-h-screen">
+    <!-- Header unifié avec logos et navigation -->
+    <header class="header-unified">
+        <div class="logo-container fade-in">
+            <div class="logo-wrapper">
+                <img src="images/logo-ministere.png" alt="Ministère de l'Agriculture" class="logo">
+            </div>
+            <div class="logo-wrapper">
+                <img src="images/logo-pole.png" alt="Pôle Digital" class="logo logo-pole">
+            </div>
+            <div class="logo-wrapper">
+                <img src="images/logo-generation.jpeg" alt="Green Generation" class="logo">
+            </div>
+        </div>
+        
+        <!-- Navigation intégrée -->
+        <nav class="navbar navbar-expand-lg navbar-dark">
+            <div class="container">
+                <a class="navbar-brand" href="index.html">
+                    <img src="images/logo-veille.png" alt="Logo Veille">
+                    <span class="brand-text">Veille Technologique Agricole</span>
+                </a>
+                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+                <div class="collapse navbar-collapse" id="navbarNav">
+                    <ul class="navbar-nav ms-auto">
+                        <li class="nav-item"><a class="nav-link" href="index.html">Accueil</a></li>
+                        <li class="nav-item"><a class="nav-link" href="evenement.html">Événements</a></li>
+                        <li class="nav-item"><a class="nav-link" href="innovation.html">Innovations</a></li>
+                        <li class="nav-item"><a class="nav-link" href="subvention.html">Subventions</a></li>
+                        <li class="nav-item"><a class="nav-link active" href="meteo.html">Météo</a></li>
+                        <li class="nav-item"><a class="nav-link" href="contact.html">Contact</a></li>
+                    </ul>
+                </div>
+            </div>
+        </nav>
+    </header>
+
+    <div class="container mx-auto px-4 py-8 max-w-7xl">
+        <!-- En-tête amélioré -->
+        <header class="text-center mb-12 fade-in">
+            <div class="mb-6">
+                <h1 class="text-4xl md:text-5xl font-bold mb-4 header-gradient">
+                    <i class="fas fa-map-marked-alt mr-3"></i> 
+                    Météo Agricole des Villes du Maroc
+                </h1>
+                <div class="w-24 h-1 bg-gradient-to-r from-green-600 to-green-400 mx-auto rounded-full mb-4"></div>
+                <p class="text-gray-700 max-w-3xl mx-auto text-lg leading-relaxed">
+                    Plateforme de veille technologique agricole - Données météorologiques en temps réel pour les principales villes agricoles du Maroc
+                </p>
+            </div>
+            <div class="flex justify-center space-x-4 text-sm">
+                <span class="bg-green-100 text-green-800 px-3 py-1 rounded-full">
+                    <i class="fas fa-leaf mr-1"></i> Pôle Digital Agriculture
+                </span>
+                <span class="bg-blue-100 text-blue-800 px-3 py-1 rounded-full">
+                    <i class="fas fa-cloud mr-1"></i> Données temps réel
+                </span>
+                <span class="bg-orange-100 text-orange-800 px-3 py-1 rounded-full">
+                    <i class="fas fa-city mr-1"></i> 45 villes
+                </span>
+            </div>
+        </header>
+
+        <div class="grid grid-cols-1 lg:grid-cols-3 gap-8">
+            <!-- Carte interactive améliorée -->
+            <div class="lg:col-span-2 slide-in">
+                <div class="glass-effect rounded-2xl shadow-2xl p-6 card-hover relative">
+                    <div class="flex justify-between items-center mb-4">
+                        <h2 class="text-2xl font-bold text-gray-800 flex items-center">
+                            <i class="fas fa-globe-africa text-green-600 mr-2"></i>
+                            Carte Interactive des Villes
+                        </h2>
+                        <div class="flex space-x-2">
+                            <button id="zoom-in" class="btn-primary text-sm px-3 py-1">
+                                <i class="fas fa-search-plus"></i>
+                            </button>
+                            <button id="zoom-out" class="btn-primary text-sm px-3 py-1">
+                                <i class="fas fa-search-minus"></i>
+                            </button>
+                        </div>
+                    </div>
+                    <div class="map-container">
+                        <div id="map" class="h-96 w-full rounded-lg"></div>
+                    </div>
+                    
+                    <!-- Sélecteur de villes -->
+                    <div class="city-selector fade-in">
+                        <h3><i class="fas fa-map-marker-alt"></i> Sélectionnez une ville</h3>
+                        
+                        <div class="city-group">
+                            <h4>Nord-Ouest</h4>
+                            <button class="city-btn" onclick="selectVille('Tanger')"><i class="fas fa-location-dot"></i> Tanger</button>
+                            <button class="city-btn" onclick="selectVille('Tétouan')"><i class="fas fa-location-dot"></i> Tétouan</button>
+                            <button class="city-btn" onclick="selectVille('Larache')"><i class="fas fa-location-dot"></i> Larache</button>
+                            <button class="city-btn" onclick="selectVille('Kénitra')"><i class="fas fa-location-dot"></i> Kénitra</button>
+                        </div>
+                        
+                        <div class="city-group">
+                            <h4>Centre Atlantique</h4>
+                            <button class="city-btn" onclick="selectVille('Rabat')"><i class="fas fa-location-dot"></i> Rabat</button>
+                            <button class="city-btn" onclick="selectVille('Casablanca')"><i class="fas fa-location-dot"></i> Casablanca</button>
+                            <button class="city-btn" onclick="selectVille('El Jadida')"><i class="fas fa-location-dot"></i> El Jadida</button>
+                            <button class="city-btn" onclick="selectVille('Safi')"><i class="fas fa-location-dot"></i> Safi</button>
+                        </div>
+                        
+                        <div class="city-group">
+                            <h4>Nord-Est</h4>
+                            <button class="city-btn" onclick="selectVille('Oujda')"><i class="fas fa-location-dot"></i> Oujda</button>
+                            <button class="city-btn" onclick="selectVille('Nador')"><i class="fas fa-location-dot"></i> Nador</button>
+                            <button class="city-btn" onclick="selectVille('Al Hoceïma')"><i class="fas fa-location-dot"></i> Al Hoceïma</button>
+                        </div>
+                        
+                        <div class="city-group">
+                            <h4>Centre Intérieur</h4>
+                            <button class="city-btn" onclick="selectVille('Fès')"><i class="fas fa-location-dot"></i> Fès</button>
+                            <button class="city-btn" onclick="selectVille('Meknès')"><i class="fas fa-location-dot"></i> Meknès</button>
+                            <button class="city-btn" onclick="selectVille('Ifrane')"><i class="fas fa-location-dot"></i> Ifrane</button>
+                            <button class="city-btn" onclick="selectVille('Sefrou')"><i class="fas fa-location-dot"></i> Sefrou</button>
+                        </div>
+                        
+                        <div class="city-group">
+                            <h4>Centre Sud</h4>
+                            <button class="city-btn" onclick="selectVille('Marrakech')"><i class="fas fa-location-dot"></i> Marrakech</button>
+                            <button class="city-btn" onclick="selectVille('Beni Mellal')"><i class="fas fa-location-dot"></i> Beni Mellal</button>
+                            <button class="city-btn" onclick="selectVille('Khouribga')"><i class="fas fa-location-dot"></i> Khouribga</button>
+                        </div>
+                        
+                        <div class="city-group">
+                            <h4>Sud-Ouest</h4>
+                            <button class="city-btn" onclick="selectVille('Agadir')"><i class="fas fa-location-dot"></i> Agadir</button>
+                            <button class="city-btn" onclick="selectVille('Taroudant')"><i class="fas fa-location-dot"></i> Taroudant</button>
+                            <button class="city-btn" onclick="selectVille('Tiznit')"><i class="fas fa-location-dot"></i> Tiznit</button>
+                        </div>
+                        
+                        <div class="city-group">
+                            <h4>Sud</h4>
+                            <button class="city-btn" onclick="selectVille('Ouarzazate')"><i class="fas fa-location-dot"></i> Ouarzazate</button>
+                            <button class="city-btn" onclick="selectVille('Errachidia')"><i class="fas fa-location-dot"></i> Errachidia</button>
+                            <button class="city-btn" onclick="selectVille('Tinghir')"><i class="fas fa-location-dot"></i> Tinghir</button>
+                        </div>
+                        
+                        <div class="city-group">
+                            <h4>Extrême Sud</h4>
+                            <button class="city-btn" onclick="selectVille('Laâyoune')"><i class="fas fa-location-dot"></i> Laâyoune</button>
+                            <button class="city-btn" onclick="selectVille('Dakhla')"><i class="fas fa-location-dot"></i> Dakhla</button>
+                            <button class="city-btn" onclick="selectVille('Guelmim')"><i class="fas fa-location-dot"></i> Guelmim</button>
+                        </div>
+                    </div>
+                    
+                    <div class="mt-6 flex justify-between items-center">
+                        <p class="text-gray-600 text-sm flex items-center">
+                            <i class="fas fa-mouse-pointer mr-2 text-green-600"></i>
+                            Cliquez sur un marqueur ou sélectionnez une ville pour afficher les données météo
+                        </p>
+                        <div class="text-sm bg-green-50 px-4 py-2 rounded-full text-green-700 border border-green-200">
+                            <i class="fas fa-map mr-1"></i> <span id="selected-city">Aucune sélection</span>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Graphique des prévisions amélioré -->
+                <div class="glass-effect rounded-2xl shadow-2xl p-6 mt-8 card-hover">
+                    <div class="flex justify-between items-center mb-6">
+                        <h2 class="text-2xl font-semibold text-gray-800 flex items-center">
+                            <i class="fas fa-chart-line text-blue-600 mr-2"></i> 
+                            Analyse des Températures
+                        </h2>
+                        <div class="flex space-x-2">
+                            <button id="chart-temp" class="btn-primary text-sm px-3 py-1 active">Températures</button>
+                            <button id="chart-rain" class="btn-primary text-sm px-3 py-1">Précipitations</button>
+                        </div>
+                    </div>
+                    <div class="chart-container">
+                        <canvas id="temperature-chart"></canvas>
+                    </div>
+                </div>
+            </div>
+            
+
+            <div class="lg:col-span-1 space-y-6">
+                <div class="glass-effect weather-card rounded-2xl shadow-2xl p-6 card-hover">
+                    <h2 class="text-xl font-bold text-gray-800 mb-4 flex items-center">
+                        <i class="fas fa-thermometer-half text-orange-500 mr-2"></i>
+                        Météo Actuelle
+                    </h2>
+                    <div id="current-weather" class="text-center">
+                        <div class="flex justify-center mb-6">
+                            <i class="fas fa-cloud-sun text-6xl text-blue-500 weather-icon"></i>
+                        </div>
+                        <div class="text-gray-500 text-sm">
+                            <i class="fas fa-sync-alt loading-spinner mr-2"></i> 
+                            Sélectionnez une ville sur la carte
+                        </div>
+                    </div>
+                </div>
+
+                <div class="glass-effect rounded-2xl shadow-2xl p-6 card-hover">
+                    <h2 class="text-xl font-bold text-gray-800 mb-4 flex items-center">
+                        <i class="fas fa-info-circle text-blue-600 mr-2"></i> 
+                        Détails Météorologiques
+                    </h2>
+                    <div id="extra-info" class="grid grid-cols-2 gap-4">
+                        <div class="info-card p-4 rounded-lg">
+                            <div class="flex items-center mb-2">
+                                <i class="fas fa-wind text-blue-600 mr-2"></i>
+                                <span class="font-semibold text-gray-700">Vent</span>
+                            </div>
+                            <div class="text-2xl font-bold text-gray-800"><span id="wind-speed">--</span> km/h</div>
+                        </div>
+                        
+                        <div class="info-card p-4 rounded-lg">
+                            <div class="flex items-center mb-2">
+                                <i class="fas fa-tint text-blue-600 mr-2"></i>
+                                <span class="font-semibold text-gray-700">Humidité</span>
+                            </div>
+                            <div class="text-2xl font-bold text-gray-800"><span id="humidity">--</span>%</div>
+                        </div>
+                        
+                        <div class="info-card p-4 rounded-lg">
+                            <div class="flex items-center mb-2">
+                                <i class="fas fa-thermometer-half text-orange-500 mr-2"></i>
+                                <span class="font-semibold text-gray-700">Ressenti</span>
+                            </div>
+                            <div class="text-2xl font-bold text-gray-800"><span id="feels-like">--</span>°C</div>
+                        </div>
+                        
+                        <div class="info-card p-4 rounded-lg">
+                            <div class="flex items-center mb-2">
+                                <i class="fas fa-cloud-rain text-blue-600 mr-2"></i>
+                                <span class="font-semibold text-gray-700">Précipitations</span>
+                            </div>
+                            <div class="text-2xl font-bold text-gray-800"><span id="precipitation">--</span> mm</div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="agriculture-card shadow-2xl p-6 card-hover">
+                    <h2 class="text-xl font-bold text-gray-800 mb-4 flex items-center">
+                        <i class="fas fa-tractor text-green-600 mr-2"></i> 
+                        Conseils Agricoles Personnalisés
+                    </h2>
+                    <div id="agriculture-tips" class="text-gray-700 space-y-3">
+                        <div class="flex items-start">
+                            <i class="fas fa-seedling text-green-600 mt-1 mr-3 text-lg"></i>
+                            <div class="text-sm">Sélectionnez une ville pour obtenir des conseils adaptés aux conditions météorologiques locales et aux spécificités agricoles de la zone.</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="glass-effect rounded-2xl shadow-2xl p-6 mt-8 card-hover fade-in">
+            <div class="flex justify-between items-center mb-8">
+                <h2 class="text-2xl font-bold text-gray-800 flex items-center">
+                    <i class="fas fa-calendar-alt text-blue-600 mr-2"></i> 
+                    Prévisions Détaillées - 5 Jours
+                </h2>
+                <div class="flex items-center space-x-4">
+                    <div class="text-sm bg-blue-50 px-4 py-2 rounded-full text-blue-700 border border-blue-200">
+                        <i class="fas fa-sync-alt mr-1"></i> Mise à jour: <span id="last-update">--</span>
+                    </div>
+                    <button id="refresh-data" class="btn-primary text-sm">
+                        <i class="fas fa-refresh mr-1"></i> Actualiser
+                    </button>
+                </div>
+            </div>
+            
+            <div id="daily-forecast" class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-5 gap-6">
+            </div>
+        </div>
+        
+
+        <footer class="mt-16 text-center text-gray-600 text-sm py-8 border-t border-gray-200">
+            <div class="max-w-4xl mx-auto">
+                <div class="grid grid-cols-1 md:grid-cols-3 gap-6 mb-6">
+                    <div>
+                        <h4 class="font-semibold text-gray-800 mb-2">Sources de Données</h4>
+                        <p>API Open-Meteo • Données en temps réel</p>
+                    </div>
+                    <div>
+                        <h4 class="font-semibold text-gray-800 mb-2">Cartographie</h4>
+                        <p>OpenStreetMap • GeoJSON Maroc</p>
+                    </div>
+                    <div>
+                        <h4 class="font-semibold text-gray-800 mb-2">Développé par</h4>
+                        <p>INOV2 - Pôle Digital Agriculture</p>
+                    </div>
+                </div>
+                <div class="border-t border-gray-200 pt-4">
+                    <p class="text-xs">
+                        © 2024 INOV2 - Observatoire de la Sécheresse au Maroc • 
+                        Dernière mise à jour : <span id="footer-update">--</span>
+                    </p>
+                </div>
+            </div>
+        </footer>
+    </div>
+
+    <!-- Footer unifié avec informations du Pôle Digital -->
+    <footer>
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-section">
+                    <h5>Pôle Digital de l'Agriculture</h5>
+                    <p style="color: rgba(255,255,255,0.8);">
+                        Groupement d'Intérêt Public pour une agriculture 4.0, moderne et innovante dans le cadre de la stratégie Génération Green 2020-2030.
+                    </p>
+                    <div class="social-icons">
+                        <a href="https://www.linkedin.com/company/p%C3%B4le-digital/posts/?feedView=all" target="_blank"><i class="fab fa-linkedin-in"></i></a>
+                        <a href="https://x.com/Pole_Digital_Ma" target="_blank"><i class="fab fa-x-twitter"></i></a>
+                        <a href="https://www.youtube.com/@PoleDigital" target="_blank"><i class="fab fa-youtube"></i></a>
+                        <a href="https://www.facebook.com/poledigital.ma" target="_blank"><i class="fab fa-facebook-f"></i></a>
+                    </div>
+                </div>
+                
+                <div class="footer-section">
+                    <h5>Partenaires Institutionnels</h5>
+                    <ul class="footer-links">
+                        <li><a href="https://www.agriculture.gov.ma" target="_blank">Ministère de l'Agriculture</a></li>
+                        <li><a href="https://www.ada.gov.ma" target="_blank">ADA</a></li>
+                        <li><a href="https://www.onssa.gov.ma" target="_blank">ONSSA</a></li>
+                        <li><a href="https://iav.ac.ma" target="_blank">IAV Hassan II</a></li>
+                        <li><a href="https://www.enameknes.ac.ma" target="_blank">ENA Meknès</a></li>
+                        <li><a href="https://www.inra.ma" target="_blank">INRA</a></li>
+                    </ul>
+                </div>
+                
+                <div class="footer-section">
+                    <h5>Contact Rapide</h5>
+                    <p><i class="fas fa-envelope"></i> contact@poledigital.ma</p>
+                    <p><i class="fas fa-phone"></i> +212 (0) 6 96 98 89 92</p>
+                    <p><i class="fas fa-map-marker-alt"></i> Rabat & Ifrane, Maroc</p>
+                    <a href="mailto:contact@poledigital.ma" style="background: var(--accent-color); color: white; padding: 10px 20px; border-radius: 25px; text-decoration: none; display: inline-block; margin-top: 15px; transition: all 0.3s ease;">
+                        <i class="fas fa-envelope me-2"></i>Nous écrire
+                    </a>
+                </div>
+            </div>
+            
+            <div class="copyright">
+                <p>&copy; 2025 Veille Technologique Agricole - Pôle Digital de l'Agriculture. Tous droits réservés.</p>
+            </div>
+        </div>
+    </footer>
