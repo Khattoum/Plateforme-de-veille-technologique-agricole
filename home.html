@@ -1,0 +1,1422 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Veille Technologique Agricole - Accueil</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        :root { 
+            --primary-color: #2e7d32; 
+            --secondary-color: #81c784;
+            --accent-color: #ffab00;
+            --text-color: #333; 
+            --light-bg: #f5f5f5;
+            --card-bg: #fff;
+            --dark-bg: #263238;
+        }
+
+        body { 
+            font-family: 'Segoe UI', system-ui, sans-serif; 
+            background: var(--light-bg); 
+            color: var(--text-color); 
+            line-height: 1.6;
+        }
+
+        /* Header unifié avec logos et navigation - STYLES MODERNES APPLIQUÉS */
+        .header-unified {
+            background: linear-gradient(135deg, #ffffff 0%, #f8f9fa 100%);
+            padding: 20px 0 0 0;
+            box-shadow: 0 4px 25px rgba(0,0,0,0.1);
+            position: relative;
+        }
+
+        .header-unified::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 100%;
+            height: 2px;
+            background: linear-gradient(90deg, var(--primary-color) 0%, var(--accent-color) 50%, var(--primary-color) 100%);
+        }
+
+        /* STYLES MODERNES DES LOGOS COPIÉS DE ACCEUIL.HTML */
+        .logo-container {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: 60px;
+            max-width: 1000px;
+            margin: 0 auto 20px auto;
+            padding: 0 20px;
+            background: rgba(255, 255, 255, 0.95);
+            border-radius: 15px;
+            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.08);
+            backdrop-filter: blur(15px);
+            border: 1px solid rgba(255, 255, 255, 0.3);
+            flex-wrap: wrap;
+            position: relative;
+        }
+
+        .logo-wrapper {
+            position: relative;
+            transition: all 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        .logo-wrapper::before {
+            content: '';
+            position: absolute;
+            top: -10px;
+            left: -10px;
+            right: -10px;
+            bottom: -10px;
+            background: linear-gradient(45deg, rgba(255, 160, 0, 0.2), rgba(56, 182, 161, 0.2));
+            border-radius: 15px;
+            opacity: 0;
+            transition: all 0.4s ease;
+            z-index: -1;
+            filter: blur(5px);
+        }
+
+        .logo-wrapper:hover::before {
+            opacity: 1;
+            transform: scale(1.1);
+        }
+
+        .logo {
+            height: 75px;
+            transition: all 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+            filter: drop-shadow(0 5px 15px rgba(0,0,0,0.1));
+            border-radius: 10px;
+            padding: 5px;
+            background: rgba(255, 255, 255, 0.9);
+            border: 1px solid rgba(255, 255, 255, 0.3);
+        }
+
+        .logo:hover {
+            transform: translateY(-8px) scale(1.08) rotateY(5deg);
+            filter: drop-shadow(0 15px 30px rgba(0,0,0,0.2));
+            background: rgba(255, 255, 255, 1);
+        }
+
+        .logo-pole {
+            height: 85px;
+            margin: 0 40px;
+            position: relative;
+        }
+
+        .logo-pole::after {
+            content: '⭐';
+            position: absolute;
+            top: -5px;
+            right: -5px;
+            font-size: 1.2rem;
+            animation: twinkle 2s ease-in-out infinite;
+        }
+
+        @keyframes twinkle {
+            0%, 100% { opacity: 0.7; transform: scale(1); }
+            50% { opacity: 1; transform: scale(1.2); }
+        }
+
+        /* Responsive pour les logos modernes */
+        @media (max-width: 768px) {
+            .logo-container {
+                gap: 25px;
+                padding: 20px;
+            }
+            
+            .logo {
+                height: 60px;
+            }
+            
+            .logo-pole {
+                height: 70px;
+                margin: 0 20px;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .logo-container {
+                flex-direction: column;
+                gap: 20px;
+            }
+            
+            .logo-pole {
+                order: -1;
+                margin: 0;
+            }
+        }
+        /* FIN DES STYLES MODERNES DES LOGOS */
+
+        /* Navigation intégrée */
+        .navbar { 
+            background: linear-gradient(135deg, rgba(38, 50, 56, 0.95) 0%, rgba(26, 37, 47, 0.95) 100%); 
+            backdrop-filter: blur(15px);
+            box-shadow: none;
+            padding: 15px 0;
+            border-top: 1px solid rgba(255,255,255,0.1);
+            margin: 0;
+        }
+
+        .navbar-brand { 
+            display: flex; 
+            align-items: center; 
+        }
+
+        .navbar-brand img { 
+            height: 36px; 
+            margin-right: 12px; 
+            transition: transform 0.3s; 
+        }
+
+        .navbar-brand:hover img { 
+            transform: rotate(15deg); 
+        }
+
+        .navbar-brand .brand-text { 
+            font-weight: 700; 
+            font-size: 1.3rem; 
+            color: white; 
+            letter-spacing: 0.5px; 
+        }
+
+        .nav-link { 
+            color: rgba(255,255,255,0.9) !important; 
+            margin: 0 8px; 
+            font-weight: 500; 
+            position: relative; 
+            padding: 8px 12px !important; 
+            transition: all 0.3s; 
+        }
+
+        .nav-link:before { 
+            content: ''; 
+            position: absolute; 
+            bottom: 0; 
+            left: 50%; 
+            transform: translateX(-50%); 
+            width: 0; 
+            height: 2px; 
+            background: var(--accent-color); 
+            transition: width 0.3s; 
+        }
+
+        .nav-link:hover { 
+            color: white !important; 
+            transform: translateY(-2px); 
+        }
+
+        .nav-link:hover:before { 
+            width: 80%; 
+        }
+
+        .nav-link.active { 
+            color: white !important; 
+            font-weight: 600; 
+        }
+
+        .nav-link.active:before { 
+            width: 80%; 
+            background: var(--primary-color); 
+        }
+
+        /* Hero Section MODIFIÉE - Titre fixe avec image de fond floutée */
+        .hero { 
+            position: relative;
+            background: url('images/index.png');
+            background-size: cover;
+            background-position: center;
+            background-attachment: fixed;
+            color: white;
+            text-align: center;
+            padding: 100px 0 80px;
+            overflow: hidden;
+            clip-path: polygon(0 0, 100% 0, 100% 90%, 0 100%);
+            margin-bottom: 40px;
+        }
+
+        .hero::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: url('images/index.png') center/cover;
+            filter: blur(3px) brightness(0.7);
+            z-index: -1;
+        }
+
+        .hero::after {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.3);
+            z-index: 0;
+        }
+
+        .hero .container {
+            position: relative;
+            z-index: 2;
+        }
+
+        .hero h1 { 
+            font-size: 3rem; 
+            font-weight: 800; 
+            margin-bottom: 20px; 
+            text-shadow: 0 3px 10px rgba(0,0,0,0.5); 
+            position: relative;
+        }
+
+        .hero .subtitle { 
+            margin-top: 15px; 
+            font-size: 1.3rem; 
+            font-weight: 300; 
+            max-width: 700px; 
+            margin: 0 auto 30px; 
+            opacity: 0.95; 
+            text-shadow: 0 2px 8px rgba(0,0,0,0.4);
+            backdrop-filter: blur(1px);
+        }
+
+        .hero-features {
+            display: flex;
+            justify-content: center;
+            gap: 30px;
+            margin-top: 40px;
+            flex-wrap: wrap;
+        }
+
+        .hero-feature {
+            background: rgba(255, 255, 255, 0.2);
+            backdrop-filter: blur(10px);
+            padding: 15px 25px;
+            border-radius: 50px;
+            border: 1px solid rgba(255, 255, 255, 0.3);
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.2);
+        }
+
+        .hero-feature:hover {
+            background: rgba(255, 255, 255, 0.3);
+            transform: translateY(-3px);
+            box-shadow: 0 8px 25px rgba(0,0,0,0.3);
+        }
+
+        .hero-feature i {
+            margin-right: 8px;
+            color: var(--accent-color);
+            text-shadow: 0 1px 3px rgba(0,0,0,0.3);
+        }
+
+        /* Section titles - Correction du z-index */
+        .section-title { 
+            position: relative; 
+            padding-bottom: 15px; 
+            margin-bottom: 40px; 
+            color: var(--dark-bg); 
+            font-weight: 700;
+            text-align: center;
+            font-size: 2.2rem;
+            z-index: 10;
+        }
+
+        .section-title:after { 
+            content: ''; 
+            position: absolute; 
+            bottom: 0; 
+            left: 50%;
+            transform: translateX(-50%);
+            width: 60px; 
+            height: 4px; 
+            background: var(--primary-color); 
+            border-radius: 2px; 
+        }
+
+        /* Categories Section - Design 2x2 moderne */
+        .categories {
+            padding: 70px 0;
+            background: linear-gradient(135deg, #f8f9fa 0%, #ffffff 50%, #f1f3f4 100%);
+            position: relative;
+            z-index: 1;
+        }
+
+        .categories::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 80 80"><circle cx="40" cy="40" r="2" fill="%232e7d32" opacity="0.03"/></svg>');
+            background-size: 80px 80px;
+            z-index: 0;
+        }
+
+        .categories .container {
+            position: relative;
+            z-index: 2;
+        }
+
+        .categories-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            grid-template-rows: repeat(2, 1fr);
+            gap: 25px;
+            margin-top: 40px;
+            max-width: 900px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        .category-card {
+            background: linear-gradient(145deg, #ffffff 0%, #f8f9fa 100%);
+            border-radius: 20px;
+            overflow: hidden;
+            box-shadow: 0 12px 30px rgba(0, 0, 0, 0.08);
+            transition: all 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            height: 320px;
+            display: flex;
+            flex-direction: column;
+            position: relative;
+            border: 1px solid rgba(255, 255, 255, 0.8);
+            backdrop-filter: blur(10px);
+        }
+
+        .category-card::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            background: radial-gradient(circle, rgba(255, 255, 255, 0.1) 0%, transparent 70%);
+            transform: scale(0);
+            transition: transform 0.6s ease;
+            z-index: 1;
+        }
+
+        .category-card:hover::before {
+            transform: scale(1);
+        }
+
+        .category-card:hover {
+            transform: translateY(-15px) scale(1.03);
+            box-shadow: 0 25px 60px rgba(0, 0, 0, 0.15);
+        }
+
+        .category-header {
+            position: relative;
+            overflow: hidden;
+            padding: 35px 25px;
+            text-align: center;
+            height: 140px;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            z-index: 2;
+        }
+
+        /* Nouvelles couleurs modernes pour chaque catégorie */
+        .category-header.events-bg {
+            background: linear-gradient(135deg, #FF6B6B 0%, #FF8E88 50%, #FFB3B3 100%);
+        }
+
+        .category-header.innovations-bg {
+            background: linear-gradient(135deg, #4ECDC4 0%, #5DD9D1 50%, #7FE5DE 100%);
+        }
+
+        .category-header.subsidies-bg {
+            background: linear-gradient(135deg, #45B7D1 0%, #5BC3D7 50%, #7FD1E1 100%);
+        }
+
+        .category-header.meteo-bg {
+            background: linear-gradient(135deg, #96CEB4 0%, #A8D8C2 50%, #BADE30 100%);
+        }
+
+        .category-icon-container {
+            position: relative;
+            margin-bottom: 12px;
+        }
+
+        .category-icon {
+            font-size: 2.8rem;
+            color: white;
+            transition: all 0.5s ease;
+            position: relative;
+            z-index: 3;
+            text-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
+        }
+
+        .category-icon-bg {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            width: 70px;
+            height: 70px;
+            background: rgba(255, 255, 255, 0.2);
+            border-radius: 50%;
+            transition: all 0.5s ease;
+            z-index: 2;
+        }
+
+        .category-card:hover .category-icon {
+            transform: rotateY(360deg) scale(1.15);
+        }
+
+        .category-card:hover .category-icon-bg {
+            transform: translate(-50%, -50%) scale(1.4);
+            background: rgba(255, 255, 255, 0.3);
+        }
+
+        .category-title {
+            font-size: 1.3rem;
+            font-weight: 700;
+            margin: 0;
+            color: white;
+            line-height: 1.2;
+            text-shadow: 0 1px 4px rgba(0,0,0,0.2);
+        }
+
+        .category-body {
+            padding: 25px;
+            background: linear-gradient(145deg, #ffffff 0%, #f8f9fa 100%);
+            flex-grow: 1;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            position: relative;
+            z-index: 2;
+        }
+
+        .category-description {
+            color: #555;
+            font-size: 0.9rem;
+            margin-bottom: 20px;
+            line-height: 1.6;
+            flex-grow: 1;
+            display: -webkit-box;
+            -webkit-line-clamp: 3;
+            -webkit-box-orient: vertical;
+            overflow: hidden;
+        }
+
+        .category-link {
+            color: white;
+            font-weight: 600;
+            text-decoration: none;
+            font-size: 0.95rem;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            transition: all 0.4s;
+            padding: 12px 20px;
+            border-radius: 12px;
+            position: relative;
+            overflow: hidden;
+            text-align: center;
+            min-height: 44px;
+        }
+
+        /* Couleurs des boutons selon catégorie */
+        .events-card .category-link {
+            background: linear-gradient(135deg, #FF6B6B, #FF8E88);
+            box-shadow: 0 4px 15px rgba(255, 107, 107, 0.3);
+        }
+
+        .innovations-card .category-link {
+            background: linear-gradient(135deg, #4ECDC4, #5DD9D1);
+            box-shadow: 0 4px 15px rgba(78, 205, 196, 0.3);
+        }
+
+        .subsidies-card .category-link {
+            background: linear-gradient(135deg, #45B7D1, #5BC3D7);
+            box-shadow: 0 4px 15px rgba(69, 183, 209, 0.3);
+        }
+
+        .meteo-card .category-link {
+            background: linear-gradient(135deg, #96CEB4, #A8D8C2);
+            box-shadow: 0 4px 15px rgba(150, 206, 180, 0.3);
+        }
+
+        .category-link::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.4), transparent);
+            transition: left 0.5s;
+        }
+
+        .category-link:hover::before {
+            left: 100%;
+        }
+
+        .category-link i {
+            margin-left: 8px;
+            transition: all 0.3s;
+            font-size: 0.85rem;
+        }
+
+        .category-link:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 25px rgba(0, 0, 0, 0.2);
+            color: white;
+            text-decoration: none;
+        }
+
+        .category-link:hover i {
+            transform: translateX(4px);
+        }
+
+        /* Badges décoratifs modernes */
+        .events-card::after {
+            content: '🎪';
+            position: absolute;
+            top: 15px;
+            right: 15px;
+            font-size: 1.2rem;
+            z-index: 3;
+        }
+
+        .innovations-card::after {
+            content: '🚀';
+            position: absolute;
+            top: 15px;
+            right: 15px;
+            font-size: 1.2rem;
+            z-index: 3;
+        }
+
+        .subsidies-card::after {
+            content: '💎';
+            position: absolute;
+            top: 15px;
+            right: 15px;
+            font-size: 1.2rem;
+            z-index: 3;
+        }
+
+        .meteo-card::after {
+            content: '🌍';
+            position: absolute;
+            top: 15px;
+            right: 15px;
+            font-size: 1.2rem;
+            z-index: 3;
+        }
+
+        /* Features Section */
+        .features {
+            background: var(--light-bg);
+            padding: 80px 0;
+            position: relative;
+        }
+
+        .features::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 60 60"><circle cx="30" cy="30" r="1.5" fill="%232e7d32" opacity="0.05"/></svg>');
+            background-size: 60px 60px;
+        }
+
+        .features-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+            gap: 40px;
+            margin-top: 40px;
+            position: relative;
+            z-index: 1;
+        }
+
+        .feature-card {
+            background: white;
+            border-radius: 15px;
+            padding: 40px 30px;
+            text-align: center;
+            transition: all 0.3s ease;
+            box-shadow: 0 8px 25px rgba(0, 0, 0, 0.08);
+            border: 1px solid rgba(0, 0, 0, 0.05);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .feature-card::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            background: radial-gradient(circle, rgba(46, 125, 50, 0.05) 0%, transparent 70%);
+            transform: scale(0);
+            transition: transform 0.3s ease;
+        }
+
+        .feature-card:hover::before {
+            transform: scale(1);
+        }
+
+        .feature-card:hover {
+            transform: translateY(-8px);
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.12);
+        }
+
+        .feature-icon {
+            width: 80px;
+            height: 80px;
+            margin: 0 auto 25px;
+            background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-size: 2rem;
+            transition: all 0.3s ease;
+            box-shadow: 0 8px 25px rgba(46, 125, 50, 0.3);
+        }
+
+        .feature-card:hover .feature-icon {
+            transform: rotateY(360deg) scale(1.1);
+        }
+
+        .feature-card h4 {
+            color: var(--dark-bg);
+            margin-bottom: 20px;
+            font-weight: 600;
+            font-size: 1.3rem;
+        }
+
+        .feature-card p {
+            color: #666;
+            line-height: 1.7;
+            font-size: 1rem;
+        }
+
+        /* About Section */
+        .about {
+            background: white;
+            padding: 80px 0;
+            position: relative;
+        }
+
+        .about::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(45deg, transparent 49%, rgba(46, 125, 50, 0.02) 50%, transparent 51%);
+        }
+
+        .about-content {
+            max-width: 900px;
+            margin: 0 auto;
+            text-align: center;
+            position: relative;
+            z-index: 1;
+        }
+
+        .about p {
+            font-size: 1.15rem;
+            line-height: 1.8;
+            color: #555;
+            margin-bottom: 30px;
+        }
+
+        .about-highlights {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 30px;
+            margin-top: 50px;
+        }
+
+        .highlight-item {
+            background: rgba(46, 125, 50, 0.05);
+            padding: 25px;
+            border-radius: 12px;
+            text-align: center;
+            border-left: 4px solid var(--primary-color);
+        }
+
+        .highlight-item i {
+            font-size: 2rem;
+            color: var(--primary-color);
+            margin-bottom: 15px;
+        }
+
+        .highlight-item h5 {
+            color: var(--dark-bg);
+            margin-bottom: 10px;
+            font-weight: 600;
+        }
+
+        .highlight-item p {
+            font-size: 0.95rem;
+            margin: 0;
+            color: #666;
+        }
+
+        /* Sources Section */
+        .sources {
+            background: var(--light-bg);
+            padding: 60px 0;
+        }
+
+        .sources-grid {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 25px;
+            margin-top: 40px;
+        }
+
+        .source-item {
+            background: white;
+            padding: 20px 25px;
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            box-shadow: 0 5px 20px rgba(0, 0, 0, 0.08);
+            transition: all 0.3s ease;
+            min-width: 200px;
+            border: 1px solid rgba(0, 0, 0, 0.05);
+        }
+
+        .source-item:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 15px 35px rgba(0, 0, 0, 0.12);
+            border-color: var(--secondary-color);
+        }
+
+        .source-item img {
+            width: 40px;
+            height: 40px;
+            object-fit: contain;
+        }
+
+        .source-item span {
+            font-weight: 600;
+            color: var(--dark-bg);
+        }
+
+        /* Footer */
+        footer {
+            background: var(--dark-bg);
+            color: white;
+            padding: 60px 0 30px;
+        }
+
+        .footer-content {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 40px;
+            margin-bottom: 40px;
+        }
+
+        .footer-section h5 {
+            color: var(--accent-color);
+            margin-bottom: 25px;
+            font-size: 1.2rem;
+        }
+
+        .footer-section a {
+            color: rgba(255, 255, 255, 0.8);
+            text-decoration: none;
+            transition: color 0.3s;
+        }
+
+        .footer-section a:hover {
+            color: var(--accent-color);
+        }
+
+        .footer-links {
+            list-style: none;
+            padding: 0;
+        }
+
+        .footer-links li {
+            margin-bottom: 12px;
+        }
+
+        .social-icons {
+            display: flex;
+            gap: 15px;
+            margin-top: 25px;
+        }
+
+        .social-icons a {
+            width: 45px;
+            height: 45px;
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: all 0.3s;
+        }
+
+        .social-icons a:hover {
+            background: var(--accent-color);
+            color: var(--dark-bg);
+            transform: translateY(-3px);
+        }
+
+        .copyright {
+            text-align: center;
+            padding-top: 30px;
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+            color: rgba(255, 255, 255, 0.7);
+        }
+
+        /* Responsive Design */
+        @media (max-width: 992px) {
+            .hero h1 { 
+                font-size: 2.5rem; 
+            }
+            
+            .hero .subtitle { 
+                font-size: 1.2rem; 
+            }
+
+            .hero-features {
+                gap: 15px;
+            }
+
+            .section-title {
+                font-size: 2rem;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .hero {
+                padding: 40px 0 30px;
+                position: relative; /* Changer en relative sur mobile */
+            }
+            
+            .hero h1 { 
+                font-size: 2rem; 
+            }
+            
+            .hero .subtitle { 
+                font-size: 1.1rem; 
+            }
+
+            .hero-features {
+                flex-direction: column;
+                align-items: center;
+                gap: 10px;
+            }
+            
+            .categories-grid {
+                grid-template-columns: 1fr;
+                padding: 0 15px;
+            }
+            
+            .features-grid {
+                grid-template-columns: 1fr;
+                padding: 0 15px;
+            }
+
+            .about-highlights {
+                grid-template-columns: 1fr;
+            }
+            
+            .footer-content {
+                grid-template-columns: 1fr;
+                text-align: center;
+            }
+        }
+
+        @media (max-width: 576px) {
+            .hero h1 { 
+                font-size: 1.8rem; 
+            }
+            
+            .section-title {
+                font-size: 1.8rem;
+            }
+
+            .category-header {
+                padding: 30px 20px;
+            }
+
+            .category-body {
+                padding: 20px;
+            }
+        }
+
+        /* Animations */
+        .fade-in {
+            opacity: 0;
+            transform: translateY(30px);
+            transition: all 0.8s ease;
+        }
+
+        .fade-in.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        .slide-in-left {
+            opacity: 0;
+            transform: translateX(-50px);
+            transition: all 0.8s ease;
+        }
+
+        .slide-in-left.visible {
+            opacity: 1;
+            transform: translateX(0);
+        }
+
+        .slide-in-right {
+            opacity: 0;
+            transform: translateX(50px);
+            transition: all 0.8s ease;
+        }
+
+        .slide-in-right.visible {
+            opacity: 1;
+            transform: translateX(0);
+        }
+    </style>
+</head>
+<body>
+    <!-- Header unifié avec logos et navigation -->
+    <header class="header-unified">
+        <!-- STRUCTURE MODERNE DES LOGOS APPLIQUÉE -->
+        <div class="logo-container fade-in">
+            <div class="logo-wrapper">
+                <img src="images/logo-ministere.png" alt="Ministère" class="logo">
+            </div>
+            <div class="logo-wrapper">
+                <img src="images/logo-pole.png" alt="Pôle Digital" class="logo logo-pole">
+            </div>
+            <div class="logo-wrapper">
+                <img src="images/logo-generation.jpeg" alt="Green Generation" class="logo">
+            </div>
+        </div>
+        
+        <!-- Navigation intégrée -->
+        <nav class="navbar navbar-expand-lg navbar-dark">
+            <div class="container">
+                <a class="navbar-brand" href="home.html">
+                    <img src="images/logo-veille.png" alt="Logo Veille">
+                    <span class="brand-text">Veille Technologique Agricole</span>
+                </a>
+                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+                <div class="collapse navbar-collapse" id="navbarNav">
+                    <ul class="navbar-nav ms-auto">
+                        <li class="nav-item"><a class="nav-link active" href="home.html">Accueil</a></li>
+                        <li class="nav-item"><a class="nav-link" href="evenement.html">Événements</a></li>
+                        <li class="nav-item"><a class="nav-link" href="innovation.html">Innovations</a></li>
+                        <li class="nav-item"><a class="nav-link" href="subvention.html">Subventions</a></li>
+                        <li class="nav-item"><a class="nav-link" href="meteo.html">Météo</a></li>
+                        <li class="nav-item"><a class="nav-link" href="contact.html">Contact</a></li>
+                    </ul>
+                </div>
+            </div>
+        </nav>
+    </header>
+
+    <!-- Hero Section MODIFIÉE - Titre fixe avec image de fond -->
+    <section class="hero">
+        <div class="container">
+            <h1 class="fade-in"><i class="fas fa-seedling me-3"></i>Veille Technologique Agricole</h1>
+            <p class="subtitle fade-in">
+                Plateforme complète de veille automatisée pour suivre les dernières actualités, innovations et opportunités du secteur agricole marocain et international
+            </p>
+            <div class="hero-features">
+                <div class="hero-feature fade-in">
+                    <i class="fas fa-sync-alt"></i>
+                    <span>Mise à jour temps réel</span>
+                </div>
+                <div class="hero-feature fade-in">
+                    <i class="fas fa-globe-africa"></i>
+                    <span>Sources diversifiées</span>
+                </div>
+                <div class="hero-feature fade-in">
+                    <i class="fas fa-robot"></i>
+                    <span>Collecte automatique</span>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Categories Section -->
+    <section class="categories" id="categories">
+        <div class="container">
+            <h2 class="section-title fade-in">Nos Services de Veille Spécialisée</h2>
+            <div class="categories-grid">
+                <div class="category-card events-card slide-in-left">
+                    <div class="category-header events-bg">
+                        <div class="category-icon-container">
+                            <div class="category-icon-bg"></div>
+                            <div class="category-icon events-icon">
+                                <i class="fas fa-calendar-check"></i>
+                            </div>
+                        </div>
+                        <h3 class="category-title">Événements Agricoles</h3>
+                    </div>
+                    <div class="category-body">
+                        <p class="category-description">
+                            Salons, foires et expositions agricoles. Événements majeurs du secteur agroalimentaire et opportunités de networking professionnel.
+                        </p>
+                        <a href="evenement.html" class="category-link">
+                            Explorer <i class="fas fa-arrow-right"></i>
+                        </a>
+                    </div>
+                </div>
+
+                <div class="category-card innovations-card slide-in-right">
+                    <div class="category-header innovations-bg">
+                        <div class="category-icon-container">
+                            <div class="category-icon-bg"></div>
+                            <div class="category-icon innovations-icon">
+                                <i class="fas fa-rocket"></i>
+                            </div>
+                        </div>
+                        <h3 class="category-title">Innovations & Tech</h3>
+                    </div>
+                    <div class="category-body">
+                        <p class="category-description">
+                            Technologies de pointe, solutions digitales et avancées scientifiques pour une agriculture moderne et durable.
+                        </p>
+                        <a href="innovation.html" class="category-link">
+                            Découvrir <i class="fas fa-arrow-right"></i>
+                        </a>
+                    </div>
+                </div>
+
+                <div class="category-card subsidies-card slide-in-left">
+                    <div class="category-header subsidies-bg">
+                        <div class="category-icon-container">
+                            <div class="category-icon-bg"></div>
+                            <div class="category-icon subsidies-icon">
+                                <i class="fas fa-coins"></i>
+                            </div>
+                        </div>
+                        <h3 class="category-title">Subventions & Aides</h3>
+                    </div>
+                    <div class="category-body">
+                        <p class="category-description">
+                            Programmes de financement FDA, aides publiques et subventions agricoles disponibles au Maroc.
+                        </p>
+                        <a href="subvention.html" class="category-link">
+                            Consulter <i class="fas fa-arrow-right"></i>
+                        </a>
+                    </div>
+                </div>
+
+                <div class="category-card meteo-card slide-in-right">
+                    <div class="category-header meteo-bg">
+                        <div class="category-icon-container">
+                            <div class="category-icon-bg"></div>
+                            <div class="category-icon meteo-icon">
+                                <i class="fas fa-satellite-dish"></i>
+                            </div>
+                        </div>
+                        <h3 class="category-title">Météo Agricole</h3>
+                    </div>
+                    <div class="category-body">
+                        <p class="category-description">
+                            Prévisions météo détaillées et conseils agricoles personnalisés pour 45 villes avec cartographie interactive.
+                        </p>
+                        <a href="meteo.html" class="category-link">
+                            Voir météo <i class="fas fa-arrow-right"></i>
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Features Section -->
+    <section class="features">
+        <div class="container">
+            <h2 class="section-title fade-in">Notre Système de Veille Intelligente</h2>
+            <div class="features-grid">
+                <div class="feature-card fade-in">
+                    <div class="feature-icon">
+                        <i class="fas fa-robot"></i>
+                    </div>
+                    <h4>Intelligence Artificielle</h4>
+                    <p>Notre système d'IA collecte et analyse automatiquement les actualités agricoles de sources fiables nationales et internationales, garantissant une information complète et actualisée.</p>
+                </div>
+
+                <div class="feature-card fade-in">
+                    <div class="feature-icon">
+                        <i class="fas fa-sync-alt"></i>
+                    </div>
+                    <h4>Actualisation Continue</h4>
+                    <p>Données rafraîchies toutes les 3 heures pour vous assurer d'avoir les informations les plus récentes. Alertes instantanées pour les événements critiques du secteur agricole.</p>
+                </div>
+
+                <div class="feature-card fade-in">
+                    <div class="feature-icon">
+                        <i class="fas fa-globe-africa"></i>
+                    </div>
+                    <h4>Couverture Mondiale</h4>
+                    <p>Sources diversifiées du Maroc et du monde entier pour une vision globale de l'agriculture. Analyse comparative des tendances locales et internationales.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- About Section -->
+    <section class="about">
+        <div class="container">
+            <h2 class="section-title fade-in">Excellence et Innovation au Service de l'Agriculture</h2>
+            <div class="about-content fade-in">
+                <p>
+                    Notre plateforme de veille technologique agricole représente l'avant-garde de l'information sectorielle. 
+                    Développée en partenariat avec le Pôle Digital Agriculture et en alignement avec la stratégie 
+                    Génération Green 2020-2030, elle centralise et diffuse automatiquement les informations stratégiques 
+                    du secteur agricole marocain et international.
+                </p>
+                <p>
+                    Contrairement aux solutions traditionnelles, notre approche entièrement automatisée et notre 
+                    intelligence artificielle dédiée vous offrent un aperçu complet, précis et toujours à jour des 
+                    tendances qui façonnent l'agriculture moderne et durable.
+                </p>
+            </div>
+
+            <div class="about-highlights">
+                <div class="highlight-item fade-in">
+                    <i class="fas fa-award"></i>
+                    <h5>Excellence Technique</h5>
+                    <p>Technologie de pointe pour une veille de qualité supérieure</p>
+                </div>
+                <div class="highlight-item fade-in">
+                    <i class="fas fa-users"></i>
+                    <h5>Expertise Sectorielle</h5>
+                    <p>Équipe spécialisée dans l'agriculture et l'innovation</p>
+                </div>
+                <div class="highlight-item fade-in">
+                    <i class="fas fa-shield-alt"></i>
+                    <h5>Fiabilité Garantie</h5>
+                    <p>Sources vérifiées et information validée en continu</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Sources Section -->
+    <section class="sources">
+        <div class="container">
+            <h2 class="section-title fade-in">Nos Partenaires d'Information</h2>
+            <div class="sources-grid fade-in">
+                <div class="source-item">
+                    <img src="images/fao-logo.png" alt="FAO">
+                    <span>FAO - Organisation des Nations Unies</span>
+                </div>
+                <div class="source-item">
+                    <img src="images/agri-logo.jpg" alt="AgriTech Tomorrow">
+                    <span>AgriTech Tomorrow</span>
+                </div>
+                <div class="source-item">
+                    <img src="images/AgriMaroc-logo.png" alt="AgriMaroc">
+                    <span>AgriMaroc - Actualités Locales</span>
+                </div>
+                <div class="source-item">
+                    <img src="images/globalag-logo.jpg" alt="Global Ag Tech">
+                    <span>Global Ag Tech</span>
+                </div>
+                <div class="source-item">
+                    <img src="images/agripulse-logo.png" alt="Agri-Pulse">
+                    <span>Agri-Pulse News</span>
+                </div>
+                <div class="source-item">
+                    <img src="images/cgiar-logo.png" alt="CGIAR">
+                    <span>CGIAR Research</span>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer>
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-section">
+                    <h5>Pôle Digital de l'Agriculture</h5>
+                    <p style="color: rgba(255,255,255,0.8);">
+                        Groupement d'Intérêt Public pour une agriculture 4.0, moderne et innovante dans le cadre de la stratégie Génération Green 2020-2030.
+                    </p>
+                    <div class="social-icons">
+                        <a href="https://www.linkedin.com/company/p%C3%B4le-digital/posts/?feedView=all" target="_blank"><i class="fab fa-linkedin-in"></i></a>
+                        <a href="https://x.com/Pole_Digital_Ma" target="_blank"><i class="fab fa-x-twitter"></i></a>
+                        <a href="https://www.youtube.com/@PoleDigital" target="_blank"><i class="fab fa-youtube"></i></a>
+                        <a href="https://www.facebook.com/poledigital.ma" target="_blank"><i class="fab fa-facebook-f"></i></a>
+                    </div>
+                </div>
+                
+                <div class="footer-section">
+                    <h5>Partenaires Institutionnels</h5>
+                    <ul class="footer-links">
+                        <li><a href="https://www.agriculture.gov.ma" target="_blank">Ministère de l'Agriculture</a></li>
+                        <li><a href="https://www.ada.gov.ma" target="_blank">ADA</a></li>
+                        <li><a href="https://www.onssa.gov.ma" target="_blank">ONSSA</a></li>
+                        <li><a href="https://iav.ac.ma" target="_blank">IAV Hassan II</a></li>
+                        <li><a href="https://www.enameknes.ac.ma" target="_blank">ENA Meknès</a></li>
+                        <li><a href="https://www.inra.ma" target="_blank">INRA</a></li>
+                    </ul>
+                </div>
+                
+                <div class="footer-section">
+                    <h5>Contact Rapide</h5>
+                    <p><i class="fas fa-envelope"></i> contact@poledigital.ma</p>
+                    <p><i class="fas fa-phone"></i> +212 (0) 6 96 98 89 92</p>
+                    <p><i class="fas fa-map-marker-alt"></i> Rabat & Ifrane, Maroc</p>
+                    <a href="mailto:contact@poledigital.ma" style="background: var(--accent-color); color: white; padding: 10px 20px; border-radius: 25px; text-decoration: none; display: inline-block; margin-top: 15px; transition: all 0.3s ease;">
+                        <i class="fas fa-envelope me-2"></i>Nous écrire
+                    </a>
+                </div>
+            </div>
+            
+            <div class="copyright">
+                <p>&copy; 2025 Veille Technologique Agricole - Pôle Digital de l'Agriculture. Tous droits réservés.</p>
+            </div>
+        </div>
+    </footer>
+
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <script>
+        // Smooth scrolling
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                const target = document.querySelector(this.getAttribute('href'));
+                if (target) {
+                    target.scrollIntoView({
+                        behavior: 'smooth',
+                        block: 'start'
+                    });
+                }
+            });
+        });
+
+        // Advanced scroll animations
+        const observerOptions = {
+            threshold: 0.15,
+            rootMargin: '0px 0px -50px 0px'
+        };
+
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach((entry, index) => {
+                if (entry.isIntersecting) {
+                    setTimeout(() => {
+                        entry.target.classList.add('visible');
+                    }, index * 100);
+                }
+            });
+        }, observerOptions);
+
+        // Observe different animation types
+        document.querySelectorAll('.fade-in').forEach(el => {
+            observer.observe(el);
+        });
+
+        document.querySelectorAll('.slide-in-left').forEach(el => {
+            observer.observe(el);
+        });
+
+        document.querySelectorAll('.slide-in-right').forEach(el => {
+            observer.observe(el);
+        });
+
+        // Enhanced navbar scroll effect - MODIFIÉ pour ne pas affecter le hero sticky
+        let lastScrollTop = 0;
+        const navbar = document.querySelector('.navbar');
+        
+        window.addEventListener('scroll', () => {
+            const scrollTop = window.pageYOffset || document.documentElement.scrollTop;
+            
+            // Transparence de la navbar basée sur le scroll
+            if (scrollTop > 100) {
+                navbar.style.background = 'rgba(38, 50, 56, 0.98)';
+                navbar.style.backdropFilter = 'blur(15px)';
+            } else {
+                navbar.style.background = 'linear-gradient(135deg, rgba(38, 50, 56, 0.95) 0%, rgba(26, 37, 47, 0.95) 100%)';
+                navbar.style.backdropFilter = 'blur(15px)';
+            }
+            
+            lastScrollTop = scrollTop;
+        });
+
+        // Enhanced loading effect
+        window.addEventListener('load', () => {
+            document.body.style.opacity = '0';
+            document.body.style.transition = 'opacity 0.8s ease-in-out';
+            setTimeout(() => {
+                document.body.style.opacity = '1';
+            }, 200);
+        });
+
+        // Interactive card effects
+        document.querySelectorAll('.category-card').forEach(card => {
+            card.addEventListener('mouseenter', function() {
+                this.style.zIndex = '10';
+            });
+            
+            card.addEventListener('mouseleave', function() {
+                this.style.zIndex = '1';
+            });
+        });
+
+        // Dynamic typing effect for hero title
+        function typeWriter(element, text, speed = 100) {
+            let i = 0;
+            element.innerHTML = '';
+            
+            function type() {
+                if (i < text.length) {
+                    element.innerHTML += text.charAt(i);
+                    i++;
+                    setTimeout(type, speed);
+                }
+            }
+            type();
+        }
+
+        // Initialize typing effect when hero is visible
+        const heroObserver = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    const heroTitle = entry.target.querySelector('h1');
+                    if (heroTitle) {
+                        const originalText = heroTitle.textContent;
+                        typeWriter(heroTitle, originalText, 80);
+                    }
+                    heroObserver.unobserve(entry.target);
+                }
+            });
+        });
+
+        const heroSection = document.querySelector('.hero');
+        if (heroSection) {
+            heroObserver.observe(heroSection);
+        }
+    </script>
+</body>
+</html>
