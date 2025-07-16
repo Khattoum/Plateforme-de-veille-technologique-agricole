@@ -34,26 +34,21 @@ Plateforme web moderne dédiée à la veille technologique dans le secteur agric
 
 ```
 veille-technologique/
-├── 📄 index.html              # Page d'accueil
+├── 📄 index.html              # Page de connexion
+├── 📄 home.html              # Page d'accueil
 ├── 📄 evenement.html          # Page événements
 ├── 📄 innovation.html         # Page innovations
 ├── 📄 subvention.html         # Page subventions
 ├── 📄 meteo.html             # Page météo
 ├── 📄 contact.html           # Page contact
 ├── 📁 css/
-│   ├── 🎨 style.css          # Styles page d'accueil
 │   ├── 🎨 evenement.css      # Styles événements
 │   ├── 🎨 innovation.css     # Styles innovations
 │   ├── 🎨 subvention.css     # Styles subventions
-│   ├── 🎨 meteo.css          # Styles météo
-│   └── 🎨 contact.css        # Styles contact
 ├── 📁 js/
-│   ├── ⚡ script.js          # Scripts page d'accueil
 │   ├── ⚡ evenement.js       # Scripts événements
 │   ├── ⚡ innovation.js      # Scripts innovations
 │   ├── ⚡ subvention.js      # Scripts subventions
-│   ├── ⚡ meteo.js           # Scripts météo
-│   └── ⚡ contact.js         # Scripts contact
 ├── 📁 images/
 │   ├── 🖼️ logos/            # Logos institutionnels
 │   ├── 🖼️ backgrounds/      # Images de fond
