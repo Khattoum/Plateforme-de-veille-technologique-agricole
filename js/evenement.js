@@ -134,7 +134,7 @@ function getMoroccanEvents() {
             title: "SIAM - Salon International de l'Agriculture au Maroc",
             location: "Meknès",
             description: "Le plus grand salon agricole du Maroc et d'Afrique, réunissant professionnels, agriculteurs et institutions pour promouvoir l'innovation et le développement agricole.",
-            eventId: "https://www.siam.ma",
+            eventId: "https://www.salon-agriculture.ma/",
             start: new Date(currentYear, 3, 16), // 16-21 avril
             end: new Date(currentYear, 3, 21),
             dateDisplay: "du 16 au 21 avril " + currentYear,
@@ -166,18 +166,7 @@ function getMoroccanEvents() {
             sourceName: "Phosboucraa Foundation",
             eventUrlBase: ""
         },
-        {
-            title: "Salon des Produits du Terroir - Meknès",
-            location: "Meknès",
-            description: "Salon valorisant les produits du terroir marocain, l'agriculture biologique et les circuits courts de commercialisation.",
-            eventId: "https://www.siam.ma/terroir",
-            start: new Date(currentYear, 4, 10), // 10-12 mai
-            end: new Date(currentYear, 4, 12),
-            dateDisplay: "du 10 au 12 mai " + currentYear,
-            source: "siam",
-            sourceName: "SIAM",
-            eventUrlBase: ""
-        },
+        
         {
             title: "Meknès Olive Fair - Salon de l'Olivier",
             location: "Meknès",

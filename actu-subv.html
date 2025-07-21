@@ -1,0 +1,1471 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Actualités Subventions Agricoles - Veille Technologique</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        :root { 
+            --primary-color: #2e7d32; 
+            --secondary-color: #81c784;
+            --accent-color: #ffab00;
+            --text-color: #333; 
+            --light-bg: #f5f5f5;
+            --card-bg: #fff;
+            --dark-bg: #263238;
+            --success-color: #4caf50;
+            --info-color: #1976d2;
+            --warning-color: #f57c00;
+            --danger-color: #d32f2f;
+            --card-shadow: 0 10px 30px rgba(0,0,0,0.1);
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body { 
+            font-family: 'Segoe UI', system-ui, sans-serif; 
+            background: var(--light-bg); 
+            color: var(--text-color); 
+            line-height: 1.6;
+        }
+
+        /* Header unifié avec logos et navigation */
+        .header-unified {
+            background: linear-gradient(135deg, #ffffff 0%, #f8f9fa 100%);
+            padding: 20px 0 0 0;
+            box-shadow: 0 4px 25px rgba(0,0,0,0.1);
+            position: relative;
+        }
+
+        .header-unified::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 100%;
+            height: 2px;
+            background: linear-gradient(90deg, var(--primary-color) 0%, var(--accent-color) 50%, var(--primary-color) 100%);
+        }
+
+        /* Styles modernes des logos */
+        .logo-container {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: 60px;
+            max-width: 1000px;
+            margin: 0 auto 20px auto;
+            padding: 0 20px;
+            background: rgba(255, 255, 255, 0.95);
+            border-radius: 15px;
+            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.08);
+            backdrop-filter: blur(15px);
+            border: 1px solid rgba(255, 255, 255, 0.3);
+            flex-wrap: wrap;
+            position: relative;
+        }
+
+        .logo-wrapper {
+            position: relative;
+            transition: all 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        .logo-wrapper::before {
+            content: '';
+            position: absolute;
+            top: -10px;
+            left: -10px;
+            right: -10px;
+            bottom: -10px;
+            background: linear-gradient(45deg, rgba(255, 160, 0, 0.2), rgba(56, 182, 161, 0.2));
+            border-radius: 15px;
+            opacity: 0;
+            transition: all 0.4s ease;
+            z-index: -1;
+            filter: blur(5px);
+        }
+
+        .logo-wrapper:hover::before {
+            opacity: 1;
+            transform: scale(1.1);
+        }
+
+        .logo {
+            height: 75px;
+            transition: all 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+            filter: drop-shadow(0 5px 15px rgba(0,0,0,0.1));
+            border-radius: 10px;
+            padding: 5px;
+            background: rgba(255, 255, 255, 0.9);
+            border: 1px solid rgba(255, 255, 255, 0.3);
+        }
+
+        .logo:hover {
+            transform: translateY(-8px) scale(1.08) rotateY(5deg);
+            filter: drop-shadow(0 15px 30px rgba(0,0,0,0.2));
+            background: rgba(255, 255, 255, 1);
+        }
+
+        .logo-pole {
+            height: 85px;
+            margin: 0 40px;
+            position: relative;
+        }
+
+        .logo-pole::after {
+            content: '⭐';
+            position: absolute;
+            top: -5px;
+            right: -5px;
+            font-size: 1.2rem;
+            animation: twinkle 2s ease-in-out infinite;
+        }
+
+        @keyframes twinkle {
+            0%, 100% { opacity: 0.7; transform: scale(1); }
+            50% { opacity: 1; transform: scale(1.2); }
+        }
+
+        /* Navigation intégrée */
+        .navbar { 
+            background: linear-gradient(135deg, rgba(38, 50, 56, 0.95) 0%, rgba(26, 37, 47, 0.95) 100%); 
+            backdrop-filter: blur(15px);
+            box-shadow: none;
+            padding: 15px 0;
+            border-top: 1px solid rgba(255,255,255,0.1);
+            margin: 0;
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+        }
+
+        .navbar-brand { display: flex; align-items: center; }
+        .navbar-brand img { height: 36px; margin-right: 12px; transition: transform 0.3s; }
+        .navbar-brand:hover img { transform: rotate(15deg); }
+        .navbar-brand .brand-text { font-weight: 700; font-size: 1.3rem; color: white; letter-spacing: 0.5px; }
+
+        .nav-link { color: rgba(255,255,255,0.9) !important; margin: 0 8px; font-weight: 500; position: relative; padding: 8px 12px !important; transition: all 0.3s; }
+        .nav-link:before { content: ''; position: absolute; bottom: 0; left: 50%; transform: translateX(-50%); width: 0; height: 2px; background: var(--accent-color); transition: width 0.3s; }
+        .nav-link:hover { color: white !important; transform: translateY(-2px); }
+        .nav-link:hover:before { width: 80%; }
+        .nav-link.active { color: white !important; font-weight: 600; }
+        .nav-link.active:before { width: 80%; background: var(--primary-color); }
+
+        /* Hero Section - EXACTEMENT COMME LA PAGE SUBVENTION */
+        .hero { 
+            position: relative;
+            background: url('../images/subvention-back.png') center/cover no-repeat;
+            color: white;
+            text-align: center;
+            padding: 140px 0 80px;
+            clip-path: polygon(0 0, 100% 0, 100% 90%, 0 100%);
+            margin-bottom: 40px;
+            overflow: hidden;
+        }
+
+        .hero::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: inherit;
+            filter: blur(3px) brightness(0.75);
+            z-index: 0;
+            transform: scale(1.05);
+        }
+
+        .hero::after {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(135deg, rgba(46, 125, 50, 0.15) 0%, rgba(38, 50, 56, 0.2) 100%);
+            z-index: 1;
+        }
+
+        .hero .container {
+            position: relative;
+            z-index: 2;
+        }
+
+        .hero h1 { 
+            font-size: 3rem; 
+            font-weight: 800; 
+            margin-bottom: 20px; 
+            text-shadow: 0 3px 10px rgba(0,0,0,0.6);
+            color: white;
+        }
+
+        .hero .subtitle { 
+            font-size: 1.3rem; 
+            font-weight: 300; 
+            max-width: 800px; 
+            margin: 20px auto 0; 
+            opacity: 0.95;
+            text-shadow: 0 2px 6px rgba(0,0,0,0.5);
+            color: white;
+        }
+
+        /* Contrôles et filtres - MÊME LIGNE */
+        .controls {
+            background: white;
+            padding: 20px;
+            border-radius: 15px;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.08);
+            margin-bottom: 30px;
+            border: 1px solid rgba(0,0,0,0.05);
+        }
+
+        .filters-container {
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
+            margin-bottom: 20px;
+        }
+
+        .filter-group {
+            width: 100%;
+        }
+
+        .filter-group h6 {
+            color: var(--primary-color);
+            font-weight: 700;
+            margin-bottom: 15px;
+            font-size: 1rem;
+            display: flex;
+            align-items: center;
+        }
+
+        .filter-buttons {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 8px;
+        }
+
+        .filter-btn {
+            padding: 8px 15px;
+            border: none;
+            border-radius: 20px;
+            background: #f8f9fa;
+            color: #555;
+            font-size: 0.85rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            display: flex;
+            align-items: center;
+            gap: 6px;
+            white-space: nowrap;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.05);
+        }
+
+        .filter-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+            background: #e9ecef;
+        }
+
+        .filter-btn.active {
+            color: white;
+            transform: translateY(-2px);
+            box-shadow: 0 4px 12px rgba(0,0,0,0.2);
+        }
+
+        .filter-btn i {
+            font-size: 0.9rem;
+        }
+
+        /* Couleurs spécifiques pour les catégories */
+        .category-filter.active {
+            background: var(--primary-color);
+        }
+
+        .filter-btn.category-filter[data-category="finance"].active {
+            background: #00b894;
+        }
+
+        .filter-btn.category-filter[data-category="digital"].active {
+            background: #fd79a8;
+        }
+
+        .filter-btn.category-filter[data-category="partenariat"].active {
+            background: #fdcb6e;
+        }
+
+        .filter-btn.category-filter[data-category="innovation"].active {
+            background: #e17055;
+        }
+
+        /* Couleur unique pour les filtres de date */
+        .date-filter.active {
+            background: var(--primary-color);
+        }
+
+        .action-buttons {
+            display: flex;
+            justify-content: center;
+            margin-top: 15px;
+        }
+
+        .btn-primary {
+            background: linear-gradient(135deg, var(--primary-color) 0%, var(--success-color) 100%);
+            border: none;
+            padding: 10px 25px;
+            border-radius: 25px;
+            font-weight: 600;
+            font-size: 0.9rem;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 12px rgba(46, 125, 50, 0.3);
+        }
+
+        .btn-primary:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(46, 125, 50, 0.4);
+        }
+
+        /* Status et progression avec logo */
+        .status-alert {
+            margin-top: 20px;
+            padding: 20px;
+            border-radius: 15px;
+            font-weight: 600;
+            text-align: center;
+            border: 2px solid;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 15px;
+        }
+
+        .status-alert.loading {
+            background: linear-gradient(135deg, #fff3cd 0%, #ffeaa7 100%);
+            color: #856404;
+            border-color: #ffeaa7;
+        }
+
+        .status-alert.success {
+            background: linear-gradient(135deg, #d4edda 0%, #c3e6cb 100%);
+            color: #155724;
+            border-color: #c3e6cb;
+        }
+
+        .status-alert.error {
+            background: linear-gradient(135deg, #f8d7da 0%, #f5c6cb 100%);
+            color: #721c24;
+            border-color: #f5c6cb;
+        }
+
+        .status-logo {
+            width: 30px;
+            height: 30px;
+            border-radius: 50%;
+            animation: rotate 2s linear infinite;
+        }
+
+        @keyframes rotate {
+            from { transform: rotate(0deg); }
+            to { transform: rotate(360deg); }
+        }
+
+        .status-content {
+            flex: 1;
+        }
+
+        .progress-bar {
+            height: 8px;
+            background: rgba(0,0,0,0.1);
+            border-radius: 4px;
+            overflow: hidden;
+            margin-top: 15px;
+        }
+
+        .progress-fill {
+            height: 100%;
+            background: linear-gradient(90deg, var(--primary-color), var(--success-color));
+            width: 0%;
+            transition: width 0.5s ease;
+        }
+
+        /* Grille des actualités */
+        .news-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(350px, 1fr));
+            gap: 25px;
+            margin-top: 30px;
+        }
+
+        .news-card {
+            background: white;
+            border-radius: 15px;
+            overflow: hidden;
+            box-shadow: var(--card-shadow);
+            transition: all 0.3s ease;
+            border: 1px solid #e9ecef;
+            position: relative;
+        }
+
+        .news-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 4px;
+            background: linear-gradient(90deg, var(--primary-color), var(--success-color));
+            transform: scaleX(0);
+            transition: transform 0.3s ease;
+        }
+
+        .news-card:hover::before {
+            transform: scaleX(1);
+        }
+
+        .news-card:hover {
+            transform: translateY(-8px);
+            box-shadow: 0 20px 40px rgba(0,0,0,0.15);
+        }
+
+        .news-content {
+            padding: 25px;
+        }
+
+        .news-date {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 15px;
+        }
+
+        .date-info {
+            font-size: 0.9em;
+            color: #666;
+            display: flex;
+            align-items: center;
+            gap: 5px;
+        }
+
+        .category-badges-container {
+            display: flex;
+            gap: 5px;
+            flex-wrap: wrap;
+        }
+
+        .category-badge {
+            padding: 4px 12px;
+            border-radius: 15px;
+            font-size: 0.75em;
+            font-weight: 700;
+            color: white;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+
+        .category-badge.finance { background: linear-gradient(135deg, #00b894, #00a085); }
+        .category-badge.digital { background: linear-gradient(135deg, #fd79a8, #e84393); }
+        .category-badge.partenariat { background: linear-gradient(135deg, #fdcb6e, #f39c12); }
+        .category-badge.innovation { background: linear-gradient(135deg, #e17055, #d63031); }
+        .category-badge.default { background: linear-gradient(135deg, #636e72, #2d3436); }
+
+        .news-title {
+            font-size: 1.3em;
+            font-weight: 700;
+            margin-bottom: 15px;
+            line-height: 1.4;
+            color: var(--text-color);
+        }
+
+        .news-description {
+            color: #666;
+            line-height: 1.6;
+            margin-bottom: 20px;
+        }
+
+        .news-bottom {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-top: 20px;
+            padding-top: 15px;
+            border-top: 1px solid #e9ecef;
+        }
+
+        .read-more {
+            color: var(--primary-color);
+            text-decoration: none;
+            font-weight: 600;
+            transition: all 0.3s ease;
+            display: flex;
+            align-items: center;
+            gap: 5px;
+        }
+
+        .read-more:hover {
+            color: var(--success-color);
+            transform: translateX(5px);
+        }
+
+        .source-badge {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            font-size: 0.85em;
+            color: #666;
+        }
+
+        .source-badge img {
+            width: 24px;
+            height: 24px;
+            border-radius: 50%;
+            border: 2px solid #e9ecef;
+        }
+
+        /* Pagination SIMPLE ET MODERNE */
+        .pagination-container {
+            display: flex;
+            justify-content: center;
+            margin-top: 40px;
+        }
+
+        .pagination {
+            display: flex;
+            gap: 5px;
+            align-items: center;
+            background: white;
+            padding: 15px 20px;
+            border-radius: 15px;
+            box-shadow: var(--card-shadow);
+            border: 1px solid rgba(46, 125, 50, 0.1);
+        }
+
+        .page-item {
+            list-style: none;
+        }
+
+        .page-link {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            width: 35px;
+            height: 35px;
+            border: 1px solid #e0e0e0;
+            border-radius: 8px;
+            color: var(--text-color);
+            text-decoration: none;
+            transition: all 0.2s ease;
+            font-weight: 500;
+            font-size: 0.9rem;
+            background: white;
+        }
+
+        .page-link:hover {
+            background: var(--primary-color);
+            color: white;
+            border-color: var(--primary-color);
+            transform: translateY(-1px);
+        }
+
+        .page-item.active .page-link {
+            background: var(--primary-color);
+            color: white;
+            border-color: var(--primary-color);
+            font-weight: 600;
+        }
+
+        .page-item.disabled .page-link {
+            opacity: 0.5;
+            cursor: not-allowed;
+            background: #f5f5f5;
+            color: #999;
+        }
+
+        .page-item.disabled .page-link:hover {
+            background: #f5f5f5;
+            color: #999;
+            transform: none;
+        }
+
+        .page-nav {
+            background: var(--primary-color);
+            color: white;
+            border-color: var(--primary-color);
+            font-weight: 600;
+        }
+
+        .page-nav:hover {
+            background: var(--success-color);
+            border-color: var(--success-color);
+            color: white;
+        }
+
+        .page-dots {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 0 8px;
+            color: #999;
+            font-weight: 500;
+        }
+
+        /* État vide */
+        .empty-state {
+            text-align: center;
+            padding: 80px 20px;
+            color: #666;
+            background: white;
+            border-radius: 15px;
+            box-shadow: var(--card-shadow);
+        }
+
+        .empty-state i {
+            font-size: 4em;
+            margin-bottom: 20px;
+            color: var(--primary-color);
+            opacity: 0.5;
+        }
+
+        .empty-state h3 {
+            color: var(--primary-color);
+            margin-bottom: 15px;
+        }
+
+        /* Responsive pour les filtres style innovation */
+        @media (max-width: 768px) {
+            .filters-container {
+                flex-direction: column;
+                gap: 20px;
+            }
+            
+            .filter-buttons {
+                justify-content: center;
+            }
+            
+            .filter-btn {
+                font-size: 0.8rem;
+                padding: 6px 12px;
+            }
+            
+            .logo-container {
+                gap: 25px;
+                padding: 20px;
+            }
+            
+            .logo {
+                height: 60px;
+            }
+            
+            .logo-pole {
+                height: 70px;
+                margin: 0 20px;
+            }
+            
+            .hero h1 {
+                font-size: 2.2rem;
+            }
+            
+            .news-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .action-buttons {
+                flex-direction: column;
+                align-items: center;
+            }
+            
+            .pagination {
+                padding: 10px 15px;
+                gap: 3px;
+            }
+            
+            .page-link {
+                width: 30px;
+                height: 30px;
+                font-size: 0.8rem;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .logo-container {
+                flex-direction: column;
+                gap: 20px;
+            }
+            
+            .logo-pole {
+                order: -1;
+                margin: 0;
+            }
+        }
+
+        /* Footer unifié */
+        footer {
+            background: var(--dark-bg);
+            color: white;
+            padding: 60px 0 30px;
+            margin-top: 60px;
+        }
+
+        .footer-content {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 40px;
+            margin-bottom: 40px;
+        }
+
+        .footer-section h5 {
+            color: var(--accent-color);
+            margin-bottom: 25px;
+            font-size: 1.2rem;
+        }
+
+        .footer-section a {
+            color: rgba(255, 255, 255, 0.8);
+            text-decoration: none;
+            transition: color 0.3s;
+        }
+
+        .footer-section a:hover {
+            color: var(--accent-color);
+        }
+
+        .footer-links {
+            list-style: none;
+            padding: 0;
+        }
+
+        .footer-links li {
+            margin-bottom: 12px;
+        }
+
+        .social-icons {
+            display: flex;
+            gap: 15px;
+            margin-top: 25px;
+        }
+
+        .social-icons a {
+            width: 45px;
+            height: 45px;
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: all 0.3s;
+        }
+
+        .social-icons a:hover {
+            background: var(--accent-color);
+            color: var(--dark-bg);
+            transform: translateY(-3px);
+        }
+
+        .copyright {
+            text-align: center;
+            padding-top: 30px;
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+            color: rgba(255, 255, 255, 0.7);
+        }
+    </style>
+</head>
+<body>
+    <!-- Header unifié avec logos et navigation -->
+    <header class="header-unified">
+        <div class="logo-container">
+            <div class="logo-wrapper">
+                <img src="images/logo-ministere.png" alt="Ministère" class="logo">
+            </div>
+            <div class="logo-wrapper">
+                <img src="images/logo-pole.png" alt="Pôle Digital" class="logo logo-pole">
+            </div>
+            <div class="logo-wrapper">
+                <img src="images/logo-generation.jpeg" alt="Green Generation" class="logo">
+            </div>
+        </div>
+        
+        <nav class="navbar navbar-expand-lg navbar-dark">
+            <div class="container">
+                <a class="navbar-brand" href="home.html">
+                    <img src="images/logo-veille.png" alt="Logo Veille">
+                    <span class="brand-text">Veille Technologique Agricole</span>
+                </a>
+                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+                <div class="collapse navbar-collapse" id="navbarNav">
+                    <ul class="navbar-nav ms-auto">
+                        <li class="nav-item"><a class="nav-link" href="home.html">Accueil</a></li>
+                        <li class="nav-item"><a class="nav-link" href="evenement.html">Événements</a></li>
+                        <li class="nav-item"><a class="nav-link" href="innovation.html">Innovation</a></li>
+                        <li class="nav-item"><a class="nav-link active" href="subvention.html">Subventions</a></li>
+                        <li class="nav-item"><a class="nav-link" href="meteo.html">Météo</a></li>
+                        <li class="nav-item"><a class="nav-link" href="contact.html">Contact</a></li>
+                    </ul>
+                </div>
+            </div>
+        </nav>
+    </header>
+
+    <!-- Hero Section - EXACTEMENT COMME LA PAGE SUBVENTION -->
+    <section class="hero">
+        <div class="container">
+            <h1><i class="fas fa-book me-3"></i>Subventions & Réglementations</h1>
+            <p class="subtitle">Explorez les aides financières et les cadres législatifs qui façonnent l'agriculture d'aujourd'hui et de demain</p>
+        </div>
+    </section>
+
+    <div class="container">
+        <!-- Contrôles et filtres -->
+        <div class="controls">
+            <div class="filter-section">
+                <h5><i class="fas fa-filter"></i> Filtres par catégorie</h5>
+                <div class="filter-buttons">
+                    <button class="filter-btn category-filter active" data-category="all">
+                        <i class="fas fa-globe"></i> Toutes
+                    </button>
+                    <button class="filter-btn category-filter" data-category="finance">
+                        <i class="fas fa-coins"></i> Finance
+                    </button>
+                    <button class="filter-btn category-filter" data-category="digital">
+                        <i class="fas fa-laptop"></i> Digital
+                    </button>
+                    <button class="filter-btn category-filter" data-category="partenariat">
+                        <i class="fas fa-handshake"></i> Partenariat
+                    </button>
+                    <button class="filter-btn category-filter" data-category="innovation">
+                        <i class="fas fa-lightbulb"></i> Innovation
+                    </button>
+                </div>
+            </div>
+
+            <div class="filter-section">
+                <h5><i class="fas fa-calendar"></i> Filtres par date</h5>
+                <div class="filter-buttons">
+                    <button class="filter-btn date-filter active" data-period="all">
+                        <i class="fas fa-calendar-alt"></i> Toutes
+                    </button>
+                    <button class="filter-btn date-filter" data-period="today">
+                        <i class="fas fa-calendar-day"></i> Aujourd'hui
+                    </button>
+                    <button class="filter-btn date-filter" data-period="week">
+                        <i class="fas fa-calendar-week"></i> Cette semaine
+                    </button>
+                    <button class="filter-btn date-filter" data-period="month">
+                        <i class="fas fa-calendar"></i> Ce mois
+                    </button>
+                    <button class="filter-btn date-filter" data-period="quarter">
+                        <i class="fas fa-calendar-alt"></i> Ce trimestre
+                    </button>
+                    <button class="filter-btn date-filter" data-period="year">
+                        <i class="fas fa-calendar"></i> Cette année
+                    </button>
+                </div>
+            </div>
+
+            <div class="action-buttons">
+                <button id="fetchBtn" class="btn btn-primary">
+                    <i class="fas fa-sync-alt me-2"></i> Actualiser les données
+                </button>
+            </div>
+
+            <div id="statusAlert" class="status-alert" style="display: none;">
+                <img src="images/logo-veille.png" alt="Logo" class="status-logo">
+                <div class="status-content">
+                    <div id="statusText"></div>
+                    <div class="progress-bar">
+                        <div id="progressFill" class="progress-fill"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Grille des actualités -->
+        <div id="news-container" class="news-grid"></div>
+
+        <!-- Pagination MODERNE -->
+        <div class="pagination-container">
+            <ul id="pagination-container" class="pagination"></ul>
+        </div>
+    </div>
+
+    <!-- Footer -->
+    <footer>
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-section">
+                    <h5>Pôle Digital de l'Agriculture</h5>
+                    <p style="color: rgba(255,255,255,0.8);">
+                        Groupement d'Intérêt Public pour une agriculture 4.0, moderne et innovante dans le cadre de la stratégie Génération Green 2020-2030.
+                    </p>
+                    <div class="social-icons">
+                        <a href="https://www.linkedin.com/company/p%C3%B4le-digital/posts/?feedView=all" target="_blank"><i class="fab fa-linkedin-in"></i></a>
+                        <a href="https://x.com/Pole_Digital_Ma" target="_blank"><i class="fab fa-x-twitter"></i></a>
+                        <a href="https://www.youtube.com/@PoleDigital" target="_blank"><i class="fab fa-youtube"></i></a>
+                        <a href="https://www.facebook.com/poledigital.ma" target="_blank"><i class="fab fa-facebook-f"></i></a>
+                    </div>
+                </div>
+                
+                <div class="footer-section">
+                    <h5>Partenaires Institutionnels</h5>
+                    <ul class="footer-links">
+                        <li><a href="https://www.agriculture.gov.ma" target="_blank">Ministère de l'Agriculture</a></li>
+                        <li><a href="https://www.ada.gov.ma" target="_blank">ADA</a></li>
+                        <li><a href="https://www.onssa.gov.ma" target="_blank">ONSSA</a></li>
+                        <li><a href="https://iav.ac.ma" target="_blank">IAV Hassan II</a></li>
+                        <li><a href="https://www.enameknes.ac.ma" target="_blank">ENA Meknès</a></li>
+                        <li><a href="https://www.inra.ma" target="_blank">INRA</a></li>
+                    </ul>
+                </div>
+                
+                <div class="footer-section">
+                    <h5>Contact Rapide</h5>
+                    <p><i class="fas fa-envelope"></i> contact@poledigital.ma</p>
+                    <p><i class="fas fa-phone"></i> +212 (0) 6 96 98 89 92</p>
+                    <p><i class="fas fa-map-marker-alt"></i> Rabat & Ifrane, Maroc</p>
+                    <a href="mailto:contact@poledigital.ma" style="background: var(--accent-color); color: white; padding: 10px 20px; border-radius: 25px; text-decoration: none; display: inline-block; margin-top: 15px; transition: all 0.3s ease;">
+                        <i class="fas fa-envelope me-2"></i>Nous écrire
+                    </a>
+                </div>
+            </div>
+            
+            <div class="copyright">
+                <p>&copy; 2025 Veille Technologique Agricole - Pôle Digital de l'Agriculture. Tous droits réservés.</p>
+            </div>
+        </div>
+    </footer>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <script>
+        // ===== CONFIGURATION DU SYSTÈME =====
+        const newsSources = [
+            { 
+                name: 'creditagricole', 
+                url: 'https://www.creditagricole.ma/fr/tous-les-evenements', 
+                logo: 'https://www.creditagricole.ma/themes/custom/creditagricole/logo.png', 
+                displayName: 'Crédit Agricole du Maroc',
+                type: 'html'
+            }
+        ];
+
+        const categories = {
+            finance: { name: 'Finance', keywords: ['finance', 'banque', 'crédit', 'prêt', 'épargne', 'investissement'] },
+            digital: { name: 'Digital', keywords: ['digital', 'numérique', 'technologie', 'innovation', 'tech', 'intelligence artificielle'] },
+            partenariat: { name: 'Partenariat', keywords: ['partenariat', 'accord', 'collaboration', 'alliance', 'convention'] },
+            innovation: { name: 'Innovation', keywords: ['innovation', 'nouveau', 'lancement', 'développement', 'création'] }
+        };
+
+        // Variables globales
+        let allNews = [];
+        let filteredNews = [];
+        let currentPage = 1;
+        let currentDateFilter = 'all';
+        let currentCategoryFilter = 'all';
+        const newsPerPage = 9;
+        const proxy = 'https://api.allorigins.win/get?url=';
+        const CACHE_KEY = 'creditagricole_news_cache';
+        const CACHE_DURATION = 3600000; // 1 heure
+
+        // ===== INITIALISATION =====
+        document.addEventListener('DOMContentLoaded', async () => {
+            initFilters();
+            await loadFromCache();
+            await fetchAllNews();
+            filterAndDisplayNews();
+        });
+
+        // ===== GESTION DU CACHE =====
+        async function loadFromCache() {
+            try {
+                const cachedData = localStorage.getItem(CACHE_KEY);
+                if (cachedData) {
+                    const { data, timestamp } = JSON.parse(cachedData);
+                    if (Date.now() - timestamp < CACHE_DURATION) {
+                        allNews = data;
+                        return true;
+                    }
+                }
+            } catch (error) {
+                console.error('Erreur chargement cache:', error);
+            }
+            return false;
+        }
+
+        async function saveToCache() {
+            try {
+                const cacheData = {
+                    timestamp: Date.now(),
+                    data: allNews
+                };
+                localStorage.setItem(CACHE_KEY, JSON.stringify(cacheData));
+            } catch (error) {
+                console.error('Erreur sauvegarde cache:', error);
+            }
+        }
+
+        // ===== EXTRACTION DES DONNÉES =====
+        async function fetchAllNews() {
+            try {
+                showStatus('Extraction en cours...', 'loading');
+                updateProgress(10);
+
+                // Scraper toutes les pages du site (7 pages)
+                const { news: extractedNews, totalPages: scrapedPages } = await fetchAllPages();
+
+                updateProgress(80);
+                showStatus('Traitement des données...', 'loading');
+
+                // Fusionner avec les données existantes et éviter les doublons
+                const mergedNews = mergeNews([...allNews, ...extractedNews]);
+                
+                // Ajouter les catégories et trier par date - EXCLURE DIVERS
+                allNews = mergedNews.map(item => {
+                    const category = determineCategory(item.title, item.description);
+                    return {
+                        ...item,
+                        category: category,
+                        categories: [category]
+                    };
+                }).filter(item => item.category !== 'divers') // FILTRER LES DIVERS
+                  .sort((a, b) => new Date(b.pubDate) - new Date(a.pubDate));
+
+                updateProgress(100);
+                await saveToCache();
+                
+                showStatus(`Extraction terminée ! ${allNews.length} actualités trouvées.`, 'success');
+                
+            } catch (error) {
+                console.error('Erreur générale:', error);
+                showStatus('Erreur lors de l\'extraction des données', 'error');
+            }
+        }
+
+        // ===== GESTION DU MULTI-PAGES =====
+        async function fetchAllPages() {
+            const allPagesNews = [];
+            const totalPagesToScrape = 7; // Le site a 7 pages
+            let successfulPages = 0;
+
+            for (let pageNum = 1; pageNum <= totalPagesToScrape; pageNum++) {
+                try {
+                    showStatus('Extraction en cours...', 'loading');
+                    updateProgress(10 + (pageNum * 60 / totalPagesToScrape));
+
+                    // Construire l'URL de la page
+                    const pageUrl = pageNum === 1 ? 
+                        'https://www.creditagricole.ma/fr/tous-les-evenements' : 
+                        `https://www.creditagricole.ma/fr/tous-les-evenements?page=${pageNum - 1}`;
+
+                    console.log(`Scraping page ${pageNum}: ${pageUrl}`);
+
+                    const response = await fetch(`${proxy}${encodeURIComponent(pageUrl)}`);
+                    if (!response.ok) throw new Error(`HTTP ${response.status}`);
+                    
+                    const data = await response.json();
+                    const content = data.contents;
+                    
+                    const newsFromPage = parseCreditAgricole(content, newsSources[0]);
+                    
+                    if (newsFromPage.length > 0) {
+                        allPagesNews.push(...newsFromPage);
+                        successfulPages++;
+                        console.log(`Page ${pageNum}: ${newsFromPage.length} actualités extraites`);
+                    } else {
+                        console.log(`Page ${pageNum}: Aucune actualité trouvée`);
+                    }
+                    
+                    // Pause entre les requêtes pour éviter la surcharge
+                    if (pageNum < totalPagesToScrape) {
+                        await new Promise(resolve => setTimeout(resolve, 1500));
+                    }
+                    
+                } catch (error) {
+                    console.error(`Erreur page ${pageNum}:`, error);
+                    showStatus('Extraction en cours...', 'loading');
+                    
+                    // Pause plus longue en cas d'erreur
+                    await new Promise(resolve => setTimeout(resolve, 2000));
+                }
+            }
+
+            console.log(`Extraction terminée: ${allPagesNews.length} actualités de ${successfulPages} pages`);
+
+            return {
+                news: allPagesNews,
+                totalPages: successfulPages
+            };
+        }
+
+        // ===== PARSING DU CONTENU =====
+        function parseCreditAgricole(html, source) {
+            const dom = new DOMParser().parseFromString(html, 'text/html');
+            const newsCards = dom.querySelectorAll('.card-body, .views-row, .node-article');
+            
+            console.log(`Nombre de cartes trouvées sur cette page: ${newsCards.length}`);
+            
+            const extractedNews = [];
+            
+            newsCards.forEach((card, index) => {
+                try {
+                    // Extraire la catégorie avec plusieurs sélecteurs possibles
+                    const categoryElement = card.querySelector('.badge, .category, .tag, .card-subtitle .badge');
+                    const category = categoryElement ? categoryElement.textContent.trim() : 'Divers';
+                    
+                    // Extraire la date avec plusieurs sélecteurs possibles
+                    const dateElement = card.querySelector('time, .date, .published, .card-date time');
+                    let dateStr = null;
+                    let displayDate = 'Date inconnue';
+                    
+                    if (dateElement) {
+                        dateStr = dateElement.getAttribute('datetime') || dateElement.textContent.trim();
+                        displayDate = dateElement.textContent.trim();
+                        
+                        // Convertir la date si nécessaire
+                        if (dateStr && !dateStr.includes('T')) {
+                            // Format DD/MM/YYYY vers ISO
+                            const dateParts = displayDate.split('/');
+                            if (dateParts.length === 3) {
+                                const [day, month, year] = dateParts;
+                                dateStr = new Date(year, month - 1, day).toISOString();
+                            }
+                        }
+                    }
+                    
+                    // Extraire le titre et le lien avec plusieurs sélecteurs possibles
+                    const titleElement = card.querySelector('.card-title a, h3 a, h2 a, .title a, .node-title a');
+                    const title = titleElement ? titleElement.textContent.trim() : '';
+                    
+                    // Ignorer les articles sans titre valide
+                    if (!title || title.length < 10) {
+                        return;
+                    }
+                    
+                    let link = titleElement ? titleElement.getAttribute('href') : '#';
+                    
+                    // Convertir en URL absolue
+                    if (link && !link.startsWith('http')) {
+                        link = link.startsWith('/') ? `https://www.creditagricole.ma${link}` : `https://www.creditagricole.ma/${link}`;
+                    }
+                    
+                    // Extraire l'extrait avec plusieurs sélecteurs possibles
+                    const excerptElement = card.querySelector(
+                        '.vactory-news__field-vactory-excerpt, .excerpt, .description, .card-text, .field-body, .summary'
+                    );
+                    let excerpt = excerptElement ? excerptElement.textContent.trim() : 'Aucun extrait disponible';
+                    
+                    // Nettoyer et limiter la longueur de l'extrait
+                    if (excerpt.length > 250) {
+                        excerpt = excerpt.substring(0, 250) + '...';
+                    }
+                    
+                    // Créer l'objet actualité
+                    const newsItem = {
+                        title,
+                        link,
+                        pubDate: dateStr ? new Date(dateStr).toISOString() : new Date().toISOString(),
+                        displayDate,
+                        description: excerpt,
+                        source: source.name,
+                        sourceLogo: source.logo,
+                        sourceName: source.displayName,
+                        originalCategory: category
+                    };
+                    
+                    extractedNews.push(newsItem);
+                    console.log(`Article ${index + 1}: "${title}" - ${category}`);
+                    
+                } catch (error) {
+                    console.error(`Erreur extraction article ${index + 1}:`, error);
+                }
+            });
+            
+            console.log(`Articles valides extraits: ${extractedNews.length}`);
+            return extractedNews;
+        }
+
+        // ===== CATÉGORISATION =====
+        function determineCategory(title, description) {
+            const text = (title + ' ' + description).toLowerCase();
+            
+            for (const [categoryKey, categoryData] of Object.entries(categories)) {
+                for (const keyword of categoryData.keywords) {
+                    if (text.includes(keyword.toLowerCase())) {
+                        return categoryKey;
+                    }
+                }
+            }
+            
+            return 'finance'; // Par défaut Finance au lieu de divers
+        }
+
+        // ===== FUSION DES DONNÉES =====
+        function mergeNews(newItems) {
+            const seen = new Set();
+            return newItems.filter(item => {
+                const key = `${item.link}|${item.title}`;
+                return seen.has(key) ? false : seen.add(key);
+            });
+        }
+
+        // ===== FILTRAGE =====
+        function filterByCategory(news, category) {
+            if (category === 'all') return news;
+            return news.filter(item => item.category === category);
+        }
+
+        function filterByDate(news, period) {
+            if (period === 'all') return news;
+            
+            const now = new Date();
+            let startDate, endDate;
+            
+            switch(period) {
+                case 'today':
+                    startDate = new Date(now.getFullYear(), now.getMonth(), now.getDate());
+                    endDate = new Date(now.getFullYear(), now.getMonth(), now.getDate() + 1);
+                    break;
+                case 'week':
+                    const startOfWeek = new Date(now);
+                    startOfWeek.setDate(now.getDate() - now.getDay());
+                    startDate = startOfWeek;
+                    endDate = new Date(startOfWeek.getTime() + 7 * 24 * 60 * 60 * 1000);
+                    break;
+                case 'month':
+                    startDate = new Date(now.getFullYear(), now.getMonth(), 1);
+                    endDate = new Date(now.getFullYear(), now.getMonth() + 1, 1);
+                    break;
+                case 'quarter':
+                    const quarter = Math.floor(now.getMonth() / 3);
+                    startDate = new Date(now.getFullYear(), quarter * 3, 1);
+                    endDate = new Date(now.getFullYear(), (quarter + 1) * 3, 1);
+                    break;
+                case 'year':
+                    startDate = new Date(now.getFullYear(), 0, 1);
+                    endDate = new Date(now.getFullYear() + 1, 0, 1);
+                    break;
+                default:
+                    return news;
+            }
+            
+            return news.filter(item => {
+                const itemDate = new Date(item.pubDate);
+                return itemDate >= startDate && itemDate < endDate;
+            });
+        }
+
+        function filterAndDisplayNews() {
+            let filtered = filterByCategory(allNews, currentCategoryFilter);
+            filteredNews = filterByDate(filtered, currentDateFilter);
+            
+            currentPage = 1;
+            displayNews();
+            displayPagination(Math.ceil(filteredNews.length / newsPerPage));
+        }
+
+        // ===== AFFICHAGE =====
+        function displayNews() {
+            const newsContainer = document.getElementById('news-container');
+            const start = (currentPage - 1) * newsPerPage;
+            const end = start + newsPerPage;
+            const currentNews = filteredNews.slice(start, end);
+
+            if (currentNews.length === 0) {
+                newsContainer.innerHTML = `
+                    <div class="empty-state">
+                        <i class="fas fa-newspaper"></i>
+                        <h3>Aucune actualité trouvée</h3>
+                        <p>Essayez d'ajuster vos filtres ou d'actualiser les données</p>
+                    </div>`;
+                return;
+            }
+
+            newsContainer.innerHTML = currentNews.map(item => {
+                const categoryClass = item.category || 'default';
+                const categoryName = categories[item.category] ? categories[item.category].name : 'Finance';
+                
+                return `
+                    <div class="news-card">
+                        <div class="news-content">
+                            <div class="news-date">
+                                <div class="date-info">
+                                    <i class="far fa-calendar-alt"></i>
+                                    ${item.displayDate || new Date(item.pubDate).toLocaleDateString('fr-FR', { 
+                                        day: 'numeric', 
+                                        month: 'long', 
+                                        year: 'numeric' 
+                                    })}
+                                </div>
+                                <div class="category-badges-container">
+                                    <div class="category-badge ${categoryClass}">${categoryName}</div>
+                                </div>
+                            </div>
+                            <h3 class="news-title">${item.title}</h3>
+                            <p class="news-description">${item.description}</p>
+                            <div class="news-bottom">
+                                <a href="${item.link}" target="_blank" class="read-more">
+                                    Lire la suite <i class="fas fa-arrow-right"></i>
+                                </a>
+                                <div class="source-badge">
+                                    <img src="${item.sourceLogo}" alt="${item.sourceName}" onerror="this.style.display='none'">
+                                    <span>${item.sourceName}</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                `;
+            }).join('');
+        }
+
+        // ===== PAGINATION MODERNE =====
+        function displayPagination(totalPages) {
+            const pagination = document.getElementById('pagination-container');
+            pagination.innerHTML = '';
+
+            if (totalPages <= 1) return;
+
+            const maxVisible = 5;
+            let start = Math.max(1, currentPage - 2);
+            let end = Math.min(totalPages, start + maxVisible - 1);
+
+            if (end - start < maxVisible - 1) {
+                start = Math.max(1, end - maxVisible + 1);
+            }
+
+            // Bouton précédent
+            if (currentPage > 1) {
+                pagination.innerHTML += `
+                    <li class="page-item">
+                        <a class="page-link page-nav" href="#" data-page="${currentPage - 1}">
+                            <i class="fas fa-chevron-left"></i>
+                        </a>
+                    </li>`;
+            }
+
+            // Première page
+            if (start > 1) {
+                pagination.innerHTML += `
+                    <li class="page-item">
+                        <a class="page-link" href="#" data-page="1">1</a>
+                    </li>`;
+                if (start > 2) {
+                    pagination.innerHTML += '<li class="page-item"><span class="page-dots">...</span></li>';
+                }
+            }
+
+            // Pages centrales
+            for (let i = start; i <= end; i++) {
+                pagination.innerHTML += `
+                    <li class="page-item ${i === currentPage ? 'active' : ''}">
+                        <a class="page-link" href="#" data-page="${i}">${i}</a>
+                    </li>`;
+            }
+
+            // Dernière page
+            if (end < totalPages) {
+                if (end < totalPages - 1) {
+                    pagination.innerHTML += '<li class="page-item"><span class="page-dots">...</span></li>';
+                }
+                pagination.innerHTML += `
+                    <li class="page-item">
+                        <a class="page-link" href="#" data-page="${totalPages}">${totalPages}</a>
+                    </li>`;
+            }
+
+            // Bouton suivant
+            if (currentPage < totalPages) {
+                pagination.innerHTML += `
+                    <li class="page-item">
+                        <a class="page-link page-nav" href="#" data-page="${currentPage + 1}">
+                            <i class="fas fa-chevron-right"></i>
+                        </a>
+                    </li>`;
+            }
+
+            // Gestion des clics
+            pagination.querySelectorAll('a.page-link').forEach(link => {
+                link.addEventListener('click', (e) => {
+                    e.preventDefault();
+                    const newPage = parseInt(link.dataset.page);
+                    if (!isNaN(newPage) && newPage >= 1 && newPage <= totalPages && newPage !== currentPage) {
+                        currentPage = newPage;
+                        displayNews();
+                        displayPagination(totalPages);
+                        window.scrollTo({ top: 0, behavior: 'smooth' });
+                    }
+                });
+            });
+        }
+
+        // ===== GESTION DES FILTRES =====
+        function initFilters() {
+            // Filtres de catégorie
+            document.querySelectorAll('.category-filter').forEach(btn => {
+                btn.addEventListener('click', () => {
+                    document.querySelectorAll('.category-filter').forEach(f => f.classList.remove('active'));
+                    btn.classList.add('active');
+                    currentCategoryFilter = btn.dataset.category;
+                    currentPage = 1;
+                    filterAndDisplayNews();
+                });
+            });
+
+            // Filtres de date
+            document.querySelectorAll('.date-filter').forEach(btn => {
+                btn.addEventListener('click', () => {
+                    document.querySelectorAll('.date-filter').forEach(f => f.classList.remove('active'));
+                    btn.classList.add('active');
+                    currentDateFilter = btn.dataset.period;
+                    currentPage = 1;
+                    filterAndDisplayNews();
+                });
+            });
+
+            // Bouton d'actualisation
+            document.getElementById('fetchBtn').addEventListener('click', async () => {
+                await fetchAllNews();
+                filterAndDisplayNews();
+            });
+        }
+
+        // ===== INTERFACE UTILISATEUR =====
+        function showStatus(message, type) {
+            const statusAlert = document.getElementById('statusAlert');
+            const statusText = document.getElementById('statusText');
+            const statusLogo = statusAlert.querySelector('.status-logo');
+            
+            statusAlert.style.display = 'flex'; // Changé de 'block' à 'flex'
+            statusText.textContent = message;
+            statusAlert.className = `status-alert ${type}`;
+            
+            // Animation du logo seulement pendant le chargement
+            if (type === 'loading') {
+                statusLogo.style.animation = 'rotate 2s linear infinite';
+            } else {
+                statusLogo.style.animation = 'none';
+            }
+            
+            if (type === 'success') {
+                setTimeout(() => {
+                    statusAlert.style.display = 'none';
+                }, 3000);
+            }
+        }
+
+        function updateProgress(percentage) {
+            const progressFill = document.getElementById('progressFill');
+            progressFill.style.width = Math.min(percentage, 100) + '%';
+        }
+
+        console.log('🚀 Système d\'extraction automatique des actualités subventions initialisé');
+        console.log('📊 Sources configurées:', newsSources.length);
+        console.log('🏷️ Catégories disponibles:', Object.keys(categories).length);
+    </script>
+</body>
+</html>

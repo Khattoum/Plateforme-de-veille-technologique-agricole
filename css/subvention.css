@@ -1,3 +1,4 @@
+/* Styles CSS existants conservés intégralement */
 :root { 
     --primary-color: #2e7d32; 
     --secondary-color: #81c784;
@@ -283,6 +284,164 @@ body {
 }
 
 .main-filter-btn i { margin-right: 10px; }
+
+/* ==== NOUVEAUX STYLES POUR LA SOUS-NAVIGATION ==== */
+.national-sub-navigation {
+    background: white;
+    border-radius: 15px;
+    padding: 25px;
+    margin: 30px 0;
+    box-shadow: 0 5px 25px rgba(0, 0, 0, 0.1);
+    text-align: center;
+    border-top: 4px solid var(--primary-color);
+}
+
+.national-sub-navigation h4 {
+    color: var(--primary-color);
+    margin-bottom: 20px;
+    font-weight: 700;
+}
+
+.sub-nav-buttons {
+    display: flex;
+    justify-content: center;
+    gap: 20px;
+    flex-wrap: wrap;
+}
+
+.sub-nav-btn {
+    background: linear-gradient(45deg, var(--info-color), #1565c0);
+    color: white;
+    border: none;
+    padding: 12px 25px;
+    border-radius: 25px;
+    font-weight: 600;
+    font-size: 1rem;
+    transition: all 0.4s ease;
+    box-shadow: 0 4px 15px rgba(25, 118, 210, 0.3);
+    min-width: 200px;
+}
+
+.sub-nav-btn:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 6px 20px rgba(25, 118, 210, 0.4);
+    color: white;
+}
+
+.sub-nav-btn.active {
+    background: linear-gradient(45deg, var(--accent-color), #ff8f00);
+    box-shadow: 0 6px 20px rgba(255, 171, 0, 0.4);
+}
+
+.national-section {
+    display: none;
+}
+
+.national-section.active {
+    display: block;
+}
+
+/* ==== STYLES POUR LA SECTION ACTUALITÉS ==== */
+.actualites-content {
+    background: white;
+    border-radius: 15px;
+    padding: 40px;
+    margin: 30px 0;
+    box-shadow: 0 8px 30px rgba(0, 0, 0, 0.1);
+}
+
+.actualites-header {
+    text-align: center;
+    margin-bottom: 40px;
+    padding-bottom: 20px;
+    border-bottom: 2px solid var(--primary-color);
+}
+
+.actualites-header h3 {
+    color: var(--primary-color);
+    font-weight: 700;
+    font-size: 2rem;
+    margin-bottom: 15px;
+}
+
+.actualites-header p {
+    color: #666;
+    font-size: 1.1rem;
+    line-height: 1.6;
+    max-width: 800px;
+    margin: 0 auto;
+}
+
+.actualites-redirect {
+    display: flex;
+    justify-content: center;
+    margin-top: 40px;
+}
+
+.redirect-card {
+    background: linear-gradient(135deg, #e8f5e9 0%, #c8e6c9 100%);
+    border: 2px solid var(--primary-color);
+    border-radius: 20px;
+    padding: 40px;
+    text-align: center;
+    max-width: 500px;
+    box-shadow: 0 10px 30px rgba(46, 125, 50, 0.1);
+    transition: all 0.4s ease;
+}
+
+.redirect-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 15px 40px rgba(46, 125, 50, 0.2);
+}
+
+.redirect-icon {
+    background: var(--primary-color);
+    color: white;
+    width: 80px;
+    height: 80px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin: 0 auto 20px;
+    font-size: 2rem;
+    box-shadow: 0 5px 20px rgba(46, 125, 50, 0.3);
+}
+
+.redirect-card h4 {
+    color: var(--primary-color);
+    font-weight: 700;
+    font-size: 1.5rem;
+    margin-bottom: 15px;
+}
+
+.redirect-card p {
+    color: #555;
+    font-size: 1rem;
+    line-height: 1.6;
+    margin-bottom: 25px;
+}
+
+.redirect-btn {
+    background: linear-gradient(45deg, var(--primary-color), var(--success-color));
+    color: white;
+    border: none;
+    padding: 15px 30px;
+    border-radius: 30px;
+    font-weight: 600;
+    font-size: 1.1rem;
+    text-decoration: none;
+    display: inline-flex;
+    align-items: center;
+    transition: all 0.4s ease;
+    box-shadow: 0 5px 20px rgba(46, 125, 50, 0.3);
+}
+
+.redirect-btn:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 8px 25px rgba(46, 125, 50, 0.4);
+    color: white;
+}
 
 .strategy-intro {
     background: white;
@@ -676,10 +835,14 @@ body {
     .hero h1 { font-size: 2.2rem; }
     .main-filter-buttons { flex-direction: column; align-items: center; }
     .main-filter-btn { min-width: 250px; }
+    .sub-nav-buttons { flex-direction: column; align-items: center; }
+    .sub-nav-btn { min-width: 250px; }
     .amounts-grid { grid-template-columns: 1fr; }
     .process-steps { grid-template-columns: 1fr; }
     .contacts-grid { grid-template-columns: 1fr; }
+    .redirect-card { margin: 0 20px; }
 }
+
 /* ===== FOOTER UNIFIÉ ===== */
 footer {
     background: var(--dark-bg);

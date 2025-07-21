@@ -70,122 +70,156 @@
             </div>
         </div>
 
-        <!-- Introduction Stratégie Génération Green -->
-        <div class="strategy-intro">
-            <h3><i class="fas fa-seedling me-2"></i>Stratégie "Génération Green" 2020</h3>
-            <p>Dans un contexte marqué par le changement climatique, l'extension des superficies conduite en irrigation localisée s'imposent pour assurer une sécurité alimentaire durable au Maroc. La nouvelle stratégie agricole « Génération Green » lancée en 2020 par Sa Majesté le Roi Mohamed VI vise à mettre en place l'augmentation du rendement et la valorisation du capital humain au cœur de ses fondements.</p>
-            <p>Cette stratégie vise à consolider les acquis du Plan Maroc Vert lancé en 2008, tout en donnant la priorité à l'élément humain, pour faire émerger une classe moyenne agricole en mesure de jouer un rôle important dans l'équilibre socio-économique du milieu rural.</p>
-        </div>
+        <!-- Contenu des Subventions Nationales -->
+        <div id="nationalContent">
+            <!-- Sous-navigation pour les Subventions Nationales -->
+            <div class="national-sub-navigation">
+                <h4><i class="fas fa-flag me-2"></i>Subventions Nationales</h4>
+                <div class="sub-nav-buttons">
+                    <button class="sub-nav-btn active" data-section="documents">
+                        <i class="fas fa-file-pdf me-2"></i>Document Officiel FDA 2025
+                    </button>
+                    <button class="sub-nav-btn" data-section="actualites">
+                        <i class="fas fa-newspaper me-2"></i>Actualités Subventions
+                    </button>
+                </div>
+            </div>
 
-        <!-- PDF Access Section -->
-        <div class="document-section">
-            <h3><i class="fas fa-file-pdf text-danger me-3"></i>Document Officiel FDA 2025</h3>
-            <p class="mb-4">Accédez au guide complet des subventions agricoles - Édition officielle 2025</p>
-            <a href="PDF/Book FDA 2025 FR .pdf" target="_blank" class="download-btn">
-                <i class="fas fa-eye"></i>Visualiser le PDF
-            </a>
-            <a href="PDF/Book FDA 2025 FR .pdf" download="Book FDA 2025 FR.pdf" class="download-btn">
-                <i class="fas fa-download"></i>Télécharger le PDF
-            </a>
-            <button class="download-btn" onclick="showPDFModal()">
-                <i class="fas fa-expand"></i>Ouvrir dans la page
-            </button>
-        </div>
+            <!-- Section Document Officiel FDA 2025 -->
+            <div id="documentsSection" class="national-section active">
+                <!-- Introduction Stratégie Génération Green -->
+                <div class="strategy-intro">
+                    <h3><i class="fas fa-seedling me-2"></i>Stratégie "Génération Green" 2020</h3>
+                    <p>Dans un contexte marqué par le changement climatique, l'extension des superficies conduite en irrigation localisée s'imposent pour assurer une sécurité alimentaire durable au Maroc. La nouvelle stratégie agricole « Génération Green » lancée en 2020 par Sa Majesté le Roi Mohamed VI vise à mettre en place l'augmentation du rendement et la valorisation du capital humain au cœur de ses fondements.</p>
+                    <p>Cette stratégie vise à consolider les acquis du Plan Maroc Vert lancé en 2008, tout en donnant la priorité à l'élément humain, pour faire émerger une classe moyenne agricole en mesure de jouer un rôle important dans l'équilibre socio-économique du milieu rural.</p>
+                </div>
 
-        <!-- PDF Modal -->
-        <div class="modal fade" id="pdfModal" tabindex="-1" aria-labelledby="pdfModalLabel" aria-hidden="true">
-            <div class="modal-dialog modal-xl">
-                <div class="modal-content">
-                    <div class="modal-header bg-primary text-white">
-                        <h5 class="modal-title" id="pdfModalLabel">
-                            <i class="fas fa-file-pdf me-2"></i>Book FDA 2025 FR - Guide Officiel
-                        </h5>
-                        <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal"></button>
+                <!-- PDF Access Section -->
+                <div class="document-section">
+                    <h3><i class="fas fa-file-pdf text-danger me-3"></i>Document Officiel FDA 2025</h3>
+                    <p class="mb-4">Accédez au guide complet des subventions agricoles - Édition officielle 2025</p>
+                    <a href="PDF/Book FDA 2025 FR .pdf" target="_blank" class="download-btn">
+                        <i class="fas fa-eye"></i>Visualiser le PDF
+                    </a>
+                    <a href="PDF/Book FDA 2025 FR .pdf" download="Book FDA 2025 FR.pdf" class="download-btn">
+                        <i class="fas fa-download"></i>Télécharger le PDF
+                    </a>
+                    <button class="download-btn" onclick="showPDFModal()">
+                        <i class="fas fa-expand"></i>Ouvrir dans la page
+                    </button>
+                </div>
+
+                <!-- Search Filter -->
+                <div class="search-filter">
+                    <div class="position-relative">
+                        <i class="fas fa-search search-icon"></i>
+                        <input type="text" class="search-input" placeholder="Rechercher dans toutes les subventions..." id="globalSearch">
                     </div>
-                    <div class="modal-body p-0">
-                        <iframe id="pdfViewer" src="" width="100%" height="600px" style="border: none;"></iframe>
+                </div>
+
+                <!-- Category Navigation -->
+                <div class="category-navigation" id="categoryNavigation">
+                    <h4><i class="fas fa-th-list me-2"></i>Catégories de Subventions</h4>
+                    <ul class="nav nav-pills justify-content-center flex-wrap" id="categoryNav">
+                        <li class="nav-item">
+                            <button class="nav-link active" data-target="jeunes">
+                                <i class="fas fa-user-graduate me-2"></i>Aides aux Jeunes
+                            </button>
+                        </li>
+                        <li class="nav-item">
+                            <button class="nav-link" data-target="irrigation">
+                                <i class="fas fa-tint me-2"></i>Irrigation
+                            </button>
+                        </li>
+                        <li class="nav-item">
+                            <button class="nav-link" data-target="solaire">
+                                <i class="fas fa-solar-panel me-2"></i>Pompage Solaire
+                            </button>
+                        </li>
+                        <li class="nav-item">
+                            <button class="nav-link" data-target="genetique">
+                                <i class="fas fa-dna me-2"></i>Amélioration Génétique
+                            </button>
+                        </li>
+                        <li class="nav-item">
+                            <button class="nav-link" data-target="semences">
+                                <i class="fas fa-seedling me-2"></i>Semences & Plantations
+                            </button>
+                        </li>
+                        <li class="nav-item">
+                            <button class="nav-link" data-target="equipement">
+                                <i class="fas fa-tractor me-2"></i>Équipement
+                            </button>
+                        </li>
+                        <li class="nav-item">
+                            <button class="nav-link" data-target="valorisation">
+                                <i class="fas fa-industry me-2"></i>Valorisation
+                            </button>
+                        </li>
+                        <li class="nav-item">
+                            <button class="nav-link" data-target="export">
+                                <i class="fas fa-shipping-fast me-2"></i>Exportations
+                            </button>
+                        </li>
+                        <li class="nav-item">
+                            <button class="nav-link" data-target="agregation">
+                                <i class="fas fa-handshake me-2"></i>Agrégation
+                            </button>
+                        </li>
+                    </ul>
+                </div>
+
+                <!-- Category Sections Container -->
+                <div id="categoryContent">
+                    <!-- Content will be dynamically loaded here -->
+                </div>
+            </div>
+
+            <!-- Section Actualités Subventions -->
+            <div id="actualitesSection" class="national-section">
+                <div class="actualites-content">
+                    <div class="actualites-header">
+                        <h3><i class="fas fa-newspaper me-3"></i>Actualités des Subventions Agricoles au Maroc</h3>
+                        <p>Découvrez les dernières actualités concernant les subventions agricoles, les nouvelles mesures d'aide, et les évolutions du secteur agricole marocain.</p>
                     </div>
-                    <div class="modal-footer">
-                        <a href="PDF/Book FDA 2025 FR .pdf" download="Book FDA 2025 FR.pdf" class="btn btn-success">
-                            <i class="fas fa-download me-2"></i>Télécharger
-                        </a>
-                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Fermer</button>
+                    
+                    <div class="actualites-redirect">
+                        <div class="redirect-card">
+                            <div class="redirect-icon">
+                                <i class="fas fa-external-link-alt"></i>
+                            </div>
+                            <h4>Consultez toutes les actualités</h4>
+                            <p>Accédez à notre page dédiée aux actualités des subventions agricoles pour rester informé des dernières nouvelles du secteur.</p>
+                            <a href="actu-subv.html" class="redirect-btn">
+                                <i class="fas fa-arrow-right me-2"></i>Voir les actualités
+                            </a>
+                        </div>
                     </div>
                 </div>
             </div>
         </div>
 
-        <!-- Search Filter -->
-        <div class="search-filter">
-            <div class="position-relative">
-                <i class="fas fa-search search-icon"></i>
-                <input type="text" class="search-input" placeholder="Rechercher dans toutes les subventions..." id="globalSearch">
+        <!-- Contenu Subventions Internationales - STYLE ACTUALITÉS -->
+        <div id="internationalContent" style="display: none;">
+            <div class="actualites-content">
+                <div class="actualites-header">
+                    <h3><i class="fas fa-globe me-3"></i>Actualités des Subventions Agricoles Internationales</h3>
+                    <p>Découvrez les dernières informations sur les financements agricoles internationaux, les politiques de soutien globales et les dispositifs d'aide mis en place à travers le monde.</p>
+                </div>
+                
+                <div class="actualites-redirect">
+                    <div class="redirect-card">
+                        <div class="redirect-icon">
+                            <i class="fas fa-external-link-alt"></i>
+                        </div>
+                        <h4>Consultez toutes les actualités</h4>
+                        <p>Accédez à notre page dédiée aux subventions agricoles internationales pour suivre les évolutions mondiales du secteur.</p>
+                        <a href="subv-inter.html" class="redirect-btn">
+                            <i class="fas fa-arrow-right me-2"></i>Voir les actualités
+                        </a>
+                    </div>
+                </div>
             </div>
-        </div>
-
-        <!-- Category Navigation -->
-        <div class="category-navigation" id="categoryNavigation">
-            <h4><i class="fas fa-th-list me-2"></i>Catégories de Subventions</h4>
-            <ul class="nav nav-pills justify-content-center flex-wrap" id="categoryNav">
-                <li class="nav-item">
-                    <button class="nav-link active" data-target="jeunes">
-                        <i class="fas fa-user-graduate me-2"></i>Aides aux Jeunes
-                    </button>
-                </li>
-                <li class="nav-item">
-                    <button class="nav-link" data-target="irrigation">
-                        <i class="fas fa-tint me-2"></i>Irrigation
-                    </button>
-                </li>
-                <li class="nav-item">
-                    <button class="nav-link" data-target="solaire">
-                        <i class="fas fa-solar-panel me-2"></i>Pompage Solaire
-                    </button>
-                </li>
-                <li class="nav-item">
-                    <button class="nav-link" data-target="genetique">
-                        <i class="fas fa-dna me-2"></i>Amélioration Génétique
-                    </button>
-                </li>
-                <li class="nav-item">
-                    <button class="nav-link" data-target="semences">
-                        <i class="fas fa-seedling me-2"></i>Semences & Plantations
-                    </button>
-                </li>
-                <li class="nav-item">
-                    <button class="nav-link" data-target="equipement">
-                        <i class="fas fa-tractor me-2"></i>Équipement
-                    </button>
-                </li>
-                <li class="nav-item">
-                    <button class="nav-link" data-target="valorisation">
-                        <i class="fas fa-industry me-2"></i>Valorisation
-                    </button>
-                </li>
-                <li class="nav-item">
-                    <button class="nav-link" data-target="export">
-                        <i class="fas fa-shipping-fast me-2"></i>Exportations
-                    </button>
-                </li>
-                <li class="nav-item">
-                    <button class="nav-link" data-target="agregation">
-                        <i class="fas fa-handshake me-2"></i>Agrégation
-                    </button>
-                </li>
-            </ul>
-        </div>
-
-        <!-- Category Sections Container -->
-        <div id="categoryContent">
-            <!-- Content will be dynamically loaded here -->
-        </div>
-
-        <!-- Message pour contenu international vide -->
-        <div id="internationalContent" class="empty-content" style="display: none;">
-            <i class="fas fa-globe"></i>
-            <h3>Subventions Internationales</h3>
-            <p>Les informations sur les subventions internationales seront bientôt disponibles.<br>
-            Consultez régulièrement cette section pour rester informé des opportunités de financement international.</p>
         </div>
 
         <!-- Regional Contacts Section -->
@@ -193,6 +227,29 @@
             <h3 class="text-center mb-4"><i class="fas fa-address-book me-2"></i>Contacts Régionaux - Guichets Uniques</h3>
             <div class="contacts-grid" id="contactsGrid">
                 <!-- Regional contacts will be loaded here -->
+            </div>
+        </div>
+    </div>
+
+    <!-- PDF Modal -->
+    <div class="modal fade" id="pdfModal" tabindex="-1" aria-labelledby="pdfModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-xl">
+            <div class="modal-content">
+                <div class="modal-header bg-primary text-white">
+                    <h5 class="modal-title" id="pdfModalLabel">
+                        <i class="fas fa-file-pdf me-2"></i>Book FDA 2025 FR - Guide Officiel
+                    </h5>
+                    <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal"></button>
+                </div>
+                <div class="modal-body p-0">
+                    <iframe id="pdfViewer" src="" width="100%" height="600px" style="border: none;"></iframe>
+                </div>
+                <div class="modal-footer">
+                    <a href="PDF/Book FDA 2025 FR .pdf" download="Book FDA 2025 FR.pdf" class="btn btn-success">
+                        <i class="fas fa-download me-2"></i>Télécharger
+                    </a>
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Fermer</button>
+                </div>
             </div>
         </div>
     </div>
@@ -244,6 +301,75 @@
     </footer>
 
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <script>
+        // Fonction pour afficher le PDF modal
+        function showPDFModal() {
+            document.getElementById('pdfViewer').src = 'PDF/Book FDA 2025 FR .pdf';
+            new bootstrap.Modal(document.getElementById('pdfModal')).show();
+        }
+
+        // Gestion des filtres principaux (National/International)
+        document.addEventListener('DOMContentLoaded', function() {
+            const mainFilterBtns = document.querySelectorAll('.main-filter-btn');
+            const nationalContent = document.getElementById('nationalContent');
+            const internationalContent = document.getElementById('internationalContent');
+            const contacts = document.getElementById('contacts');
+
+            mainFilterBtns.forEach(btn => {
+                btn.addEventListener('click', function() {
+                    // Retirer la classe active de tous les boutons
+                    mainFilterBtns.forEach(b => b.classList.remove('active'));
+                    // Ajouter la classe active au bouton cliqué
+                    this.classList.add('active');
+
+                    const type = this.dataset.type;
+
+                    if (type === 'nationaux') {
+                        nationalContent.style.display = 'block';
+                        internationalContent.style.display = 'none';
+                        contacts.style.display = 'block';
+                    } else if (type === 'internationaux') {
+                        nationalContent.style.display = 'none';
+                        internationalContent.style.display = 'block';
+                        contacts.style.display = 'none';
+                    }
+                });
+            });
+
+            // Gestion de la sous-navigation (Document/Actualités)
+            const subNavBtns = document.querySelectorAll('.sub-nav-btn');
+            const documentsSection = document.getElementById('documentsSection');
+            const actualitesSection = document.getElementById('actualitesSection');
+
+            subNavBtns.forEach(btn => {
+                btn.addEventListener('click', function() {
+                    // Retirer la classe active de tous les boutons
+                    subNavBtns.forEach(b => b.classList.remove('active'));
+                    // Ajouter la classe active au bouton cliqué
+                    this.classList.add('active');
+
+                    const section = this.dataset.section;
+
+                    if (section === 'documents') {
+                        documentsSection.style.display = 'block';
+                        actualitesSection.style.display = 'none';
+                    } else if (section === 'actualites') {
+                        documentsSection.style.display = 'none';
+                        actualitesSection.style.display = 'block';
+                    }
+                });
+            });
+
+            // Charger le contenu initial (Documents)
+            nationalContent.style.display = 'block';
+            internationalContent.style.display = 'none';
+            documentsSection.style.display = 'block';
+            actualitesSection.style.display = 'none';
+        });
+
+        // Inclure le reste du JavaScript original de subvention.js ici
+        // (Toute la logique existante pour les catégories, recherche, etc.)
+    </script>
     <script src="js/subvention.js"></script>
 </body>
 </html>
