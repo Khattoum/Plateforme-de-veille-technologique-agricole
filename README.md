@@ -4,9 +4,9 @@
 
 Plateforme web moderne dédiée à la veille technologique dans le secteur agricole, développée pour le **Pôle Digital de l'Agriculture** du Maroc dans le cadre de la stratégie **Génération Green 2020-2030**.
 
-## ✨ Fonctionnalités
+✨ Fonctionnalités
 
-### 🎯 Pages Principales
+🎯 Pages Principales
 - **🏠 Accueil** : Vue d'ensemble de la plateforme avec navigation intuitive
 - **📅 Événements** : Calendrier des événements agricoles nationaux et internationaux
 - **🚀 Innovations** : Dernières innovations technologiques du secteur agricole
@@ -14,7 +14,7 @@ Plateforme web moderne dédiée à la veille technologique dans le secteur agric
 - **🌤️ Météo** : Informations météorologiques pour l'agriculture
 - **📞 Contact** : Informations de contact du Pôle Digital
 
-### 🎨 Caractéristiques Techniques
+🎨 Caractéristiques Techniques
 - **Design Responsive** : Compatible mobile, tablette et desktop
 - **Interface Moderne** : Design épuré avec animations fluides
 - **Navigation Intuitive** : UX optimisée pour tous les utilisateurs
@@ -30,7 +30,7 @@ Plateforme web moderne dédiée à la veille technologique dans le secteur agric
 - **Font Awesome** : Icônes vectorielles
 - **Google Fonts** : Typographie moderne
 
-## 📁 Structure du Projet
+📁 Structure du Projet
 
 ```
 veille-technologique/
@@ -56,35 +56,13 @@ veille-technologique/
 └── 📄 README.md             # Documentation
 ```
 
-## 🚀 Installation et Utilisation
+🚀 Installation et Utilisation
 
-### Prérequis
+Prérequis
 - Navigateur web moderne (Chrome, Firefox, Safari, Edge)
 - Serveur web local (optionnel pour développement)
 
-### Installation
-1. **Cloner le repository**
-   ```bash
-   git clone https://github.com/[votre-username]/veille-technologique-agricole.git
-   cd veille-technologique-agricole
-   ```
-
-2. **Ouvrir dans un navigateur**
-   - Double-cliquez sur `index.html` ou
-   - Utilisez un serveur local comme Live Server dans VS Code
-
-### 🔧 Développement Local
-```bash
-# Avec Python (si installé)
-python -m http.server 8000
-
-# Avec Node.js (si installé)
-npx serve .
-
-# Ou utilisez l'extension Live Server dans VS Code
-```
-
-## 🏛️ Partenaires Institutionnels
+🏛️ Partenaires Institutionnels
 
 - **Ministère de l'Agriculture** - Politique agricole nationale
 - **ADA (Agence de Développement Agricole)** - Développement agricole
@@ -93,41 +71,22 @@ npx serve .
 - **ENA Meknès** - Formation agricole supérieure
 - **INRA** - Recherche agronomique
 
-## 📞 Contact
+📞 Contact
 
 **Pôle Digital de l'Agriculture**
 - 📧 Email : contact@poledigital.ma
 - 📱 Téléphone : +212 (0) 6 96 98 89 92
 - 📍 Localisation : Rabat & Ifrane, Maroc
 
-### 🌐 Réseaux Sociaux
+🌐 Réseaux Sociaux
 - [LinkedIn](https://www.linkedin.com/company/pôle-digital/posts/?feedView=all)
 - [Twitter/X](https://x.com/Pole_Digital_Ma)
 - [YouTube](https://www.youtube.com/@PoleDigital)
 - [Facebook](https://www.facebook.com/poledigital.ma)
 
-## 📝 Licence
+📝 Licence
 
 Ce projet est développé pour le **Pôle Digital de l'Agriculture** dans le cadre de la stratégie **Génération Green 2020-2030**.
-
-## 🤝 Contribution
-
-Pour contribuer au projet :
-1. Fork le repository
-2. Créez une branche pour votre fonctionnalité (`git checkout -b feature/AmazingFeature`)
-3. Commit vos changements (`git commit -m 'Add some AmazingFeature'`)
-4. Push vers la branche (`git push origin feature/AmazingFeature`)
-5. Ouvrez une Pull Request
-
-## 📈 Roadmap
-
-- [ ] Intégration API météo en temps réel
-- [ ] Système de notifications pour nouveaux événements
-- [ ] Interface d'administration pour gestion du contenu
-- [ ] Application mobile complémentaire
-- [ ] Intégration avec bases de données agricoles nationales
-
----
 
 **Développé avec ❤️ pour l'agriculture marocaine moderne**
 
